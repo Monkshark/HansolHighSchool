@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/btn_account"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="right"
         android:text="계정"
         android:layout_marginTop="10dp"
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777" />
+            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777\n88888888" />
 
         <TextView
             android:gravity="center"
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777" />
+            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777\n88888888" />
 
     </LinearLayout>
 

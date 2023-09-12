@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
@@ -66,7 +67,10 @@ public class HomeFragment extends Fragment {
             startActivity(intentActivity);
         });
 
-        tv_meal.setText(getMealData.getMeal(crdate, "2", "메뉴"));
+        tv_meal.setText(crdate.substring(0, 4) + "년 " +
+                crdate.substring(4, 6) + "월 " +
+                crdate.substring(6, 8) + "일\n" +
+                "급식정보\n\n" + getMealData.getMeal(crdate, "2", "메뉴"));
         tv_timetable.setText(getTimetableData.getTimeTable(crdate, "1", "6"));
 
         return view;
