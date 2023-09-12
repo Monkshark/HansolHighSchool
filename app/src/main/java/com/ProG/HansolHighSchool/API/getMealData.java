@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class getMealData{
-
     private static final String TAG = "getMealData";
     static String result = null;
     public static String getMeal(String date, String mealScCode, String type) {
