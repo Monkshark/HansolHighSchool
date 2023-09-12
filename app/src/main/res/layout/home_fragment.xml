@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment"
     android:orientation="vertical"
-    tools:ignore="hardcodedText"
-    >
+    tools:ignore="hardcodedText">
 
     <Button
         android:id="@+id/btn_account"
@@ -39,18 +37,32 @@
             android:layout_height="wrap_content"
             android:text="리로스쿨바로가기"
             android:layout_marginStart="30dp"
-            />
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_marginBottom="30dp">
 
-        
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_meal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777" />
 
-
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_timetable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777" />
 
     </LinearLayout>
 

@@ -15,14 +15,13 @@ import java.util.concurrent.Future;
 public class getTimetableData {
 
     private static final String TAG = "getTimetableData";
-    public static String getTimeTable(String date, int grade, int classNum) {
+    public static String getTimeTable(String date, String grade, String classNum) {
         niesAPI niesAPI = new niesAPI();
 
         String requestURL;
         StringBuilder resultBuilder = new StringBuilder();
 
         resultBuilder
-                .append("\n")
                 .append(date.substring(0, 4)).append("년 ")
                 .append(date.substring(4, 6)).append("월 ")
                 .append(date.substring(6, 8)).append("일\n")
