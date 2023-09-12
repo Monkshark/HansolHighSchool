@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ProG.HansolHighSchool.Adapter.CalendarAdapter;
 import com.ProG.HansolHighSchool.Adapter.CalendarUtil;
-import com.ProG.HansolHighSchool.Data.getTimetableData;
+import com.ProG.HansolHighSchool.API.getTimetableData;
 import com.ProG.HansolHighSchool.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Data;
+package com.ProG.HansolHighSchool.API;
 
 import android.util.Log;
 
@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 

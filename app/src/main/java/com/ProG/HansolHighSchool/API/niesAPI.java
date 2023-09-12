@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Data;
+package com.ProG.HansolHighSchool.API;
 
 public class niesAPI {
         public final String KEY = "db3161d360da4d07b650348a167d4411";

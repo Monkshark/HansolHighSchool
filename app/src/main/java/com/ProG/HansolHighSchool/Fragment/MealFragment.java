@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ProG.HansolHighSchool.Data.getMealData;
-import com.ProG.HansolHighSchool.Data.niesAPI;
+import com.ProG.HansolHighSchool.API.getMealData;
+import com.ProG.HansolHighSchool.API.niesAPI;
 import com.ProG.HansolHighSchool.R;
 
 import java.text.SimpleDateFormat;

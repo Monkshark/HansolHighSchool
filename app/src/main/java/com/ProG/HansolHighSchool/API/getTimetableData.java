@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Data;
+package com.ProG.HansolHighSchool.API;
 
 import android.util.Log;
 
