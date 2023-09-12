@@ -49,6 +49,7 @@ public class getMealData{
                     while ((data = inputStreamReader.read()) != - 1) {
                         stringBuilder.append((char) data);
                     }
+
                     inputStreamReader.close();
                     connection.disconnect();
 
