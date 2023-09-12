@@ -1,10 +1,8 @@
 package com.ProG.HansolHighSchool.Adapter;
 
-import static android.widget.Toast.*;
-
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.ProG.HansolHighSchool.Fragment.NoticeFragment.tv_flDate;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
 import com.ProG.HansolHighSchool.R;
 
 import java.util.ArrayList;
@@ -33,7 +27,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         this.dayList = dayList;
 
     }
-    /*연결하기*/
 
     @NonNull
     @Override
@@ -82,22 +75,19 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         if ((position + 1) % 7 == 0) {
 
             holder.tv_day.setTextColor(Color.BLUE);
-        } else if (position == 0 || position % 7 == 0) {
+        } else if (position % 7 == 0) {
 
             holder.tv_day.setTextColor(Color.RED);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(v -> {
 
-                String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
+            String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
 
-                tv_flDate.setText(selectedYMD);
+            tv_flDate.setText(selectedYMD);
 
-                Toast.makeText(holder.itemView.getContext(), selectedYMD, LENGTH_SHORT).show();
+            Toast.makeText(holder.itemView.getContext(), selectedYMD, LENGTH_SHORT).show();
 
-            }
         });
 
     }
@@ -109,7 +99,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
     }
     /*갯수 리턴*/
 
-    class calendarViewHolder extends RecyclerView.ViewHolder {
+    static class calendarViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_day;
         View parentView;

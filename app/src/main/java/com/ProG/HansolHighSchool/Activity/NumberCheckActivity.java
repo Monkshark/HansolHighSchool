@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,78 +85,64 @@ public class NumberCheckActivity extends Activity {
 
             mAuth = FirebaseAuth.getInstance();
 
-            btn_sendCode.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    phoneNum = et_phoneNum.getText().toString();
-                    numDoubleCheck = et_numDoubleCheck.getText().toString();
-                    checkCode = et_checkCode.getText().toString();
+            btn_sendCode.setOnClickListener(v -> {
+                phoneNum = et_phoneNum.getText().toString();
+                numDoubleCheck = et_numDoubleCheck.getText().toString();
+                checkCode = et_checkCode.getText().toString();
 
-                    if (phoneNum.equals(numDoubleCheck) && phoneNum.length() == 11) {
+                if (phoneNum.equals(numDoubleCheck) && phoneNum.length() == 11) {
 
-                        String formattedNum = "+82" + phoneNum.substring(1, 10);
-                        /* 010 1234 5678  ->  +8210 1234 5678 */
+                    String formattedNum = "+82" + phoneNum.substring(1, 10);
+                    /* 010 1234 5678  ->  +8210 1234 5678 */
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(NumberCheckActivity.this, "reCAPTCHA가 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        PhoneAuthOptions options =
-                                PhoneAuthOptions.newBuilder(mAuth)
-                                        .setPhoneNumber(formattedNum)
-                                        .setTimeout(60L, TimeUnit.SECONDS)
-                                        .setActivity(NumberCheckActivity.this)
-                                        .setCallbacks(mCallbacks)
-                                        .build();
-                        PhoneAuthProvider.verifyPhoneNumber(options);
+                    runOnUiThread(() ->
+                            Toast.makeText(NumberCheckActivity.this, "reCAPTCHA가 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show());
+                    PhoneAuthOptions options =
+                            PhoneAuthOptions.newBuilder(mAuth)
+                                    .setPhoneNumber(formattedNum)
+                                    .setTimeout(60L, TimeUnit.SECONDS)
+                                    .setActivity(NumberCheckActivity.this)
+                                    .setCallbacks(mCallbacks)
+                                    .build();
+                    PhoneAuthProvider.verifyPhoneNumber(options);
 
-                    } else if (phoneNum.isEmpty() || numDoubleCheck.isEmpty()) {
-                        tv_checkCodeView.setText("전화번호를 입력해주세요");
-                        tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                    } else {
-                        tv_checkCodeView.setText("전화번호를 확인해주세요");
-                        tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                    }
+                } else if (phoneNum.isEmpty() || numDoubleCheck.isEmpty()) {
+                    tv_checkCodeView.setText("전화번호를 입력해주세요");
+                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
+                } else {
+                    tv_checkCodeView.setText("전화번호를 확인해주세요");
+                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
                 }
             });
 
-            btn_checkCode.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkCode = et_checkCode.getText().toString();
-                    if (checkCode.equals(randomSendNum)) {
-                        check = true;
-                        tv_checkCodeView.setText("전화번호 인증에 성공하였습니다");
-                        tv_checkCodeView.setTextColor(Color.parseColor("#00FF00"));
-                    } else {
-                        check = false;
-                        tv_checkCodeView.setText("전화번호 인증에 실패하였습니다");
-                        tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                    }
-
+            btn_checkCode.setOnClickListener(v -> {
+                checkCode = et_checkCode.getText().toString();
+                if (checkCode.equals(randomSendNum)) {
+                    check = true;
+                    tv_checkCodeView.setText("전화번호 인증에 성공하였습니다");
+                    tv_checkCodeView.setTextColor(Color.parseColor("#00FF00"));
+                } else {
+                    check = false;
+                    tv_checkCodeView.setText("전화번호 인증에 실패하였습니다");
+                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
                 }
+
             });
 
-            btn_registerAfterCheck.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            btn_registerAfterCheck.setOnClickListener(v -> {
 
-                    if (check == true) {
-                        /* 회원가입 로직 구현 필요 */
+                if (check) {
+                    /* 회원가입 로직 구현 필요 */
 
-                    } else {
-                        tv_checkCodeView.setText("전화번호 인증을 진행해주세요");
-                        tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-
-                    }
-
+                } else {
+                    tv_checkCodeView.setText("전화번호 인증을 진행해주세요");
+                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
 
                 }
+
+
             });
         }
-        /*변수선언, 바인딩, 버튼클릭*/
 
     }
 
@@ -177,7 +162,6 @@ public class NumberCheckActivity extends Activity {
         startActivity(intentActivity);
         finish();
     }
-    /*뒤로가기 방지*/
 
     private String generateRandomCode() {
         Random random = new Random();
@@ -187,49 +171,32 @@ public class NumberCheckActivity extends Activity {
         }
         return code.toString();
     }
-    /*6자리 숫자 랜덤코드 생성*/
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
         }
-        /* 전화인증 성공시 로직 구현 */
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
             if (e instanceof FirebaseAuthInvalidCredentialsException) {
 
                 Log.e(TAG, "Invalid phone number");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(NumberCheckActivity.this, "잘못된 전화번호 입니다", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                runOnUiThread(() -> Toast.makeText(NumberCheckActivity.this, "잘못된 전화번호 입니다", Toast.LENGTH_SHORT).show());
             } else if (e instanceof FirebaseTooManyRequestsException) {
                 Log.e(TAG, "SMS is too many requests");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(NumberCheckActivity.this, "일일 인증 한도를 초과하였습니다.", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(NumberCheckActivity.this, randomSendNum, Toast.LENGTH_LONG).show();
-
-                    }
+                runOnUiThread(() -> {
+                    Toast.makeText(NumberCheckActivity.this, "일일 인증 한도를 초과하였습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NumberCheckActivity.this, randomSendNum, Toast.LENGTH_LONG).show();
 
                 });
 
             } else if (e instanceof FirebaseAuthMissingActivityForRecaptchaException) {
                 Log.e(TAG, "Missing Activity for reCAPTCHA");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(NumberCheckActivity.this, "Missing Activity for reCAPTCHA", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                runOnUiThread(() -> Toast.makeText(NumberCheckActivity.this, "Missing Activity for reCAPTCHA", Toast.LENGTH_SHORT).show());
             }
         }
-        /*전화인증 실패시 로직 구현*/
 
         @Override
         public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
