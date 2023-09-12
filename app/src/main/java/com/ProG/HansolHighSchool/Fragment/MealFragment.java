@@ -97,7 +97,6 @@ public class MealFragment extends Fragment {
 
         niesAPI niesAPI = new niesAPI();
         getMealTask(formattedDate);
-
     }
 
     public void getMealTask(String date) {
