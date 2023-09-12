@@ -1,0 +1,175 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
+    tools:ignore="hardcodedText"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/btn_pre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/button_left"
+            android:backgroundTint="@color/White"
+            />
+        
+        <TextView
+            android:id="@+id/tv_monthYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textColor="@color/Black"
+            android:text="2023-07"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/button_right"
+            android:backgroundTint="@color/White"
+            />
+
+    </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="S"
+                android:textAlignment="center"
+                android:textColor="@color/Red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="W"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="F"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="S"
+                android:textAlignment="center"
+                android:textColor="@color/Blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_tdr"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_flDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="yyyy-MM-dd" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/grade"
+                android:entries="@array/grade"
+                android:layout_marginRight="20dp"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/className"
+                android:entries="@array/className"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

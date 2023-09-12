@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HansolHighSchool" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">#000000</item>
+    </style>
+
+    <style name="Theme.HansolHighSchool" parent="Base.Theme.HansolHighSchool" />
+</resources>

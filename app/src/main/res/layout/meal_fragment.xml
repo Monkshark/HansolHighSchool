@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="hardcodedText"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_pre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/button_left"
+            android:backgroundTint="@color/White"
+            />
+
+    <TextView
+        android:id="@+id/tv_naljja"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:text="\@string/getCurrentDate"
+        android:textSize="25sp"
+        android:paddingBottom="10dp"
+        />
+
+        <ImageButton
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/button_right"
+            android:backgroundTint="@color/White"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="조식"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="140dp" />
+
+        <TextView
+            android:id="@+id/tv_breakfastKcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="\@string/getBreakfastKcalAPI" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_breakfast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\@string/getBreakfastAPI"
+        android:background="@drawable/background_tdr"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="중식"
+        android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_lunchKcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="\@string/getLunchKcalAPI"
+            android:layout_marginLeft="30dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\@string/getLunchAPI"
+        android:background="@drawable/background_tdr"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="석식"
+        android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_dinnerKcal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="\@string/getDinnerKcalAPI"
+            android:layout_marginLeft="30dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\@string/getDinnerAPI"
+        android:background="@drawable/background_tdr"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+
+
+</LinearLayout>

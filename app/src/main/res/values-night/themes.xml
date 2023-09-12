@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Black">#FFFFFF</color>
+    <color name="White">#000000</color>
+    <color name="AWBlack">#000000</color>
+    <color name="AWWhite">#FFFFFF</color>
+    <color name="Red">#FF0000</color>
+    <color name="Blue">#0000FF</color>
+
+    <style name="Base.Theme.HansolHighSchool" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">#000000</item>
+    </style>
+
+</resources>
