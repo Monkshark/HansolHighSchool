@@ -91,8 +91,8 @@ public class getTimetableData {
             Log.e(TAG,"return : " + finalResult);
             return finalResult;
         } catch (Exception e) {
-            Log.e(TAG, "return Error" + e);
-            return "리턴에러다 수정해라";
+            Log.e(TAG, "Error from getting future result \n" + e);
+            return e.toString();
         }
 
     }
