@@ -68,11 +68,6 @@ public class getTimetableData {
                     String PERIO = itemObject.getString("PERIO");
                     String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
 
-                    if (i == 1 && PERIO.equals("2")) {
-                        resultBuilder
-                                .append("1교시: 자율" + "\n");
-                    }
-
                     resultBuilder
                             .append(PERIO)
                             .append("교시: ")
