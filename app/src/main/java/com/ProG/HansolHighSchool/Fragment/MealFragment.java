@@ -2,6 +2,7 @@ package com.ProG.HansolHighSchool.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ public class MealFragment extends Fragment {
     Date currentDate = new Date();
     private static final String TAG = "MealFragment";
 
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,15 +50,27 @@ public class MealFragment extends Fragment {
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
 
+        Log.e(TAG, "onCreateView: " + currentDate.toString());
+
         btn_pre.setOnClickListener(v -> {
 
+            int attemptCount = 0;
+            Date originalDate = currentDate;
             currentDate = new Date(currentDate.getTime() - day);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            while ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+                    || isAllMealsEmpty(dateFormat.format(currentDate))) {
+                if (attemptCount >= 5) {
+                    Log.e(TAG, "급식 정보 없음");
+                    currentDate = originalDate;
+                    break;
+                }
+
                 currentDate = new Date(currentDate.getTime() - day);
                 calendar.setTime(currentDate);
+                attemptCount++;
             }
 
             updateMealDate(currentDate);
@@ -62,18 +78,27 @@ public class MealFragment extends Fragment {
 
         btn_next.setOnClickListener(v -> {
 
+            int attemptCount = 0;
+            Date originalDate = currentDate;
             currentDate = new Date(currentDate.getTime() + day);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            while ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+                    || isAllMealsEmpty(dateFormat.format(currentDate))) {
+                if (attemptCount >= 5) {
+                    Log.e(TAG, "급식 정보 없음");
+                    currentDate = originalDate;
+                    break;
+                }
+
                 currentDate = new Date(currentDate.getTime() + day);
                 calendar.setTime(currentDate);
+                attemptCount++;
             }
 
             updateMealDate(currentDate);
         });
-
 
         updateMealDate(currentDate);
         return view;
@@ -114,6 +139,16 @@ public class MealFragment extends Fragment {
             tv_dinner.setText("급식 정보 없음");
             tv_dinnerKcal.setText("");
         }
+    }
+
+    private boolean isAllMealsEmpty(String date) {
+        String breakfast = getMealData.getMeal(date, "1", "메뉴");
+        String lunch = getMealData.getMeal(date, "2", "메뉴");
+        String dinner = getMealData.getMeal(date, "3", "메뉴");
+
+        return (breakfast == null || breakfast.contains("Null"))
+                && (lunch == null || lunch.contains("Null"))
+                && (dinner == null || dinner.contains("Null"));
 
     }
 }
