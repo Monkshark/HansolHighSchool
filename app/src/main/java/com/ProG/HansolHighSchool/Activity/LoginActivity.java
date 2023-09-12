@@ -51,24 +51,27 @@ public class LoginActivity extends Activity {
             getWindow().getAttributes().height = height;
         }
 
-//        FBWrite.child("users").child("11111").setValue("a"); /* 데이터 쓰기 */
-//        FBRead.getReference("users").child("11111").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull
-//                DataSnapshot dataSnapshot) {
-//                String a = dataSnapshot.getValue(String.class);
-//                if (Objects.equals(a, "a")) {
-//                    Toast.makeText(LoginActivity.this, "데이터 가져오기 성공 " + a, Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(LoginActivity.this,"데이터 가져오기 실패 " + a, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-//            }
-//        });
+        /*
+        FBRead.getReference("users").child("11111").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull
+                DataSnapshot dataSnapshot) {
+                String a = dataSnapshot.getValue(String.class);
+                if (Objects.equals(a, "a")) {
+                    Toast.makeText(LoginActivity.this, "데이터 가져오기 성공 " + a, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LoginActivity.this,"데이터 가져오기 실패 " + a, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
+            }
+        });*/
+
+        /* FBWrite.child("users").child("11111").setValue("a"); /* 데이터 쓰기 */
+
 
         {
             et_schoolNum = findViewById(R.id.et_phoneNum);
