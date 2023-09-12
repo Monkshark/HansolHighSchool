@@ -21,7 +21,8 @@ public class getMealData{
         niesAPI niesAPI = new niesAPI();
         String requestURL;
 
-        requestURL = "https://open.neis.go.kr/hub/mealServiceDietInfo?" +
+        requestURL =
+                "https://open.neis.go.kr/hub/mealServiceDietInfo?" +
                 "KEY=" + niesAPI.KEY +
                 "&Type=json" +
                 "&MMEAL_SC_CODE=" + mealScCode +

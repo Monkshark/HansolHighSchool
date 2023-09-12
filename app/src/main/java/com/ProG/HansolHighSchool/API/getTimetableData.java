@@ -29,7 +29,8 @@ public class getTimetableData {
                 .append(grade).append("학년 ")
                 .append(classNum).append("반 시간표").append("\n\n");
 
-        requestURL = "https://open.neis.go.kr/hub/hisTimetable?" +
+        requestURL =
+                "https://open.neis.go.kr/hub/hisTimetable?" +
                 "KEY=" + niesAPI.KEY +
                 "&Type=" + "json" +
                 "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
@@ -90,7 +91,7 @@ public class getTimetableData {
             Log.e(TAG,"return : " + finalResult);
             return finalResult;
         } catch (Exception e) {
-            Log.e(TAG, "return Error" + e.toString());
+            Log.e(TAG, "return Error" + e);
             return "리턴에러다 수정해라";
         }
 
