@@ -46,38 +46,32 @@ public class MealFragment extends Fragment {
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
 
-        btn_pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_pre.setOnClickListener(v -> {
 
+            currentDate = new Date(currentDate.getTime() - day);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+
+            while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                 currentDate = new Date(currentDate.getTime() - day);
-                Calendar calendar = Calendar.getInstance();
                 calendar.setTime(currentDate);
-
-                while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    currentDate = new Date(currentDate.getTime() - day);
-                    calendar.setTime(currentDate);
-                }
-
-                updateMealDate(currentDate);
             }
+
+            updateMealDate(currentDate);
         });
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_next.setOnClickListener(v -> {
 
+            currentDate = new Date(currentDate.getTime() + day);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+
+            while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                 currentDate = new Date(currentDate.getTime() + day);
-                Calendar calendar = Calendar.getInstance();
                 calendar.setTime(currentDate);
-
-                while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    currentDate = new Date(currentDate.getTime() + day);
-                    calendar.setTime(currentDate);
-                }
-
-                updateMealDate(currentDate);
             }
+
+            updateMealDate(currentDate);
         });
 
 

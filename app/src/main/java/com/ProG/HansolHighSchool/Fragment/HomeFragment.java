@@ -30,35 +30,26 @@ public class HomeFragment extends Fragment {
         btn_riroschool = view.findViewById(R.id.btn_riroschool);
         btn_account = view.findViewById(R.id.btn_account);
 
-        btn_hansolhs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentURL = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HansolHS));
-                startActivity(intentURL);
-            }
+        btn_hansolhs.setOnClickListener(v -> {
+            Intent intentURL = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HansolHS));
+            startActivity(intentURL);
         });
 
-        btn_riroschool.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentURL = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_RiroSchool));
-                startActivity(intentURL);
-            }
+        btn_riroschool.setOnClickListener(v -> {
+            Intent intentURL = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_RiroSchool));
+            startActivity(intentURL);
         });
 
-        btn_account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_account.setOnClickListener(v -> {
 
-                if (LoginData.isLogin) {
-                    Intent intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
-                    startActivity(intentActivity);
-                } else {
-                    Intent intentActivity = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intentActivity);
-                }
-
+            Intent intentActivity;
+            if (LoginData.isLogin) {
+                intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
+            } else {
+                intentActivity = new Intent(getActivity(), LoginActivity.class);
             }
+            startActivity(intentActivity);
+
         });
 
         return view;

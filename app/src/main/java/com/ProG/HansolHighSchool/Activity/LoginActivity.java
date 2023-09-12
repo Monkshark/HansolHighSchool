@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,72 +81,66 @@ public class LoginActivity extends Activity {
         }
 
 
-        btn_login.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+        btn_login.setOnClickListener(v -> {
 
-                try {
-                    schoolNum = et_schoolNum.getText().toString();
-                    password = et_password.getText().toString();
+            try {
+                schoolNum = et_schoolNum.getText().toString();
+                password = et_password.getText().toString();
 
-                    FBRead.getReference("users").child(schoolNum).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull
-                            DataSnapshot dataSnapshot) {
-                            tryPassword = dataSnapshot.getValue(String.class);
-                        }
+                FBRead.getReference("users").child(schoolNum).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull
+                        DataSnapshot dataSnapshot) {
+                        tryPassword = dataSnapshot.getValue(String.class);
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-                            Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-                } catch (Exception e) {
-                    Log.e("LoginActivity", "Error: " + e.getMessage());
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
+                        Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+            } catch (Exception e) {
+                Log.e("LoginActivity", "Error: " + e.getMessage());
+                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
 
-                if (Objects.equals(password, tryPassword)) {
-                    LoginData.isLogin = true;
-                    LoginData.schoolNum = schoolNum;
-                    LoginData.password = password;
-                    FBRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull
-                            DataSnapshot dataSnapshot) {
-                            name = dataSnapshot.getValue(String.class);
-                        }
+            if (Objects.equals(password, tryPassword)) {
+                LoginData.isLogin = true;
+                LoginData.schoolNum = schoolNum;
+                LoginData.password = password;
+                FBRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull
+                        DataSnapshot dataSnapshot) {
+                        name = dataSnapshot.getValue(String.class);
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-                            Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
+                        Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
 
-                    LoginData.name = name;
-                    LoginData.grade = schoolNum.substring(0, 1);
-                    LoginData.classNum = schoolNum.substring(2, 3);
+                LoginData.name = name;
+                LoginData.grade = schoolNum.substring(0, 1);
+                LoginData.classNum = schoolNum.substring(2, 3);
 
-                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentActivity = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intentActivity);
-                finish();
-            }
+        btn_register.setOnClickListener(v -> {
+            Intent intentActivity = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intentActivity);
+            finish();
         });
     }
 

@@ -55,20 +55,14 @@ public class NoticeFragment extends Fragment {
         //TODO : 테스트구문 삭제
         getTimetableData.getTimeTable("20230912", 1, 6);
 
-        btn_pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedDate.add(Calendar.MONTH, -1);
-                setMonthView();
-            }
+        btn_pre.setOnClickListener(v -> {
+            selectedDate.add(Calendar.MONTH, -1);
+            setMonthView();
         });
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedDate.add(Calendar.MONTH, 1);
-                setMonthView();
-            }
+        btn_next.setOnClickListener(v -> {
+            selectedDate.add(Calendar.MONTH, 1);
+            setMonthView();
         });
 
         return rootView;
