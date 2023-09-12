@@ -58,9 +58,9 @@ public class LoginActivity extends Activity {
 //                DataSnapshot dataSnapshot) {
 //                String a = dataSnapshot.getValue(String.class);
 //                if (Objects.equals(a, "a")) {
-//                    Toast.makeText(LoginActivity.this, "데이터 가져오기 성공" + a, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "데이터 가져오기 성공 " + a, Toast.LENGTH_SHORT).show();
 //                }else {
-//                    Toast.makeText(LoginActivity.this,"데이터 가져오기 실패" + a, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this,"데이터 가져오기 실패 " + a, Toast.LENGTH_SHORT).show();
 //                }
 //            }
 //
