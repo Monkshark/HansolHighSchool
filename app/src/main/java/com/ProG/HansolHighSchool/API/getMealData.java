@@ -15,11 +15,18 @@ import java.util.concurrent.Future;
 public class getMealData{
 
     private static final String TAG = "getMealData";
-    static String result = null;
+    static StringBuilder result = new StringBuilder();
     public static String getMeal(String date, String mealScCode, String type) {
 
         niesAPI niesAPI = new niesAPI();
         String requestURL;
+
+        result
+                .append(date.substring(0, 4)).append("년 ")
+                .append(date.substring(4, 6)).append("월 ")
+                .append(date.substring(6, 8)).append("일\n")
+                .append("급식정보\n\n");
+
 
         requestURL =
                 "https://open.neis.go.kr/hub/mealServiceDietInfo?" +
@@ -30,11 +37,9 @@ public class getMealData{
                 "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
                 "&MLSV_YMD=" + date;
 
-        Log.e(TAG, "requestURL : \n" + requestURL);
-
             Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
                 try {
-                    Log.e(TAG, "start parse");
+                    Log.e(TAG, "start parse \n" + requestURL);
 
                     URL url = new URL(requestURL);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -67,15 +72,15 @@ public class getMealData{
 
                         switch (type) {
                             case "메뉴":
-                                result = 메뉴;
+                                result.append(메뉴);
                             break;
 
                             case "칼로리":
-                                result = 칼로리;
+                                result.append(칼로리);
                             break;
 
                             case "영양정보":
-                                result = 영양정보;
+                                result.append(영양정보);
                             break;
                         }
 
@@ -84,7 +89,7 @@ public class getMealData{
                     Log.e(TAG, "return Error" + e);
                     return null;
                 }
-                return result;
+                return result.toString();
             });
 
         try {
