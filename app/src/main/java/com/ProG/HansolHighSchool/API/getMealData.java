@@ -85,12 +85,16 @@ public class getMealData{
                     return null;
                 }
                 return result;
-            }
-        );
+            });
+
         try {
             String finalResult = futureResult.get();
-            Log.e("return", finalResult.replace("<br/>", "\n"));
-            return finalResult.replace("<br/>", "\n");
+            if (finalResult != null) {
+                Log.e("return", finalResult.replace("<br/>", "\n"));
+                return finalResult.replace("<br/>", "\n");
+            } else {
+                return "Null";
+            }
 
         } catch (Exception e) {
             Log.e("getTimeTableAPIData", "Error from getting future result \n", e);

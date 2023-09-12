@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ProG.HansolHighSchool.Adapter.CalendarAdapter;
 import com.ProG.HansolHighSchool.Adapter.CalendarUtil;
-import com.ProG.HansolHighSchool.API.getTimetableData;
 import com.ProG.HansolHighSchool.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,9 +50,6 @@ public class NoticeFragment extends Fragment {
         CalendarUtil.selectedDate = Calendar.getInstance();
 
         setMonthView();
-
-        //TODO : 테스트구문 삭제
-        getTimetableData.getTimeTable("20230912", 1, 6);
 
         btn_pre.setOnClickListener(v -> {
             selectedDate.add(Calendar.MONTH, -1);
