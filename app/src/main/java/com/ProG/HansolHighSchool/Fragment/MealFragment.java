@@ -52,9 +52,7 @@ public class MealFragment extends Fragment {
         btn_next = view.findViewById(R.id.btn_next);
 
         Log.e(TAG, "onCreateView: " + currentDate.toString());
-
         Intent intent = new Intent(getActivity(), MealInfoActivity.class);
-
         MealInfoActivity mia = new MealInfoActivity();
 
         tv_breakfast.setOnClickListener(v -> {

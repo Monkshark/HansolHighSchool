@@ -39,6 +39,7 @@
         tools:targetApi="31">
         <activity
             android:name=".Activity.MealInfoActivity"
+            android:theme="@android:style/Theme.Dialog"
             android:exported="false" />
         <activity
             android:name=".Activity.AccountInfoActivity"
