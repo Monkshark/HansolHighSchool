@@ -38,9 +38,14 @@ public class NumberCheckActivity extends Activity {
 
     String randomSendNum = generateRandomCode();
 
+    EditText et_phoneNum, et_numDoubleCheck, et_checkCode;
+
+    Button btn_registerAfterCheck, btn_sendCode, btn_checkCode;
+
+    TextView tv_checkCodeView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_number_check);
@@ -54,95 +59,86 @@ public class NumberCheckActivity extends Activity {
         int height = (int) (dm.heightPixels * 0.85);
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
-    }
-        /*팝업*/
-
-        {
-            EditText et_phoneNum, et_numDoubleCheck, et_checkCode;
-
-            Button btn_registerAfterCheck, btn_sendCode, btn_checkCode;
-
-            TextView tv_checkCodeView;
-
-            tv_checkCodeView = findViewById(R.id.tv_checkCodeView);
-
-            et_phoneNum = findViewById(R.id.et_phoneNum);
-            et_numDoubleCheck = findViewById(R.id.et_name);
-            et_checkCode = findViewById(R.id.et_checkCode);
-
-            btn_registerAfterCheck = findViewById(R.id.btn_registerAfterCheck);
-            btn_sendCode = findViewById(R.id.btn_sendCode);
-            btn_checkCode = findViewById(R.id.btn_checkCode);
-
-            Intent getInfo = getIntent();
-
-            String schoolNum = getInfo.getStringExtra("schoolNum");
-            String name = getInfo.getStringExtra("name");
-            String password = getInfo.getStringExtra("password");
-            String teacher = getInfo.getStringExtra("teacher");
-
-            FirebaseAuth mAuth;
-
-            mAuth = FirebaseAuth.getInstance();
-
-            btn_sendCode.setOnClickListener(v -> {
-                phoneNum = et_phoneNum.getText().toString();
-                numDoubleCheck = et_numDoubleCheck.getText().toString();
-                checkCode = et_checkCode.getText().toString();
-
-                if (phoneNum.equals(numDoubleCheck) && phoneNum.length() == 11) {
-
-                    String formattedNum = "+82" + phoneNum.substring(1, 10);
-                    /* 010 1234 5678  ->  +8210 1234 5678 */
-
-                    runOnUiThread(() ->
-                            Toast.makeText(NumberCheckActivity.this, "reCAPTCHA가 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show());
-                    PhoneAuthOptions options =
-                            PhoneAuthOptions.newBuilder(mAuth)
-                                    .setPhoneNumber(formattedNum)
-                                    .setTimeout(60L, TimeUnit.SECONDS)
-                                    .setActivity(NumberCheckActivity.this)
-                                    .setCallbacks(mCallbacks)
-                                    .build();
-                    PhoneAuthProvider.verifyPhoneNumber(options);
-
-                } else if (phoneNum.isEmpty() || numDoubleCheck.isEmpty()) {
-                    tv_checkCodeView.setText("전화번호를 입력해주세요");
-                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                } else {
-                    tv_checkCodeView.setText("전화번호를 확인해주세요");
-                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                }
-            });
-
-            btn_checkCode.setOnClickListener(v -> {
-                checkCode = et_checkCode.getText().toString();
-                if (checkCode.equals(randomSendNum)) {
-                    check = true;
-                    tv_checkCodeView.setText("전화번호 인증에 성공하였습니다");
-                    tv_checkCodeView.setTextColor(Color.parseColor("#00FF00"));
-                } else {
-                    check = false;
-                    tv_checkCodeView.setText("전화번호 인증에 실패하였습니다");
-                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-                }
-
-            });
-
-            btn_registerAfterCheck.setOnClickListener(v -> {
-
-                if (check) {
-                    /* 회원가입 로직 구현 필요 */
-
-                } else {
-                    tv_checkCodeView.setText("전화번호 인증을 진행해주세요");
-                    tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-
-                }
 
 
-            });
-        }
+        tv_checkCodeView = findViewById(R.id.tv_checkCodeView);
+
+        et_phoneNum = findViewById(R.id.et_phoneNum);
+        et_numDoubleCheck = findViewById(R.id.et_name);
+        et_checkCode = findViewById(R.id.et_checkCode);
+
+        btn_registerAfterCheck = findViewById(R.id.btn_registerAfterCheck);
+        btn_sendCode = findViewById(R.id.btn_sendCode);
+        btn_checkCode = findViewById(R.id.btn_checkCode);
+
+        Intent getInfo = getIntent();
+
+        String schoolNum = getInfo.getStringExtra("schoolNum");
+        String name = getInfo.getStringExtra("name");
+        String password = getInfo.getStringExtra("password");
+        String teacher = getInfo.getStringExtra("teacher");
+
+        FirebaseAuth mAuth;
+
+        mAuth = FirebaseAuth.getInstance();
+
+        btn_sendCode.setOnClickListener(v -> {
+            phoneNum = et_phoneNum.getText().toString();
+            numDoubleCheck = et_numDoubleCheck.getText().toString();
+            checkCode = et_checkCode.getText().toString();
+
+            if (phoneNum.equals(numDoubleCheck) && phoneNum.length() == 11) {
+
+                String formattedNum = "+82" + phoneNum.substring(1, 10);
+                /* 010 1234 5678  ->  +8210 1234 5678 */
+
+                runOnUiThread(() ->
+                        Toast.makeText(NumberCheckActivity.this, "reCAPTCHA가 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show());
+                PhoneAuthOptions options =
+                        PhoneAuthOptions.newBuilder(mAuth)
+                                .setPhoneNumber(formattedNum)
+                                .setTimeout(60L, TimeUnit.SECONDS)
+                                .setActivity(NumberCheckActivity.this)
+                                .setCallbacks(mCallbacks)
+                                .build();
+                PhoneAuthProvider.verifyPhoneNumber(options);
+
+            } else if (phoneNum.isEmpty() || numDoubleCheck.isEmpty()) {
+                tv_checkCodeView.setText("전화번호를 입력해주세요");
+                tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
+            } else {
+                tv_checkCodeView.setText("전화번호를 확인해주세요");
+                tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
+            }
+        });
+
+        btn_checkCode.setOnClickListener(v -> {
+            checkCode = et_checkCode.getText().toString();
+            if (checkCode.equals(randomSendNum)) {
+                check = true;
+                tv_checkCodeView.setText("전화번호 인증에 성공하였습니다");
+                tv_checkCodeView.setTextColor(Color.parseColor("#00FF00"));
+            } else {
+                check = false;
+                tv_checkCodeView.setText("전화번호 인증에 실패하였습니다");
+                tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
+            }
+
+        });
+
+        btn_registerAfterCheck.setOnClickListener(v -> {
+
+            if (check) {
+                /* 회원가입 로직 구현 필요 */
+
+            } else {
+                tv_checkCodeView.setText("전화번호 인증을 진행해주세요");
+                tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
+
+            }
+
+
+        });
 
     }
 

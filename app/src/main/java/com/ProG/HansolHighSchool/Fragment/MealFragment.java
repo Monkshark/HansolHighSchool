@@ -1,6 +1,7 @@
 package com.ProG.HansolHighSchool.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ProG.HansolHighSchool.API.getMealData;
+import com.ProG.HansolHighSchool.Activity.MealInfoActivity;
 import com.ProG.HansolHighSchool.R;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +52,25 @@ public class MealFragment extends Fragment {
         btn_next = view.findViewById(R.id.btn_next);
 
         Log.e(TAG, "onCreateView: " + currentDate.toString());
+
+        Intent intent = new Intent(getActivity(), MealInfoActivity.class);
+
+        MealInfoActivity mia = new MealInfoActivity();
+
+        tv_breakfast.setOnClickListener(v -> {
+            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
+            startActivity(intent);
+        });
+
+        tv_lunch.setOnClickListener(v -> {
+            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
+            startActivity(intent);
+        });
+
+        tv_dinner.setOnClickListener(v -> {
+            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
+            startActivity(intent);
+        });
 
         btn_pre.setOnClickListener(v -> {
 
