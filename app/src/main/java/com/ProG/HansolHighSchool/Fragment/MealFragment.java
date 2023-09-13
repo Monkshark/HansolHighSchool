@@ -76,6 +76,7 @@ public class MealFragment extends Fragment {
             updateMealDate(currentDate);
         });
 
+
         btn_next.setOnClickListener(v -> {
 
             int attemptCount = 0;
