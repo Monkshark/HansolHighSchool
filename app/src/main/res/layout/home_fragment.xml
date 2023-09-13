@@ -7,9 +7,27 @@
     android:orientation="vertical"
     tools:ignore="hardcodedText">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_gravity="left"
+        android:text="설정"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        style="?android:attr/buttonBarButtonStyle"
+        tools:ignore="RtlHardcoded" />
+
     <Button
         android:id="@+id/btn_account"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="60dp"
         android:layout_gravity="right"
         android:text="계정"
@@ -18,6 +36,8 @@
         android:layout_marginBottom="50dp"
         style="?android:attr/buttonBarButtonStyle"
         tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

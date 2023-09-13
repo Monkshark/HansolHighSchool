@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/btn_pre"
             android:layout_width="0dp"
@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:src="@drawable/button_left"
             android:backgroundTint="@color/White"
-            />
+            tools:ignore="ContentDescription" />
         
         <TextView
             android:id="@+id/tv_monthYear"
@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:src="@drawable/button_right"
             android:backgroundTint="@color/White"
-            />
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
         
@@ -153,18 +153,6 @@
             android:layout_marginRight="20dp"
             android:text="yyyy-MM-dd" />
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/grade"
-                android:entries="@array/grade"
-                android:layout_marginRight="20dp"/>
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/className"
-                android:entries="@array/className"/>
 
         </LinearLayout>
 

@@ -38,9 +38,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.MealInfoActivity"
-            android:theme="@android:style/Theme.Dialog"
+            android:name=".Activity.SettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.MealInfoActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".Activity.AccountInfoActivity"
             android:exported="false" />
