@@ -1,5 +1,6 @@
 package com.ProG.HansolHighSchool.API;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,6 +10,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -40,6 +44,7 @@ public class getTimetableData {
 
         Log.e(TAG, "requestURL : \n" + requestURL);
 
+        @SuppressLint("SimpleDateFormat")
         Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
                 URL url = new URL(requestURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -63,10 +68,17 @@ public class getTimetableData {
                 JSONArray timetableArray = responseJson.getJSONArray("hisTimetable");
                 timetableArray = timetableArray.getJSONObject(1).getJSONArray("row");
 
+
+                Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
+                    if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+                        resultBuilder.append("1교시: 자율\n");
+                    }
+
                 for (int i = 0; i < timetableArray.length(); i++) {
-                    JSONObject itemObject = timetableArray.getJSONObject(i);
-                    String PERIO = itemObject.getString("PERIO");
-                    String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
+                        JSONObject itemObject = timetableArray.getJSONObject(i);
+                        String PERIO = itemObject.getString("PERIO");
+                        String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
 
                     resultBuilder
                             .append(PERIO)
