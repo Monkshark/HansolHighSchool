@@ -38,18 +38,16 @@ public class LoginActivity extends Activity {
         FBRead = FirebaseDatabase.getInstance();
         FBWrite = FirebaseDatabase.getInstance().getReference();
 
-        {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.activity_login);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_login);
 
-            overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
+        overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
 
-            DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-            int width = (int) (dm.widthPixels * 0.85);
-            int height = (int) (dm.heightPixels * 0.85);
-            getWindow().getAttributes().width = width;
-            getWindow().getAttributes().height = height;
-        }
+        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+        int width = (int) (dm.widthPixels * 0.85);
+        int height = (int) (dm.heightPixels * 0.85);
+        getWindow().getAttributes().width = width;
+        getWindow().getAttributes().height = height;
 
         /*
         FBRead.getReference("users").child("11111").addListenerForSingleValueEvent(new ValueEventListener() {

@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
-        android:minSdkVersion="25"
-        android:targetSdkVersion="31" />
+        android:minSdkVersion="26"
+        android:targetSdkVersion="32"
+        tools:ignore="GradleOverrides,OldTargetApi" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -19,7 +20,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -37,6 +37,9 @@
         android:theme="@style/Theme.HansolHighSchool"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.MealInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.AccountInfoActivity"
             android:exported="false" />

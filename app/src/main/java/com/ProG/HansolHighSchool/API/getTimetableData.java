@@ -68,7 +68,6 @@ public class getTimetableData {
                 JSONArray timetableArray = responseJson.getJSONArray("hisTimetable");
                 timetableArray = timetableArray.getJSONObject(1).getJSONArray("row");
 
-
                 Calendar calendar = Calendar.getInstance();
                     calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
                     if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {

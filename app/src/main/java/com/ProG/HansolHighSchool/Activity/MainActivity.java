@@ -27,11 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        {
-            Intent loading = new Intent(MainActivity.this, LoadingActivity.class);
-            startActivity(loading);
-        }
-        /* 로딩화면 호출 */
+        Intent loading = new Intent(MainActivity.this, LoadingActivity.class);
+        startActivity(loading);
 
         bottomNavigationView = findViewById(R.id.bottomNavi);
         viewPager = findViewById(R.id.viewPager);
