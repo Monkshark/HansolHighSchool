@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ProG.HansolHighSchool.API.getMealData;
-import com.ProG.HansolHighSchool.API.niesAPI;
 import com.ProG.HansolHighSchool.R;
 
 import java.text.SimpleDateFormat;
@@ -87,7 +86,7 @@ public class MealFragment extends Fragment {
 
             while ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
                     || isAllMealsEmpty(dateFormat.format(currentDate))) {
-                if (attemptCount >= 5) {
+                if (attemptCount >= 4) {
                     Log.e(TAG, "급식 정보 없음");
                     currentDate = originalDate;
                     break;
@@ -115,7 +114,6 @@ public class MealFragment extends Fragment {
                 + "-" + formattedDate.substring(6,8);
         tv_naljja.setText(dateToShow + " 급식식단");
 
-        niesAPI niesAPI = new niesAPI();
         getMealTask(formattedDate);
     }
 
