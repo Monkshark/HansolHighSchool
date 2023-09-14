@@ -18,8 +18,8 @@ public class MealInfoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meal_info);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_meal_info);
 
         this.setFinishOnTouchOutside(true);
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
@@ -35,7 +35,6 @@ public class MealInfoActivity extends Activity {
 
         btn_close.setOnClickListener(this :: onClick);
 
-//        tv_mealInfo.setText("씨발");
         Intent intent = getIntent();
         String mealInfo = intent.getStringExtra("mealInfo");
         tv_mealInfo.setText(mealInfo);
