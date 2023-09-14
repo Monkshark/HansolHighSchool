@@ -65,17 +65,9 @@ public class getMealData{
                         String 영양정보 = itemObject.getString("NTR_INFO");
 
                         switch (type) {
-                            case "메뉴":
-                                result = 메뉴;
-                            break;
-
-                            case "칼로리":
-                                result = 칼로리;
-                            break;
-
-                            case "영양정보":
-                                result = 영양정보;
-                            break;
+                            case "메뉴" -> result = 메뉴;
+                            case "칼로리" -> result = 칼로리;
+                            case "영양정보" -> result = 영양정보;
                         }
 
                     }
@@ -96,7 +88,7 @@ public class getMealData{
             }
 
         } catch (Exception e) {
-            Log.e("getTimeTableAPIData", "Error from getting future result \n", e);
+            Log.e("getTimeTableAPIData", "Error from getting future result : \n", e);
             return e.toString();
         }
     }
