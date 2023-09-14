@@ -38,7 +38,6 @@ public class MealInfoActivity extends Activity {
         Intent intent = getIntent();
         String mealInfo = intent.getStringExtra("mealInfo");
         tv_mealInfo.setText(mealInfo);
-
     }
 
     private void finish(View v) {
