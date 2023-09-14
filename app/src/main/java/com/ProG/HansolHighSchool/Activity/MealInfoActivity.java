@@ -33,7 +33,7 @@ public class MealInfoActivity extends Activity {
         tv_mealInfo = findViewById(R.id.tv_mealInfo);
         btn_close = findViewById(R.id.btn_close);
 
-        btn_close.setOnClickListener(this :: onClick);
+        btn_close.setOnClickListener(this :: finish);
 
         Intent intent = getIntent();
         String mealInfo = intent.getStringExtra("mealInfo");
@@ -41,7 +41,7 @@ public class MealInfoActivity extends Activity {
 
     }
 
-    private void onClick(View v) {
+    private void finish(View v) {
         finish();
     }
 }
