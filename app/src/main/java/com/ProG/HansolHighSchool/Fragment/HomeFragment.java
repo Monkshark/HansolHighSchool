@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    public static void setTimetable(){
+    public static void setTimetable() {
 
         String crdate = dateFormat.format(currentDate);
 

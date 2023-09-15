@@ -2,7 +2,7 @@ package com.ProG.HansolHighSchool.Data;
 
 public class URLLibrary {
 
-    public static String URL_HansolHS = "https://han.gl/JWwdOf";
-    public static String URL_RiroSchool = "https://han.gl/VqGmmG";
+    public static String URL_HansolHS = "https://sjhansol.sjeduhs.kr/";
+    public static String URL_RiroSchool = "https://sjhansol.riroschool.kr/";
 
 }

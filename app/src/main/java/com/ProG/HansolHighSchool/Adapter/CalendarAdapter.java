@@ -91,13 +91,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         });
 
     }
-    /*달력 그리기*/
+
 
     @Override
     public int getItemCount() {
         return dayList.size();
     }
-    /*갯수 리턴*/
 
     static class calendarViewHolder extends RecyclerView.ViewHolder {
 
@@ -112,7 +111,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
 
         }
     }
-    /*그린 달력 띄우기*/
 
 
 }
