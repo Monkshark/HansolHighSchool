@@ -20,7 +20,7 @@ public class RegisterActivity extends Activity {
 
     String schoolNum, name, password, pwdDoubleCheck;
 
-    String teacher;
+    boolean teacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class RegisterActivity extends Activity {
             cb_registerTeacher.setChecked(false);
             et_schoolNum.setInputType(InputType.TYPE_CLASS_NUMBER);
             et_schoolNum.setHint("학번을 입력해주세요");
-            teacher = String.valueOf(false);
+            teacher = false;
             et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
         });
 
@@ -70,7 +70,7 @@ public class RegisterActivity extends Activity {
             cb_registerStudent.setChecked(false);
             et_schoolNum.setInputType(InputType.TYPE_CLASS_TEXT);
             et_schoolNum.setHint("아이디를 입력해주세요");
-            teacher = String.valueOf(true);
+            teacher = true;
             et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
         });
