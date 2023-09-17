@@ -48,7 +48,7 @@ public class RegisterActivity extends Activity {
         btn_numberCheck = findViewById(R.id.btn_numberCheck);
 
         et_schoolNum.setFilters(new InputFilter[] {
-                new InputFilter.LengthFilter(5)
+            new InputFilter.LengthFilter(5)
         });
 
         cb_registerStudent.setOnClickListener(v -> {
@@ -57,7 +57,7 @@ public class RegisterActivity extends Activity {
             et_schoolNum.setHint("학번을 입력해주세요");
             teacher = false;
             et_schoolNum.setFilters(new InputFilter[] {
-                    new InputFilter.LengthFilter(5)
+                new InputFilter.LengthFilter(5)
             });
         });
 
@@ -67,7 +67,7 @@ public class RegisterActivity extends Activity {
             et_schoolNum.setHint("아이디를 입력해주세요");
             teacher = true;
             et_schoolNum.setFilters(new InputFilter[] {
-                    new InputFilter.LengthFilter(20)
+                new InputFilter.LengthFilter(20)
             });
         });
 

@@ -72,6 +72,8 @@ public class MealFragment extends Fragment {
 
         btn_pre.setOnClickListener(v -> {
 
+
+
             int attemptCount = 0;
             Date originalDate = currentDate;
             currentDate = new Date(currentDate.getTime() - day);
@@ -120,6 +122,17 @@ public class MealFragment extends Fragment {
         });
 
         updateMealDate(currentDate);
+
+        if ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+                || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            tv_breakfast.setText("정보 없음");
+            tv_lunch.setText("정보 없음");
+            tv_dinner.setText("정보 없음");
+            tv_breakfastKcal.setText("");
+            tv_lunchKcal.setText("");
+            tv_dinnerKcal.setText("");
+        }
+
         return view;
     }
 
