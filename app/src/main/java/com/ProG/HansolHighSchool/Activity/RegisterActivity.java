@@ -47,14 +47,18 @@ public class RegisterActivity extends Activity {
         et_pwdDoubleCheck = findViewById(R.id.et_pwdDoubleCheck);
         btn_numberCheck = findViewById(R.id.btn_numberCheck);
 
-        et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+        et_schoolNum.setFilters(new InputFilter[] {
+                new InputFilter.LengthFilter(5)
+        });
 
         cb_registerStudent.setOnClickListener(v -> {
             cb_registerTeacher.setChecked(false);
             et_schoolNum.setInputType(InputType.TYPE_CLASS_NUMBER);
             et_schoolNum.setHint("학번을 입력해주세요");
             teacher = false;
-            et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+            et_schoolNum.setFilters(new InputFilter[] {
+                    new InputFilter.LengthFilter(5)
+            });
         });
 
         cb_registerTeacher.setOnClickListener(v -> {
@@ -62,7 +66,9 @@ public class RegisterActivity extends Activity {
             et_schoolNum.setInputType(InputType.TYPE_CLASS_TEXT);
             et_schoolNum.setHint("아이디를 입력해주세요");
             teacher = true;
-            et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+            et_schoolNum.setFilters(new InputFilter[] {
+                    new InputFilter.LengthFilter(20)
+            });
         });
 
         btn_numberCheck.setOnClickListener(v -> {
