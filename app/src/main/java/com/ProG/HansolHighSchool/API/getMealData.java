@@ -84,7 +84,7 @@ public class getMealData{
                 Log.e("return", finalResult.replace("<br/>", "\n"));
                 return finalResult.replace("<br/>", "\n");
             } else {
-                return "Null";
+                return "null";
             }
 
         } catch (Exception e) {

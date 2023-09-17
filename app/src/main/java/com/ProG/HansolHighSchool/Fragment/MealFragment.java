@@ -72,8 +72,6 @@ public class MealFragment extends Fragment {
 
         btn_pre.setOnClickListener(v -> {
 
-
-
             int attemptCount = 0;
             Date originalDate = currentDate;
             currentDate = new Date(currentDate.getTime() - day);
@@ -163,7 +161,7 @@ public class MealFragment extends Fragment {
 
         String dinner = getMealData.getMeal(date, "3", "메뉴");
         String dinnerKcal = getMealData.getMeal(date, "3", "칼로리");
-        if (!dinner.contains("Null") || !dinnerKcal.contains("Null")) {
+        if (!dinner.contains("null") || !dinnerKcal.contains("null")) {
             tv_dinner.setText(dinner);
             tv_dinnerKcal.setText(dinnerKcal);
         } else {
@@ -177,9 +175,9 @@ public class MealFragment extends Fragment {
         String lunch = getMealData.getMeal(date, "2", "메뉴");
         String dinner = getMealData.getMeal(date, "3", "메뉴");
 
-        return (breakfast == null || breakfast.contains("Null"))
-                && (lunch == null || lunch.contains("Null"))
-                && (dinner == null || dinner.contains("Null"));
+        return (breakfast == null || breakfast.contains("null"))
+                && (lunch == null || lunch.contains("null"))
+                && (dinner == null || dinner.contains("null"));
 
     }
 
