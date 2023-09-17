@@ -182,4 +182,5 @@ public class MealFragment extends Fragment {
                 && (dinner == null || dinner.contains("Null"));
 
     }
+
 }
