@@ -45,8 +45,8 @@ public class MealFragment extends Fragment {
         tv_lunchKcal = view.findViewById(R.id.tv_lunchKcal);
         tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
 
-        // 24시간 * 60분 * 60초 * 1000밀리초 = 하루
-        int day = 24 * 60 * 60 * 1000;
+        // 24시간 * 60분 * 60초 * 1000밀리초 = 1일 = 86400000밀리초
+        int dayToMs = 24 * 60 * 60 * 1000;
 
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
@@ -74,7 +74,7 @@ public class MealFragment extends Fragment {
 
             int attemptCount = 0;
             Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() - day);
+            currentDate = new Date(currentDate.getTime() - dayToMs);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
@@ -86,7 +86,7 @@ public class MealFragment extends Fragment {
                     break;
                 }
 
-                currentDate = new Date(currentDate.getTime() - day);
+                currentDate = new Date(currentDate.getTime() - dayToMs);
                 calendar.setTime(currentDate);
                 attemptCount++;
             }
@@ -99,7 +99,7 @@ public class MealFragment extends Fragment {
 
             int attemptCount = 0;
             Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() + day);
+            currentDate = new Date(currentDate.getTime() + dayToMs);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
@@ -111,7 +111,7 @@ public class MealFragment extends Fragment {
                     break;
                 }
 
-                currentDate = new Date(currentDate.getTime() + day);
+                currentDate = new Date(currentDate.getTime() + dayToMs);
                 calendar.setTime(currentDate);
                 attemptCount++;
             }
