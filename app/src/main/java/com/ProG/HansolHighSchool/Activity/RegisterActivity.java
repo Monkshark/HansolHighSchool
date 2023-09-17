@@ -18,8 +18,10 @@ import com.ProG.HansolHighSchool.R;
 public class RegisterActivity extends Activity {
 
     String schoolNum, name, password, pwdDoubleCheck;
-
     boolean teacher;
+    EditText et_schoolNum, et_name, et_password, et_pwdDoubleCheck;
+    Button btn_numberCheck;
+    CheckBox cb_registerStudent, cb_registerTeacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +38,6 @@ public class RegisterActivity extends Activity {
         int height = (int) (dm.heightPixels * 0.85);
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
-
-        EditText et_schoolNum, et_name, et_password, et_pwdDoubleCheck;
-
-        Button btn_numberCheck;
-
-        CheckBox cb_registerStudent, cb_registerTeacher;
-
 
         cb_registerStudent = findViewById(R.id.cb_registerStudent);
         cb_registerTeacher = findViewById(R.id.cb_registerTeacher);
