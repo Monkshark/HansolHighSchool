@@ -1,5 +1,6 @@
 package com.ProG.HansolHighSchool.Fragment;
 
+import static com.ProG.HansolHighSchool.Data.SettingData.spinnerMealScCode;
 import static com.ProG.HansolHighSchool.Data.URLLibrary.URL_HansolHS;
 import static com.ProG.HansolHighSchool.Data.URLLibrary.URL_RiroSchool;
 
@@ -21,10 +22,11 @@ import com.ProG.HansolHighSchool.Activity.AccountInfoActivity;
 import com.ProG.HansolHighSchool.Activity.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
 import com.ProG.HansolHighSchool.Data.LoginData;
-import com.ProG.HansolHighSchool.Data.SpinnerData;
+import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
@@ -79,22 +81,48 @@ public class HomeFragment extends Fragment {
         });
 
         setTimetable();
-
         return view;
     }
-
     @SuppressLint("SetTextI18n")
     public static void setTimetable() {
 
         String crdate = dateFormat.format(currentDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        tv_meal.setText(crdate.substring(0, 4) + "년 " +
-                crdate.substring(4, 6) + "월 " +
-                crdate.substring(6, 8) + "일\n" +
-                "급식정보\n\n" + getMealData.getMeal(crdate, "2", "메뉴"));
-        tv_timetable.setText(getTimetableData.getTimeTable(crdate,
-                String.valueOf(SpinnerData.spinnerGrade + 1),
-                String.valueOf(SpinnerData.spinnerClass + 1)));
+        if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+            tv_meal.setText(crdate.substring(0, 4) + "년 " +
+                    crdate.substring(4, 6) + "월 " +
+                    crdate.substring(6, 8) + "일\n" +
+                    codeToString(spinnerMealScCode) + "정보\n\n" +
+                    "정보 없음");
+            tv_timetable.setText(crdate.substring(0, 4) + "년 " +
+                    crdate.substring(4, 6) + "월 " +
+                    crdate.substring(6, 8) + "일\n" +
+                    (SettingData.spinnerGrade + 1) + "학년 " +
+                    (SettingData.spinnerClass + 1) + "반 " +
+                    "시간표\n\n" + "정보 없음");
+        } else {
+            tv_meal.setText(crdate.substring(0, 4) + "년 " +
+                    crdate.substring(4, 6) + "월 " +
+                    crdate.substring(6, 8) + "일\n" +
+                    codeToString(spinnerMealScCode) + "정보\n\n" +
+                    getMealData.getMeal(crdate, String.valueOf((spinnerMealScCode + 1)), "메뉴"));
+                    tv_timetable.setText(getTimetableData.getTimeTable(crdate,
+                    String.valueOf(SettingData.spinnerGrade + 1),
+                    String.valueOf(SettingData.spinnerClass + 1)
+            ));
+        }
+    }
+
+    private static String codeToString(int code) {
+        return switch (code) {
+            case 0 -> "조식";
+            case 1 -> "중식";
+            case 2 -> "석식";
+            default -> "메뉴";
+        };
     }
 
 }

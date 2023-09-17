@@ -18,5 +18,11 @@
         <item>8</item>
     </string-array>
 
+    <string-array name="mealScCode">
+        <item>조식</item>
+        <item>중식</item>
+        <item>석식</item>
+    </string-array>
+
 
 </resources>

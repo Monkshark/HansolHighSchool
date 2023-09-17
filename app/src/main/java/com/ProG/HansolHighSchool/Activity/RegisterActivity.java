@@ -1,6 +1,5 @@
 package com.ProG.HansolHighSchool.Activity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
 
         this.setFinishOnTouchOutside(true);
-
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
@@ -72,7 +70,6 @@ public class RegisterActivity extends Activity {
             et_schoolNum.setHint("아이디를 입력해주세요");
             teacher = true;
             et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
-
         });
 
         btn_numberCheck.setOnClickListener(v -> {
@@ -82,7 +79,6 @@ public class RegisterActivity extends Activity {
                 password = et_password.getText().toString();
                 pwdDoubleCheck = et_pwdDoubleCheck.getText().toString();
 
-
             if (cb_registerStudent.isChecked() || cb_registerTeacher.isChecked()) {
                 if (schoolNum.isEmpty() || name.isEmpty() || password.isEmpty() || pwdDoubleCheck.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "빈 칸을 모두 채워주세요", Toast.LENGTH_SHORT).show();
@@ -91,13 +87,10 @@ public class RegisterActivity extends Activity {
                         if (password.equals(pwdDoubleCheck)) {
                             Intent intentActivity = new Intent(RegisterActivity.this, NumberCheckActivity.class);
 
-                            {
-                                intentActivity.putExtra("schoolNum", schoolNum);
-                                intentActivity.putExtra("name", name);
-                                intentActivity.putExtra("password", password);
-                                intentActivity.putExtra("teacher", teacher);
-                            }
-
+                            intentActivity.putExtra("schoolNum", schoolNum);
+                            intentActivity.putExtra("name", name);
+                            intentActivity.putExtra("password", password);
+                            intentActivity.putExtra("teacher", teacher);
                             startActivity(intentActivity);
                             finish();
                         } else {

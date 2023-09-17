@@ -1,5 +1,7 @@
 package com.ProG.HansolHighSchool.Activity;
 
+import static com.ProG.HansolHighSchool.Fragment.HomeFragment.setTimetable;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -9,14 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.ProG.HansolHighSchool.Data.SpinnerData;
-import com.ProG.HansolHighSchool.Fragment.HomeFragment;
+import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.R;
 
 public class SettingsActivity extends Activity {
 
-    Spinner sp_grade, sp_className;
+    Spinner sp_grade, sp_className, sp_mealScCode;
     Button btn_save;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class SettingsActivity extends Activity {
 
         sp_grade = findViewById(R.id.sp_grade);
         sp_className = findViewById(R.id.sp_className);
+        sp_mealScCode = findViewById(R.id.sp_mealScCode);
         btn_save = findViewById(R.id.btn_save);
 
         ArrayAdapter<CharSequence> grade = ArrayAdapter.createFromResource(this, R.array.grade, android.R.layout.simple_spinner_dropdown_item);
@@ -44,14 +47,20 @@ public class SettingsActivity extends Activity {
         grade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_className.setAdapter(className);
 
-        sp_grade.setSelection(SpinnerData.spinnerGrade);
-        sp_className.setSelection(SpinnerData.spinnerClass);
+        ArrayAdapter<CharSequence> mealScCode = ArrayAdapter.createFromResource(this, R.array.mealScCode, android.R.layout.simple_spinner_dropdown_item);
+        grade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_mealScCode.setAdapter(mealScCode);
+
+        sp_grade.setSelection(SettingData.spinnerGrade);
+        sp_className.setSelection(SettingData.spinnerClass);
+        sp_mealScCode.setSelection(SettingData.spinnerMealScCode);
 
         btn_save.setOnClickListener(v -> {
-            SpinnerData.spinnerGrade = (int) sp_grade.getSelectedItemId();
-            SpinnerData.spinnerClass = (int) sp_className.getSelectedItemId();
-            Log.e("spinner", SpinnerData.spinnerGrade + " " + SpinnerData.spinnerClass);
-            HomeFragment.setTimetable();
+            SettingData.spinnerGrade = (int) sp_grade.getSelectedItemId();
+            SettingData.spinnerClass = (int) sp_className.getSelectedItemId();
+            SettingData.spinnerMealScCode = (int) sp_mealScCode.getSelectedItemId();
+            Log.e("spinner", SettingData.spinnerGrade + " " + SettingData.spinnerClass);
+            setTimetable();
             finish();
         });
 
