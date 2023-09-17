@@ -41,12 +41,10 @@ public class RegisterActivity extends Activity {
 
         cb_registerStudent = findViewById(R.id.cb_registerStudent);
         cb_registerTeacher = findViewById(R.id.cb_registerTeacher);
-
         et_schoolNum = findViewById(R.id.et_schoolNum);
         et_name = findViewById(R.id.et_name);
         et_password = findViewById(R.id.et_password);
         et_pwdDoubleCheck = findViewById(R.id.et_pwdDoubleCheck);
-
         btn_numberCheck = findViewById(R.id.btn_numberCheck);
 
         et_schoolNum.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
