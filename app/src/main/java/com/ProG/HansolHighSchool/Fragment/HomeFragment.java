@@ -5,14 +5,19 @@ import static com.ProG.HansolHighSchool.Data.URLLibrary.URL_HansolHS;
 import static com.ProG.HansolHighSchool.Data.URLLibrary.URL_RiroSchool;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -39,6 +44,12 @@ public class HomeFragment extends Fragment {
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkAndRequestNotificationPermission();
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +57,8 @@ public class HomeFragment extends Fragment {
 
         FirebaseMessaging fm = new FirebaseMessaging();
         fm.setAlarms(requireContext());
+
+        checkBatteryOptimization(requireContext());
 
         btn_hansolhs = view.findViewById(R.id.btn_hansolhs);
         btn_riroschool = view.findViewById(R.id.btn_riroschool);
@@ -55,6 +68,7 @@ public class HomeFragment extends Fragment {
         tv_timetable = view.findViewById(R.id.tv_timetable);
 
         String crdate = dateFormat.format(currentDate);
+
 
         btn_setting.setOnClickListener(v -> {
             Intent intentActivity = new Intent(getActivity(), SettingsActivity.class);
@@ -126,5 +140,37 @@ public class HomeFragment extends Fragment {
             default -> "메뉴";
         };
     }
+
+    public void checkAndRequestNotificationPermission() {
+        NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (!manager.areNotificationsEnabled()) {
+            Toast.makeText(requireContext(), "알림 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().getPackageName());
+            startActivity(intent);
+        }
+    }
+
+    @SuppressLint({"BatteryLife", "ObsoleteSdkInt"})
+    private void checkBatteryOptimization(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            String packageName = context.getPackageName();
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                try {
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "배터리 최적화 화면을 열 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+
 
 }
