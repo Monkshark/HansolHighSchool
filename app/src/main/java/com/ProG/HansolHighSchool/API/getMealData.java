@@ -88,7 +88,7 @@ public class getMealData{
             }
 
         } catch (Exception e) {
-            Log.e("getTimeTableAPIData", "Error from getting future result : \n", e);
+            Log.e("getTimeTableAPIData", "Error from getting result : \n", e);
             return e.toString();
         }
     }
