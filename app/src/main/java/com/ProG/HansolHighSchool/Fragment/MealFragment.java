@@ -121,7 +121,7 @@ public class MealFragment extends Fragment {
 
         updateMealDate(currentDate);
 
-        if ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+        if ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
                 || isAllMealsEmpty(dateFormat.format(currentDate))) {
             tv_breakfast.setText("정보 없음");
             tv_lunch.setText("정보 없음");

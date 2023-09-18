@@ -21,6 +21,7 @@ import com.ProG.HansolHighSchool.API.getTimetableData;
 import com.ProG.HansolHighSchool.Activity.AccountInfoActivity;
 import com.ProG.HansolHighSchool.Activity.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
+import com.ProG.HansolHighSchool.Data.FirebaseMessaging;
 import com.ProG.HansolHighSchool.Data.LoginData;
 import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.R;
@@ -33,9 +34,7 @@ public class HomeFragment extends Fragment {
 
     Button btn_hansolhs, btn_riroschool, btn_account, btn_setting;
     @SuppressLint("StaticFieldLeak")
-    static TextView tv_meal;
-    @SuppressLint("StaticFieldLeak")
-    static TextView tv_timetable;
+    static TextView tv_meal, tv_timetable;
     static Date currentDate = new Date();
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -44,6 +43,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
+
+        FirebaseMessaging fm = new FirebaseMessaging();
+        fm.setAlarms(requireContext());
 
         btn_hansolhs = view.findViewById(R.id.btn_hansolhs);
         btn_riroschool = view.findViewById(R.id.btn_riroschool);
