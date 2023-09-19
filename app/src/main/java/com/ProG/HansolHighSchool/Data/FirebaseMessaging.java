@@ -64,7 +64,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTimeInMillis(System.currentTimeMillis());
         calendar1.set(Calendar.HOUR_OF_DAY, 6);
-        calendar1.set(Calendar.MINUTE, 0);
+        calendar1.set(Calendar.MINUTE, 30);
 
         PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, 1, intent1, PendingIntent.FLAG_IMMUTABLE);
         if (calendar1.before(Calendar.getInstance())) {
@@ -81,7 +81,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.setTimeInMillis(System.currentTimeMillis());
-        calendar2.set(Calendar.HOUR_OF_DAY, 10);
+        calendar2.set(Calendar.HOUR_OF_DAY, 12);
         calendar2.set(Calendar.MINUTE, 0);
 
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 2, intent2, PendingIntent.FLAG_IMMUTABLE);
@@ -99,7 +99,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.setTimeInMillis(System.currentTimeMillis());
-        calendar3.set(Calendar.HOUR_OF_DAY, 16);
+        calendar3.set(Calendar.HOUR_OF_DAY, 17);
         calendar3.set(Calendar.MINUTE, 0);
 
         PendingIntent pendingIntent3 = PendingIntent.getBroadcast(context, 3, intent3, PendingIntent.FLAG_IMMUTABLE);
