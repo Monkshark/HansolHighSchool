@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.ProG.HansolHighSchool.API.getMealData;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -57,9 +56,14 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     public void setAlarms(@NonNull Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
+        Calendar currentCalendar = Calendar.getInstance();
+        int dayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+            return;
+        }
+
         Intent intent1 = new Intent(context, AlarmReceiver.class);
         intent1.putExtra("분류", "조식");
-        intent1.putExtra("메뉴", getMealData.getMeal(spDate, "1", "메뉴"));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.setTimeInMillis(System.currentTimeMillis());
@@ -77,7 +81,6 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Intent intent2 = new Intent(context, AlarmReceiver.class);
         intent2.putExtra("분류", "중식");
-        intent2.putExtra("메뉴", getMealData.getMeal(spDate, "2", "메뉴"));
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.setTimeInMillis(System.currentTimeMillis());
@@ -95,7 +98,6 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Intent intent3 = new Intent(context, AlarmReceiver.class);
         intent3.putExtra("분류", "석식");
-        intent3.putExtra("메뉴", getMealData.getMeal(spDate, "3", "메뉴"));
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.setTimeInMillis(System.currentTimeMillis());

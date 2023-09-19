@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ProG.HansolHighSchool.Adapter.NotificationUtil;
+import com.ProG.HansolHighSchool.API.getMealData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,13 +20,13 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String 분류 = intent.getStringExtra("분류");
-        String 메뉴 = intent.getStringExtra("메뉴");
 
-        if (분류 != null) switch (분류) {
-            case "조식" -> NotificationUtil.sendNotification(context, spDate + " 조식정보", 메뉴);
-            case "중식" -> NotificationUtil.sendNotification(context, spDate + " 중식정보", 메뉴);
-            case "석식" -> NotificationUtil.sendNotification(context, spDate + " 석식정보", 메뉴);
-        }
+        assert 분류 != null;
+        String 메뉴 = switch (분류) {
+                case "조식" -> getMealData.getMeal(spDate, "1", "메뉴");
+                case "중식" -> getMealData.getMeal(spDate, "2", "메뉴");
+                case "석식" -> getMealData.getMeal(spDate, "3", "메뉴");
+            };
 
     }
 }
