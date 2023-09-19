@@ -42,7 +42,7 @@ public class getTimetableData {
                 "&GRADE=" + grade +
                 "&CLASS_NM=" + classNum;
 
-        Log.e(TAG, "requestURL : \n" + requestURL);
+        Log.d(TAG, "requestURL : \n" + requestURL);
 
         @SuppressLint("SimpleDateFormat")
         Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
@@ -85,7 +85,7 @@ public class getTimetableData {
                             .append(ITRT_CNTNT)
                             .append("\n");
 
-                    Log.e(TAG, "parsing : " + resultBuilder);
+                    Log.d(TAG, "parsing : " + resultBuilder);
                 }
 
                 return resultBuilder.toString();
@@ -93,7 +93,7 @@ public class getTimetableData {
 
         try {
             String finalResult = futureResult.get();
-            Log.e(TAG,"return : " + finalResult);
+            Log.d(TAG,"return : " + finalResult);
             return finalResult;
         } catch (Exception e) {
             Log.e(TAG, "Error from getting future result \n" + e);

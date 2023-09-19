@@ -32,7 +32,7 @@ public class getMealData{
 
             Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
                 try {
-                    Log.e(TAG, "start parse \n" + requestURL);
+                    Log.d(TAG, "start parse \n" + requestURL);
 
                     URL url = new URL(requestURL);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -81,7 +81,7 @@ public class getMealData{
         try {
             String finalResult = futureResult.get();
             if (finalResult != null) {
-                Log.e("return", finalResult.replace("<br/>", "\n"));
+                Log.d("return", finalResult.replace("<br/>", "\n"));
                 return finalResult.replace("<br/>", "\n");
             } else {
                 return "null";

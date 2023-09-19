@@ -18,7 +18,7 @@ public class NotificationUtil {
     final static String TAG = "FirebaseMessaging";
 
     public static void sendNotification(Context context, String title, String msg) {
-        Log.e(TAG, title + "메서드 호출됨");
+        Log.e(TAG, title + " 알림 호출됨");
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -29,7 +29,7 @@ public class NotificationUtil {
                 new NotificationCompat.Builder(context, channelId)
                         .setSmallIcon(R.drawable.hansol_logo)
                         .setContentTitle(title)
-                        .setContentText(msg)
+                        .setContentText("아래로 당겨서 메뉴 확인")
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent);
