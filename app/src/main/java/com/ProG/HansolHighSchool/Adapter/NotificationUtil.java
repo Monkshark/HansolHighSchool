@@ -15,7 +15,7 @@ import com.ProG.HansolHighSchool.Activity.MainActivity;
 import com.ProG.HansolHighSchool.R;
 
 public class NotificationUtil {
-    final static String TAG = "FirebaseMessaging";
+    final static String TAG = "NotificationUtil:";
 
     public static void sendNotification(Context context, String title, String msg) {
         Log.e(TAG, title + " 알림 호출됨");
