@@ -153,7 +153,6 @@ public class MealFragment extends Fragment {
         String breakfast = getMealData.getMeal(date, "1", "메뉴");
         String breakfastKcal = getMealData.getMeal(date,"1" , "칼로리");
         tv_breakfast.setText(breakfast);
-        tv_breakfastKcal.setText(breakfastKcal);
 
         String lunch = getMealData.getMeal(date, "2", "메뉴");
         String lunchKcal = getMealData.getMeal(date, "2", "칼로리");

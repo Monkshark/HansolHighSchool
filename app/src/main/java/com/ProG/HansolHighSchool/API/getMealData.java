@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class getMealData{
+public class getMealData {
     private static final String TAG = "getMealData";
     static String result = null;
 
@@ -88,7 +88,7 @@ public class getMealData{
             }
 
         } catch (Exception e) {
-            Log.e("getTimeTableAPIData", "Error from getting result : \n", e);
+            Log.e(TAG, "Error from getting result : \n", e);
             return e.toString();
         }
     }
