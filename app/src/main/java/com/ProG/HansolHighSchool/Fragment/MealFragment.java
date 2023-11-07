@@ -45,7 +45,7 @@ public class MealFragment extends Fragment {
         tv_lunchKcal = view.findViewById(R.id.tv_lunchKcal);
         tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
 
-        // 24시간 * 60분 * 60초 * 1000밀리초 = 1일 = 86400000밀리초
+        // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
         int dayToMs = 24 * 60 * 60 * 1000;
 
         btn_pre = view.findViewById(R.id.btn_pre);

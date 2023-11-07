@@ -62,9 +62,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.notice) {
                 viewPager.setCurrentItem(2);
                 return true;
-            } else {
-                return false;
             }
+            return false;
         });
 
         bottomNavigationView.setSelectedItemId(R.id.home);
