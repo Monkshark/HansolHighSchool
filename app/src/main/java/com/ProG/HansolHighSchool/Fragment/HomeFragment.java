@@ -26,7 +26,7 @@ import com.ProG.HansolHighSchool.API.getTimetableData;
 import com.ProG.HansolHighSchool.Activity.AccountInfoActivity;
 import com.ProG.HansolHighSchool.Activity.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
-import com.ProG.HansolHighSchool.Data.FirebaseMessaging;
+import com.ProG.HansolHighSchool.Alert.FirebaseMessaging;
 import com.ProG.HansolHighSchool.Data.LoginData;
 import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.R;

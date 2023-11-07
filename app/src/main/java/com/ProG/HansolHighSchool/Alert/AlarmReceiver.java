@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Data;
+package com.ProG.HansolHighSchool.Alert;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;

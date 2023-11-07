@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".Data.FirebaseMessaging"
+            android:name=".Alert.FirebaseMessaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -92,7 +92,7 @@
         </service>
 
         <receiver
-            android:name=".Data.AlarmReceiver"
+            android:name=".Alert.AlarmReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
