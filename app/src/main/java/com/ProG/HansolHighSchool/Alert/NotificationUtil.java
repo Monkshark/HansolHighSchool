@@ -25,14 +25,13 @@ public class NotificationUtil {
 
         String channelId = "0";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(context, channelId)
-                        .setSmallIcon(R.drawable.hansol_logo)
-                        .setContentTitle(title)
-                        .setContentText("아래로 당겨서 메뉴 확인")
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                        .setAutoCancel(true)
-                        .setContentIntent(pendingIntent);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.hansol_logo)
+                .setContentTitle(title)
+                .setContentText("아래로 당겨서 메뉴 확인")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel(channelId, "급식 정보 알림", NotificationManager.IMPORTANCE_HIGH);
