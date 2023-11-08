@@ -1,5 +1,7 @@
 package com.ProG.HansolHighSchool.Fragment;
 
+import static com.ProG.HansolHighSchool.Adapter.CalendarUtil.isWeekends;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +48,7 @@ public class MealFragment extends Fragment {
         tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
 
         // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
-        int dayToMs = 24 * 60 * 60 * 1000;
+        int oneDayInMs = 24 * 60 * 60 * 1000;
 
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
@@ -56,17 +58,20 @@ public class MealFragment extends Fragment {
         MealInfoActivity mia = new MealInfoActivity();
 
         tv_breakfast.setOnClickListener(v -> {
-            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
+            intent.putExtra("mealInfo",
+                    getMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
             startActivity(intent);
         });
 
         tv_lunch.setOnClickListener(v -> {
-            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
+            intent.putExtra("mealInfo",
+                    getMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
             startActivity(intent);
         });
 
         tv_dinner.setOnClickListener(v -> {
-            intent.putExtra("mealInfo", getMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
+            intent.putExtra("mealInfo",
+                    getMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
             startActivity(intent);
         });
 
@@ -74,19 +79,18 @@ public class MealFragment extends Fragment {
 
             int attemptCount = 0;
             Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() - dayToMs);
+            currentDate = new Date(currentDate.getTime() - oneDayInMs);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
-                    || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            while (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
                 if (attemptCount >= 5) {
                     Log.e(TAG, "급식 정보 없음");
                     currentDate = originalDate;
                     break;
                 }
 
-                currentDate = new Date(currentDate.getTime() - dayToMs);
+                currentDate = new Date(currentDate.getTime() - oneDayInMs);
                 calendar.setTime(currentDate);
                 attemptCount++;
             }
@@ -99,19 +103,18 @@ public class MealFragment extends Fragment {
 
             int attemptCount = 0;
             Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() + dayToMs);
+            currentDate = new Date(currentDate.getTime() + oneDayInMs);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
-                    || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            while (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
                 if (attemptCount >= 4) {
                     Log.e(TAG, "급식 정보 없음");
                     currentDate = originalDate;
                     break;
                 }
 
-                currentDate = new Date(currentDate.getTime() + dayToMs);
+                currentDate = new Date(currentDate.getTime() + oneDayInMs);
                 calendar.setTime(currentDate);
                 attemptCount++;
             }
@@ -120,8 +123,7 @@ public class MealFragment extends Fragment {
         });
 
 
-        if ((Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
-                || isAllMealsEmpty(dateFormat.format(currentDate))) {
+        if (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
             tv_breakfast.setText("정보 없음");
             tv_lunch.setText("정보 없음");
             tv_dinner.setText("정보 없음");
@@ -153,6 +155,8 @@ public class MealFragment extends Fragment {
         String breakfast = getMealData.getMeal(date, "1", "메뉴");
         String breakfastKcal = getMealData.getMeal(date,"1" , "칼로리");
         tv_breakfast.setText(breakfast);
+        tv_breakfastKcal.setText(breakfastKcal);
+
 
         String lunch = getMealData.getMeal(date, "2", "메뉴");
         String lunchKcal = getMealData.getMeal(date, "2", "칼로리");
