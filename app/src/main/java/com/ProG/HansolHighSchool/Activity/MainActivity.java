@@ -15,6 +15,9 @@ import com.ProG.HansolHighSchool.Fragment.MealFragment;
 import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
 import com.ProG.HansolHighSchool.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseApp.initializeApp(this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                PlayIntegrityAppCheckProviderFactory.getInstance());
 
         Intent loading = new Intent(MainActivity.this, LoadingActivity.class);
         startActivity(loading);

@@ -52,7 +52,7 @@ public class NoticeFragment extends Fragment {
         setMonthView();
 
         btn_pre.setOnClickListener(v -> {
-            selectedDate.add(Calendar.MONTH, -1);
+            selectedDate.add(Calendar.MONTH, - 1);
             setMonthView();
         });
 
