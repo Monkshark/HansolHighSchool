@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class AlertReceiver extends BroadcastReceiver {
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
     Date currentDate = new Date();

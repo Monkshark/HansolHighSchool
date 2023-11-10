@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Activity;
+package com.ProG.HansolHighSchool.Activity.Auth;
 
 import static android.content.ContentValues.TAG;
 

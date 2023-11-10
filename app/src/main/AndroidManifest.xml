@@ -47,7 +47,7 @@
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".Activity.AccountInfoActivity"
+            android:name=".Activity.Auth.AccountInfoActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.LoadingActivity"
@@ -63,15 +63,15 @@
             android:name=".Fragment.MealFragment"
             android:exported="false" />
         <activity
-            android:name=".Activity.NumberCheckActivity"
+            android:name=".Activity.Auth.NumberCheckActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".Activity.Auth.RegisterActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".Activity.Auth.LoginActivity"
             android:exported="false"
             android:theme="@android:style/Theme.Dialog" />
         <activity
@@ -92,7 +92,7 @@
         </service>
 
         <receiver
-            android:name=".Alert.AlarmReceiver"
+            android:name=".Alert.AlertReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

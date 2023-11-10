@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Activity;
+package com.ProG.HansolHighSchool.Activity.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -23,8 +23,8 @@ import androidx.fragment.app.Fragment;
 
 import com.ProG.HansolHighSchool.API.getMealData;
 import com.ProG.HansolHighSchool.API.getTimetableData;
-import com.ProG.HansolHighSchool.Activity.AccountInfoActivity;
-import com.ProG.HansolHighSchool.Activity.LoginActivity;
+import com.ProG.HansolHighSchool.Activity.Auth.AccountInfoActivity;
+import com.ProG.HansolHighSchool.Activity.Auth.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
 import com.ProG.HansolHighSchool.Alert.FirebaseMessaging;
 import com.ProG.HansolHighSchool.Data.LoginData;

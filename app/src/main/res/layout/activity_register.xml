@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity"
+    tools:context=".Activity.Auth.RegisterActivity"
     android:paddingTop="40dp"
     android:paddingBottom="40dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:backgroundTint="@color/White"
     android:background="@color/White"
-    tools:ignore="hardcodedText"
-
-    >
+    tools:ignore="hardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        tools:ignore="ScrollViewSize">
 
         <TextView
             android:id="@+id/textView2"
@@ -72,7 +69,8 @@
             android:hint="학번을 입력해주세요"
             android:inputType="number"
             android:textColor="@color/AWBlack"
-            android:textColorHint="@color/AWBlack" />
+            android:textColorHint="@color/AWBlack"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/et_name"

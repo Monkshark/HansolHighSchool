@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity"
+    tools:context=".Activity.Auth.LoginActivity"
     android:paddingTop="40dp"
     android:paddingBottom="40dp"
     android:paddingLeft="30dp"
@@ -41,7 +41,7 @@
             android:inputType="number"
             android:textColorHint="@color/AWBlack"
             android:textColor="@color/AWBlack"
-            />
+            tools:ignore="TextFields" />
 
         <EditText
             android:id="@+id/et_name"

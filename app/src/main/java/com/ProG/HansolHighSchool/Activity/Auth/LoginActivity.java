@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Activity;
+package com.ProG.HansolHighSchool.Activity.Auth;
 
 import android.app.Activity;
 import android.content.Intent;
