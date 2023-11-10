@@ -73,7 +73,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
 
 
         if ((position + 1) % 7 == 0) {
-
             holder.tv_day.setTextColor(Color.BLUE);
         } else if (position % 7 == 0) {
 
