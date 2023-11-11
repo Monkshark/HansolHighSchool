@@ -29,6 +29,7 @@ public class MealFragment extends Fragment {
     TextView tv_breakfast, tv_lunch, tv_dinner, tv_naljja, tv_breakfastKcal, tv_lunchKcal, tv_dinnerKcal;
     ImageButton btn_pre, btn_next;
     Date currentDate = new Date();
+
     private static final String TAG = "MealFragment";
 
     @SuppressLint("SimpleDateFormat")
