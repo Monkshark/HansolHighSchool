@@ -28,15 +28,15 @@ public class LoginActivity extends Activity {
     EditText et_schoolNum, et_password;
     Button btn_login, btn_register;
 
-    FirebaseDatabase FBRead;
-    DatabaseReference FBWrite;
+    FirebaseDatabase firebaseRead;
+    DatabaseReference firebaseWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FBRead = FirebaseDatabase.getInstance();
-        FBWrite = FirebaseDatabase.getInstance().getReference();
+        firebaseRead = FirebaseDatabase.getInstance();
+        firebaseWrite = FirebaseDatabase.getInstance().getReference();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
@@ -49,37 +49,13 @@ public class LoginActivity extends Activity {
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
 
-        /*
-        FBRead.getReference("users").child("11111").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull
-                DataSnapshot dataSnapshot) {
-                String a = dataSnapshot.getValue(String.class);
-                if (Objects.equals(a, "a")) {
-                    Toast.makeText(LoginActivity.this, "데이터 가져오기 성공 " + a, Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(LoginActivity.this,"데이터 가져오기 실패 " + a, Toast.LENGTH_SHORT).show();
-                }
-            }
+        et_schoolNum = findViewById(R.id.et_phoneNum);
+        et_password = findViewById(R.id.et_name);
+        btn_login = findViewById(R.id.btn_login);
+        btn_register = findViewById(R.id.btn_register);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-            }
-        });*/
-
-        /* FBWrite.child("users").child("11111").setValue("a"); /* 데이터 쓰기 */
-
-
-        {
-            et_schoolNum = findViewById(R.id.et_phoneNum);
-            et_password = findViewById(R.id.et_name);
-            btn_login = findViewById(R.id.btn_login);
-            btn_register = findViewById(R.id.btn_register);
-
-            schoolNum = et_schoolNum.getText().toString();
-            password = et_password.getText().toString();
-        }
+        schoolNum = et_schoolNum.getText().toString();
+        password = et_password.getText().toString();
 
 
         btn_login.setOnClickListener(v -> {
@@ -88,7 +64,7 @@ public class LoginActivity extends Activity {
                 schoolNum = et_schoolNum.getText().toString();
                 password = et_password.getText().toString();
 
-                FBRead.getReference("users").child(schoolNum).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
+                firebaseRead.getReference("users").child(schoolNum).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull
                         DataSnapshot dataSnapshot) {
@@ -112,7 +88,7 @@ public class LoginActivity extends Activity {
                 LoginData.isLogin = true;
                 LoginData.schoolNum = schoolNum;
                 LoginData.password = password;
-                FBRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                firebaseRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull
                         DataSnapshot dataSnapshot) {
