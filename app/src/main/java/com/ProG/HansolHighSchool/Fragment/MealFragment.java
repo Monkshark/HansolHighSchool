@@ -83,7 +83,7 @@ public class MealFragment extends Fragment {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
                 if (attemptCount >= 5) {
                     Log.e(TAG, "급식 정보 없음");
                     currentDate = originalDate;
@@ -107,8 +107,8 @@ public class MealFragment extends Fragment {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
 
-            while (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
-                if (attemptCount >= 4) {
+            while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
+                if (attemptCount >= 5) {
                     Log.e(TAG, "급식 정보 없음");
                     currentDate = originalDate;
                     break;
@@ -123,7 +123,7 @@ public class MealFragment extends Fragment {
         });
 
 
-        if (isWeekends() || isAllMealsEmpty(dateFormat.format(currentDate))) {
+        if (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
             tv_breakfast.setText("정보 없음");
             tv_lunch.setText("정보 없음");
             tv_dinner.setText("정보 없음");
@@ -142,9 +142,9 @@ public class MealFragment extends Fragment {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         String formattedDate = dateFormat.format(date);
-        String dateToShow = formattedDate.substring(0,4)
-                + "-" + formattedDate.substring(4,6)
-                + "-" + formattedDate.substring(6,8);
+        String dateToShow = formattedDate.substring(0, 4)
+                + "-" + formattedDate.substring(4, 6)
+                + "-" + formattedDate.substring(6, 8);
         tv_naljja.setText(dateToShow + " 급식식단");
 
         getMealTask(formattedDate);

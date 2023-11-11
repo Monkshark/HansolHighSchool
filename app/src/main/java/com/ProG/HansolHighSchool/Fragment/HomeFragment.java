@@ -100,6 +100,7 @@ public class HomeFragment extends Fragment {
         setTimetable();
         return view;
     }
+
     @SuppressLint("SetTextI18n")
     public static void setTimetable() {
 
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
         calendar.setTime(currentDate);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+        if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
             tv_meal.setText(crdate.substring(0, 4) + "년 " +
                     crdate.substring(4, 6) + "월 " +
                     crdate.substring(6, 8) + "일\n" +
@@ -126,7 +127,7 @@ public class HomeFragment extends Fragment {
                     crdate.substring(6, 8) + "일\n" +
                     codeToString(spinnerMealScCode) + "정보\n\n" +
                     getMealData.getMeal(crdate, String.valueOf((spinnerMealScCode + 1)), "메뉴"));
-                    tv_timetable.setText(getTimetableData.getTimeTable(crdate,
+            tv_timetable.setText(getTimetableData.getTimeTable(crdate,
                     String.valueOf(SettingData.spinnerGrade + 1),
                     String.valueOf(SettingData.spinnerClass + 1)
             ));
@@ -144,7 +145,7 @@ public class HomeFragment extends Fragment {
 
     public void checkAndRequestNotificationPermission() {
         NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (!manager.areNotificationsEnabled()) {
+        if (! manager.areNotificationsEnabled()) {
             Toast.makeText(requireContext(), "알림 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -158,7 +159,7 @@ public class HomeFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             String packageName = context.getPackageName();
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+            if (! pm.isIgnoringBatteryOptimizations(packageName)) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 intent.setData(Uri.parse("package:" + packageName));

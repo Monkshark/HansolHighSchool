@@ -57,14 +57,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         int displayYear = dateCalendar.get(Calendar.YEAR);
 
         if (displayMonth == currentMonth && displayYear == currentYear) {
-
-        } else {
-
-            holder.tv_day.setTextColor(Color.parseColor("#BEBEBE"));
-
-            holder.tv_day.setAlpha(0.2f);
+            holder.tv_day.setTextColor(Color.parseColor("#ffffff"));
+            holder.tv_day.setAlpha((float)0.9);
             /* 투명도 1.0(불투명) ~ 0.0(투명) */
 
+        } else {
+            holder.tv_day.setTextColor(Color.parseColor("#BEBEBE"));
+            holder.tv_day.setAlpha((float)0.2);
         }
 
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);

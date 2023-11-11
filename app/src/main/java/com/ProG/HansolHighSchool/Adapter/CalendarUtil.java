@@ -1,14 +1,16 @@
 package com.ProG.HansolHighSchool.Adapter;
 
-import android.icu.util.Calendar;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CalendarUtil {
-    public static Calendar selectedDate;
+    public static android.icu.util.Calendar selectedDate;
 
-    public static boolean isWeekends() {
-        return java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == java.util.Calendar.SATURDAY
-                || java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == java.util.Calendar.SUNDAY;
+    public static boolean isWeekends(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
     }
-
-
 }
