@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -154,7 +155,7 @@ public class HomeFragment extends Fragment {
 
     @SuppressLint({"BatteryLife", "ObsoleteSdkInt"})
     private void checkBatteryOptimization(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             String packageName = context.getPackageName();
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (!pm.isIgnoringBatteryOptimizations(packageName)) {
@@ -170,7 +171,4 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
-
-
 }
