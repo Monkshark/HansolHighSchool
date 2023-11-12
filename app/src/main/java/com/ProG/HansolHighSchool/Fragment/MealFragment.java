@@ -79,9 +79,7 @@ public class MealFragment extends Fragment {
 
         btn_pre.setOnClickListener(v -> getPastMeal());
 
-
         btn_next.setOnClickListener(v -> getFutureMeal());
-
 
         if (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
             tv_breakfast.setText("정보 없음");
@@ -92,7 +90,6 @@ public class MealFragment extends Fragment {
             tv_dinnerKcal.setText("");
             getFutureMeal();
         }
-
         updateMealDate(currentDate);
 
         return view;
@@ -191,6 +188,5 @@ public class MealFragment extends Fragment {
 
         updateMealDate(currentDate);
     }
-
 
 }
