@@ -1,5 +1,9 @@
 package com.ProG.HansolHighSchool.Activity;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
+    private static HomeFragment homeFragment;
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        homeFragment = new HomeFragment();
 
         FirebaseApp.initializeApp(this);
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
@@ -99,4 +106,18 @@ public class MainActivity extends AppCompatActivity {
             return fragmentList.size();
         }
     }
+
+    public void restartApp() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
+    }
+
+    public static HomeFragment getHomeFragment() {
+        return homeFragment;
+    }
+
 }
