@@ -32,6 +32,10 @@ public class MealFragment extends Fragment {
 
     private static final String TAG = "MealFragment";
 
+    // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
+    int oneDayInMs = 24 * 60 * 60 * 1000;
+
+
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
@@ -47,9 +51,6 @@ public class MealFragment extends Fragment {
         tv_breakfastKcal = view.findViewById(R.id.tv_breakfastKcal);
         tv_lunchKcal = view.findViewById(R.id.tv_lunchKcal);
         tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
-
-        // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
-        int oneDayInMs = 24 * 60 * 60 * 1000;
 
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
@@ -76,52 +77,10 @@ public class MealFragment extends Fragment {
             startActivity(intent);
         });
 
-        btn_pre.setOnClickListener(v -> {
-
-            int attemptCount = 0;
-            Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() - oneDayInMs);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(currentDate);
-
-            while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
-                if (attemptCount >= 5) {
-                    Log.e(TAG, "급식 정보 없음");
-                    currentDate = originalDate;
-                    break;
-                }
-
-                currentDate = new Date(currentDate.getTime() - oneDayInMs);
-                calendar.setTime(currentDate);
-                attemptCount++;
-            }
-
-            updateMealDate(currentDate);
-        });
+        btn_pre.setOnClickListener(v -> getPastMeal());
 
 
-        btn_next.setOnClickListener(v -> {
-
-            int attemptCount = 0;
-            Date originalDate = currentDate;
-            currentDate = new Date(currentDate.getTime() + oneDayInMs);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(currentDate);
-
-            while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
-                if (attemptCount >= 5) {
-                    Log.e(TAG, "급식 정보 없음");
-                    currentDate = originalDate;
-                    break;
-                }
-
-                currentDate = new Date(currentDate.getTime() + oneDayInMs);
-                calendar.setTime(currentDate);
-                attemptCount++;
-            }
-
-            updateMealDate(currentDate);
-        });
+        btn_next.setOnClickListener(v -> getFutureMeal());
 
 
         if (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
@@ -131,6 +90,7 @@ public class MealFragment extends Fragment {
             tv_breakfastKcal.setText("");
             tv_lunchKcal.setText("");
             tv_dinnerKcal.setText("");
+            getFutureMeal();
         }
 
         updateMealDate(currentDate);
@@ -185,5 +145,53 @@ public class MealFragment extends Fragment {
                 && (dinner == null || dinner.contains("null"));
 
     }
+
+    private void getFutureMeal() {
+
+        int attemptCount = 0;
+        Date originalDate = currentDate;
+        currentDate = new Date(currentDate.getTime() + oneDayInMs);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            if (attemptCount >= 5) {
+                Log.e(TAG, "급식 정보 없음");
+                currentDate = originalDate;
+                break;
+            }
+
+            currentDate = new Date(currentDate.getTime() + oneDayInMs);
+            calendar.setTime(currentDate);
+            attemptCount++;
+        }
+
+        updateMealDate(currentDate);
+    }
+
+    private void getPastMeal() {
+
+        int attemptCount = 0;
+        Date originalDate = currentDate;
+        currentDate = new Date(currentDate.getTime() - oneDayInMs);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
+            if (attemptCount >= 5) {
+                Log.e(TAG, "급식 정보 없음");
+                currentDate = originalDate;
+                break;
+            }
+
+            currentDate = new Date(currentDate.getTime() - oneDayInMs);
+            calendar.setTime(currentDate);
+            attemptCount++;
+        }
+
+        updateMealDate(currentDate);
+    }
+
+
 
 }
