@@ -32,8 +32,8 @@ public class MealFragment extends Fragment {
 
     private static final String TAG = "MealFragment";
 
-    // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
     int oneDayInMs = 24 * 60 * 60 * 1000;
+    // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
 
 
     @SuppressLint("SimpleDateFormat")
@@ -191,7 +191,6 @@ public class MealFragment extends Fragment {
 
         updateMealDate(currentDate);
     }
-
 
 
 }
