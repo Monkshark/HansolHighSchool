@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Alert;
+package com.ProG.HansolHighSchool.Alarm;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -61,7 +61,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
             return;
         }
 
-        Intent intent1 = new Intent(context, AlertReceiver.class);
+        Intent intent1 = new Intent(context, AlarmReceiver.class);
         intent1.putExtra("분류", "조식");
 
         Calendar calendar1 = Calendar.getInstance();
@@ -78,7 +78,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
         }
 
-        Intent intent2 = new Intent(context, AlertReceiver.class);
+        Intent intent2 = new Intent(context, AlarmReceiver.class);
         intent2.putExtra("분류", "중식");
 
         Calendar calendar2 = Calendar.getInstance();
@@ -95,7 +95,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent2);
         }
 
-        Intent intent3 = new Intent(context, AlertReceiver.class);
+        Intent intent3 = new Intent(context, AlarmReceiver.class);
         intent3.putExtra("분류", "석식");
 
         Calendar calendar3 = Calendar.getInstance();

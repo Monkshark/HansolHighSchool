@@ -1,18 +1,18 @@
 package com.ProG.HansolHighSchool.Adapter;
 
-import static android.widget.Toast.LENGTH_SHORT;
 import static com.ProG.HansolHighSchool.Fragment.NoticeFragment.tv_flDate;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ProG.HansolHighSchool.API.getNoticeData;
 import com.ProG.HansolHighSchool.R;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.Date;
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calendarViewHolder> {
 
     ArrayList<Date> dayList;
+    private View previousView = null;
 
     public CalendarAdapter(ArrayList<Date> dayList) {
         this.dayList = dayList;
@@ -39,6 +40,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         return new calendarViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull calendarViewHolder holder, int position) {
 
@@ -81,11 +83,16 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         holder.itemView.setOnClickListener(v -> {
 
             String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
+            String Date = "" + displayYear + displayMonth+ displayDay;
+            String NoticeData = getNoticeData.getNotice(Date);
 
-            tv_flDate.setText(selectedYMD);
+            tv_flDate.setText(selectedYMD + "\n" + NoticeData);
 
-            Toast.makeText(holder.itemView.getContext(), selectedYMD, LENGTH_SHORT).show();
-
+            if (previousView != null) {
+                previousView.setBackgroundResource(0);
+            }
+            holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
+            previousView = holder.parentView;
         });
 
     }

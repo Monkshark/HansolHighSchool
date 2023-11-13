@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Alert;
+package com.ProG.HansolHighSchool.Alarm;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class AlertReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
     Date currentDate = new Date();
@@ -21,7 +21,6 @@ public class AlertReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String 분류 = intent.getStringExtra("분류");
-
         String 메뉴 = switch (Objects.requireNonNull(분류)) {
             case "조식" -> getMealData.getMeal(spDate, "1", "메뉴");
             case "중식" -> getMealData.getMeal(spDate, "2", "메뉴");

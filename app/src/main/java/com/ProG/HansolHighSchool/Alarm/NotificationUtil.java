@@ -1,4 +1,4 @@
-package com.ProG.HansolHighSchool.Alert;
+package com.ProG.HansolHighSchool.Alarm;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
