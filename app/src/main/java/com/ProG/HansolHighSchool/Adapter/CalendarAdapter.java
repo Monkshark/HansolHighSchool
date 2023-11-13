@@ -58,25 +58,32 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         int displayMonth = dateCalendar.get(Calendar.MONTH) + 1;
         int displayYear = dateCalendar.get(Calendar.YEAR);
 
+        Calendar today = Calendar.getInstance();
+        if (displayDay == today.get(Calendar.DAY_OF_MONTH)
+                && displayMonth == today.get(Calendar.MONTH) + 1
+                && displayYear == today.get(Calendar.YEAR)) {
+            holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
+            previousView = holder.parentView;
+            tv_flDate.setText(displayYear + "-" + displayMonth + "-" + displayDay + "\n" +
+                    getNoticeData.getNotice(""+ displayYear + displayMonth + displayDay));
+        }
+
         if (displayMonth == currentMonth && displayYear == currentYear) {
             holder.tv_day.setTextColor(Color.parseColor("#ffffff"));
             holder.tv_day.setAlpha((float)0.9);
             /* 투명도 1.0(불투명) ~ 0.0(투명) */
-
         } else {
             holder.tv_day.setTextColor(Color.parseColor("#BEBEBE"));
             holder.tv_day.setAlpha((float)0.2);
         }
 
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
-
         holder.tv_day.setText(String.valueOf(dayNo));
 
 
         if ((position + 1) % 7 == 0) {
             holder.tv_day.setTextColor(Color.BLUE);
         } else if (position % 7 == 0) {
-
             holder.tv_day.setTextColor(Color.RED);
         }
 
@@ -104,16 +111,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
     }
 
     static class calendarViewHolder extends RecyclerView.ViewHolder {
-
         TextView tv_day;
         View parentView;
 
         public calendarViewHolder(@NonNull View itemView) {
             super(itemView);
-
             tv_day = itemView.findViewById(R.id.tv_day);
             parentView = itemView.findViewById(R.id.parentView);
-
         }
     }
 
