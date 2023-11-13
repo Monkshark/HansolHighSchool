@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        checkAndRequestNotificationPermission();
+        checkNotificationPermission();
         setTimetable();
     }
 
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
             tv_meal.setText(crdate.substring(0, 4) + "년 " +
                             crdate.substring(4, 6) + "월 " +
                             crdate.substring(6, 8) + "일 " +
-                    codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " +
+                    codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " + "\n\n" +
                     getMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴"));
             tv_timetable.setText(getTimetableData.getTimeTable(crdate,
                     String.valueOf(SettingData.getSpinnerGrade(context) + 1),
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
         };
     }
 
-    public void checkAndRequestNotificationPermission() {
+    public void checkNotificationPermission() {
         NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (! manager.areNotificationsEnabled()) {
             Toast.makeText(requireContext(), "알림 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();

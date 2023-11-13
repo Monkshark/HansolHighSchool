@@ -77,7 +77,6 @@ public class MealFragment extends Fragment {
         });
 
         btn_pre.setOnClickListener(v -> getPastMeal());
-
         btn_next.setOnClickListener(v -> getFutureMeal());
 
         if (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
