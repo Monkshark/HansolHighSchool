@@ -35,7 +35,6 @@ public class MealFragment extends Fragment {
     int oneDayInMs = 24 * 60 * 60 * 1000;
     // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
 
-
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
@@ -114,7 +113,6 @@ public class MealFragment extends Fragment {
         String breakfastKcal = getMealData.getMeal(date,"1" , "칼로리");
         tv_breakfast.setText(breakfast);
         tv_breakfastKcal.setText(breakfastKcal);
-
 
         String lunch = getMealData.getMeal(date, "2", "메뉴");
         String lunchKcal = getMealData.getMeal(date, "2", "칼로리");

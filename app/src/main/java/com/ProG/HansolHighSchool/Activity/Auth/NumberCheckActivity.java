@@ -37,19 +37,16 @@ public class NumberCheckActivity extends Activity {
     String verificationId;
 
     String randomSendNum = generateRandomCode();
-
     EditText et_phoneNum, et_numDoubleCheck, et_checkCode;
-
     Button btn_registerAfterCheck, btn_sendCode, btn_checkCode;
-
     TextView tv_checkCodeView;
+    FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_number_check);
-
         this.setFinishOnTouchOutside(true);
 
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
@@ -59,7 +56,6 @@ public class NumberCheckActivity extends Activity {
         int height = (int) (dm.heightPixels * 0.85);
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
-
 
         tv_checkCodeView = findViewById(R.id.tv_checkCodeView);
 
@@ -77,8 +73,6 @@ public class NumberCheckActivity extends Activity {
         String name = getInfo.getStringExtra("name");
         String password = getInfo.getStringExtra("password");
         String teacher = getInfo.getStringExtra("teacher");
-
-        FirebaseAuth mAuth;
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -149,7 +143,6 @@ public class NumberCheckActivity extends Activity {
         }
         return super.dispatchTouchEvent(ev);
     }
-    /*팝업 밖 터치시 꺼짐 방지*/
 
     @Override
     public void onBackPressed() {
