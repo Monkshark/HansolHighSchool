@@ -117,23 +117,16 @@ public class NumberCheckActivity extends Activity {
                 tv_checkCodeView.setText("전화번호 인증에 실패하였습니다");
                 tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
             }
-
         });
 
         btn_registerAfterCheck.setOnClickListener(v -> {
-
             if (check) {
-                /* 회원가입 로직 구현 필요 */
-
+                /* TODO: 회원가입 로직 구현 필요  */
             } else {
                 tv_checkCodeView.setText("전화번호 인증을 진행해주세요");
                 tv_checkCodeView.setTextColor(Color.parseColor("#FF0000"));
-
             }
-
-
         });
-
     }
 
     @Override
@@ -193,10 +186,10 @@ public class NumberCheckActivity extends Activity {
             NumberCheckActivity.this.verificationId = verificationId;
             Toast.makeText(NumberCheckActivity.this, "인증 코드가 전송되었습니다.", Toast.LENGTH_SHORT).show();
             Toast.makeText(NumberCheckActivity.this, randomSendNum, Toast.LENGTH_LONG).show();
-
         }
     };
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+
     }
 }
