@@ -32,11 +32,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
     @NonNull
     @Override
     public calendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
-
         return new calendarViewHolder(view);
     }
 
@@ -45,9 +42,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
     public void onBindViewHolder(@NonNull calendarViewHolder holder, int position) {
 
         Date monthDate = dayList.get(position);
-
         Calendar dateCalendar = Calendar.getInstance();
-
         dateCalendar.setTime(monthDate);
 
         int currentDay = CalendarUtil.selectedDate.get(Calendar.DAY_OF_MONTH);
@@ -80,7 +75,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
         holder.tv_day.setText(String.valueOf(dayNo));
 
-
         if ((position + 1) % 7 == 0) {
             holder.tv_day.setTextColor(Color.BLUE);
         } else if (position % 7 == 0) {
@@ -88,11 +82,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         }
 
         holder.itemView.setOnClickListener(v -> {
-
             String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
             String Date = "" + displayYear + displayMonth+ displayDay;
             String NoticeData = getNoticeData.getNotice(Date);
-
             tv_flDate.setText(selectedYMD + "\n" + NoticeData);
 
             if (previousView != null) {
@@ -101,7 +93,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
             holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
             previousView = holder.parentView;
         });
-
     }
 
 
@@ -109,7 +100,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
     public int getItemCount() {
         return dayList.size();
     }
-
     static class calendarViewHolder extends RecyclerView.ViewHolder {
         TextView tv_day;
         View parentView;
@@ -120,6 +110,5 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
             parentView = itemView.findViewById(R.id.parentView);
         }
     }
-
 
 }

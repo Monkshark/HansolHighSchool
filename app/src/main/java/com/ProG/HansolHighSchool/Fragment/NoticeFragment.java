@@ -48,7 +48,6 @@ public class NoticeFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         CalendarUtil.selectedDate = Calendar.getInstance();
-
         setMonthView();
 
         btn_pre.setOnClickListener(v -> {
