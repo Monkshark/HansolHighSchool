@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.ProG.HansolHighSchool.API.getMealData;
-import com.ProG.HansolHighSchool.API.getTimetableData;
+import com.ProG.HansolHighSchool.API.GetMealData;
+import com.ProG.HansolHighSchool.API.GetTimetableData;
 import com.ProG.HansolHighSchool.Activity.Auth.AccountInfoActivity;
 import com.ProG.HansolHighSchool.Activity.Auth.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
@@ -131,8 +131,8 @@ public class HomeFragment extends Fragment {
                             crdate.substring(4, 6) + "월 " +
                             crdate.substring(6, 8) + "일 " +
                     codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " + "\n\n" +
-                    getMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴"));
-            tv_timetable.setText(getTimetableData.getTimeTable(crdate,
+                    GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴"));
+            tv_timetable.setText(GetTimetableData.getTimeTable(crdate,
                     String.valueOf(SettingData.getSpinnerGrade(context) + 1),
                     String.valueOf(SettingData.getSpinnerClass(context) + 1)
             ));

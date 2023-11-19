@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ProG.HansolHighSchool.API.getNoticeData;
+import com.ProG.HansolHighSchool.API.GetNoticeData;
 import com.ProG.HansolHighSchool.R;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
             holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
             previousView = holder.parentView;
             tv_flDate.setText(displayYear + "-" + displayMonth + "-" + displayDay + "\n" +
-                    getNoticeData.getNotice(""+ displayYear + displayMonth + displayDay));
+                    GetNoticeData.getNotice(""+ displayYear + displayMonth + displayDay));
         }
 
         if (displayMonth == currentMonth && displayYear == currentYear) {
@@ -84,7 +84,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         holder.itemView.setOnClickListener(v -> {
             String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
             String Date = "" + displayYear + displayMonth+ displayDay;
-            String NoticeData = getNoticeData.getNotice(Date);
+            String NoticeData = GetNoticeData.getNotice(Date);
             tv_flDate.setText(selectedYMD + "\n" + NoticeData);
 
             if (previousView != null) {

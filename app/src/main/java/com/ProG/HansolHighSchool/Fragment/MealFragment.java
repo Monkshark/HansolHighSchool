@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.ProG.HansolHighSchool.API.getMealData;
+import com.ProG.HansolHighSchool.API.GetMealData;
 import com.ProG.HansolHighSchool.Activity.MealInfoActivity;
 import com.ProG.HansolHighSchool.R;
 
@@ -60,19 +60,19 @@ public class MealFragment extends Fragment {
 
         tv_breakfast.setOnClickListener(v -> {
             intent.putExtra("mealInfo",
-                    getMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
+                    GetMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
             startActivity(intent);
         });
 
         tv_lunch.setOnClickListener(v -> {
             intent.putExtra("mealInfo",
-                    getMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
+                    GetMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
             startActivity(intent);
         });
 
         tv_dinner.setOnClickListener(v -> {
             intent.putExtra("mealInfo",
-                    getMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
+                    GetMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
             startActivity(intent);
         });
 
@@ -108,18 +108,18 @@ public class MealFragment extends Fragment {
 
     public void getMealTask(String date) {
 
-        String breakfast = getMealData.getMeal(date, "1", "메뉴");
-        String breakfastKcal = getMealData.getMeal(date,"1" , "칼로리");
+        String breakfast = GetMealData.getMeal(date, "1", "메뉴");
+        String breakfastKcal = GetMealData.getMeal(date,"1" , "칼로리");
         tv_breakfast.setText(breakfast);
         tv_breakfastKcal.setText(breakfastKcal);
 
-        String lunch = getMealData.getMeal(date, "2", "메뉴");
-        String lunchKcal = getMealData.getMeal(date, "2", "칼로리");
+        String lunch = GetMealData.getMeal(date, "2", "메뉴");
+        String lunchKcal = GetMealData.getMeal(date, "2", "칼로리");
         tv_lunch.setText(lunch);
         tv_lunchKcal.setText(lunchKcal);
 
-        String dinner = getMealData.getMeal(date, "3", "메뉴");
-        String dinnerKcal = getMealData.getMeal(date, "3", "칼로리");
+        String dinner = GetMealData.getMeal(date, "3", "메뉴");
+        String dinnerKcal = GetMealData.getMeal(date, "3", "칼로리");
         if (!dinner.contains("null") || !dinnerKcal.contains("null")) {
             tv_dinner.setText(dinner);
             tv_dinnerKcal.setText(dinnerKcal);
@@ -130,9 +130,9 @@ public class MealFragment extends Fragment {
     }
 
     private boolean isAllMealsEmpty(String date) {
-        String breakfast = getMealData.getMeal(date, "1", "메뉴");
-        String lunch = getMealData.getMeal(date, "2", "메뉴");
-        String dinner = getMealData.getMeal(date, "3", "메뉴");
+        String breakfast = GetMealData.getMeal(date, "1", "메뉴");
+        String lunch = GetMealData.getMeal(date, "2", "메뉴");
+        String dinner = GetMealData.getMeal(date, "3", "메뉴");
 
         return (breakfast == null || breakfast.contains("null"))
                 && (lunch == null || lunch.contains("null"))
