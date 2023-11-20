@@ -29,6 +29,7 @@ import com.ProG.HansolHighSchool.Activity.Auth.LoginActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
 import com.ProG.HansolHighSchool.Alarm.FirebaseMessaging;
 import com.ProG.HansolHighSchool.Data.LoginData;
+import com.ProG.HansolHighSchool.Data.NetworkStatus;
 import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.R;
 
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         checkNotificationPermission();
-        setTimetable();
+        setMainData();
     }
 
     @SuppressLint("SetTextI18n")
@@ -59,7 +60,6 @@ public class HomeFragment extends Fragment {
 
         FirebaseMessaging fm = new FirebaseMessaging();
         fm.setAlarms(requireContext());
-
         checkBatteryOptimization(requireContext());
 
         btn_hansolhs = view.findViewById(R.id.btn_hansolhs);
@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment {
         });
 
         btn_account.setOnClickListener(v -> {
-
             Intent intentActivity;
             if (LoginData.isLogin) {
                 intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
@@ -98,15 +97,28 @@ public class HomeFragment extends Fragment {
             startActivity(intentActivity);
         });
 
+        if (NetworkStatus.isConnected(requireContext())) {
+            setMainData();
+        } else {
+            tv_meal.setText("네트워크 연결을 확인해주세요");
+            tv_timetable.setText("네트워크 연결을 확인해주세요");
+        }
+
         return view;
     }
 
     @SuppressLint("SetTextI18n")
-    public void setTimetable() {
+    public void setMainData() {
 
         Context context = getContext();
         if(context == null) {
             Log.e("HomeFragment", "Context is null");
+            return;
+        }
+
+        if (!NetworkStatus.isConnected(requireContext())) {
+            tv_meal.setText("네트워크 연결을 확인해주세요");
+            tv_timetable.setText("네트워크 연결을 확인해주세요");
             return;
         }
         String crdate = dateFormat.format(currentDate);
@@ -131,11 +143,13 @@ public class HomeFragment extends Fragment {
                             crdate.substring(4, 6) + "월 " +
                             crdate.substring(6, 8) + "일 " +
                     codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " + "\n\n" +
-                    GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴"));
-            tv_timetable.setText(GetTimetableData.getTimeTable(crdate,
+                    GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴").join());
+            GetTimetableData.getTimeTable(
+                    crdate,
                     String.valueOf(SettingData.getSpinnerGrade(context) + 1),
-                    String.valueOf(SettingData.getSpinnerClass(context) + 1)
-            ));
+                    String.valueOf(SettingData.getSpinnerClass(context) + 1),
+                    context,
+                    tv_timetable);
         }
     }
 

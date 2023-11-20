@@ -5,7 +5,8 @@ import static com.ProG.HansolHighSchool.Adapter.CalendarUtil.isWeekends;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +19,21 @@ import androidx.fragment.app.Fragment;
 
 import com.ProG.HansolHighSchool.API.GetMealData;
 import com.ProG.HansolHighSchool.Activity.MealInfoActivity;
+import com.ProG.HansolHighSchool.Data.NetworkStatus;
 import com.ProG.HansolHighSchool.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class MealFragment extends Fragment {
 
     TextView tv_breakfast, tv_lunch, tv_dinner, tv_naljja, tv_breakfastKcal, tv_lunchKcal, tv_dinnerKcal;
     ImageButton btn_pre, btn_next;
     Date currentDate = new Date();
-
     private static final String TAG = "MealFragment";
-
     int oneDayInMs = 24 * 60 * 60 * 1000;
     // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
 
@@ -54,32 +56,32 @@ public class MealFragment extends Fragment {
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
 
-        Log.e(TAG, "onCreateView: " + currentDate.toString());
         Intent intent = new Intent(getActivity(), MealInfoActivity.class);
-        MealInfoActivity mia = new MealInfoActivity();
 
-        tv_breakfast.setOnClickListener(v -> {
-            intent.putExtra("mealInfo",
-                    GetMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보"));
+        tv_breakfast.setOnClickListener(v ->
+                GetMealData.getMeal(dateFormat.format(currentDate), "1", "영양정보").thenAccept(mealInfo -> {
+            intent.putExtra("mealInfo", mealInfo);
             startActivity(intent);
-        });
+        }));
 
-        tv_lunch.setOnClickListener(v -> {
-            intent.putExtra("mealInfo",
-                    GetMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보"));
+        tv_lunch.setOnClickListener(v ->
+                GetMealData.getMeal(dateFormat.format(currentDate), "2", "영양정보").thenAccept(mealInfo -> {
+            intent.putExtra("mealInfo", mealInfo);
             startActivity(intent);
-        });
+        }));
 
-        tv_dinner.setOnClickListener(v -> {
-            intent.putExtra("mealInfo",
-                    GetMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보"));
+        tv_dinner.setOnClickListener(v ->
+                GetMealData.getMeal(dateFormat.format(currentDate), "3", "영양정보").thenAccept(mealInfo -> {
+            intent.putExtra("mealInfo", mealInfo);
             startActivity(intent);
-        });
+        }));
 
-        btn_pre.setOnClickListener(v -> getPastMeal());
-        btn_next.setOnClickListener(v -> getFutureMeal());
+        btn_pre.setOnClickListener(v ->
+                getPastMeal().thenRun(() -> updateMealDate(currentDate)));
+        btn_next.setOnClickListener(v ->
+                getFutureMeal().thenRun(() -> updateMealDate(currentDate)));
 
-        if (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
+        if (isWeekends(currentDate)) {
             tv_breakfast.setText("정보 없음");
             tv_lunch.setText("정보 없음");
             tv_dinner.setText("정보 없음");
@@ -87,7 +89,20 @@ public class MealFragment extends Fragment {
             tv_lunchKcal.setText("");
             tv_dinnerKcal.setText("");
             getFutureMeal();
+        } else {
+            isAllMealsEmpty(dateFormat.format(currentDate)).thenAccept(isEmpty -> {
+                if (isEmpty) {
+                    tv_breakfast.setText("정보 없음");
+                    tv_lunch.setText("정보 없음");
+                    tv_dinner.setText("정보 없음");
+                    tv_breakfastKcal.setText("");
+                    tv_lunchKcal.setText("");
+                    tv_dinnerKcal.setText("");
+                    getFutureMeal();
+                }
+            });
         }
+
         updateMealDate(currentDate);
 
         return view;
@@ -103,87 +118,156 @@ public class MealFragment extends Fragment {
                 + "-" + formattedDate.substring(6, 8);
         tv_naljja.setText(dateToShow + " 급식식단");
 
-        getMealTask(formattedDate);
-    }
-
-    public void getMealTask(String date) {
-
-        String breakfast = GetMealData.getMeal(date, "1", "메뉴");
-        String breakfastKcal = GetMealData.getMeal(date,"1" , "칼로리");
-        tv_breakfast.setText(breakfast);
-        tv_breakfastKcal.setText(breakfastKcal);
-
-        String lunch = GetMealData.getMeal(date, "2", "메뉴");
-        String lunchKcal = GetMealData.getMeal(date, "2", "칼로리");
-        tv_lunch.setText(lunch);
-        tv_lunchKcal.setText(lunchKcal);
-
-        String dinner = GetMealData.getMeal(date, "3", "메뉴");
-        String dinnerKcal = GetMealData.getMeal(date, "3", "칼로리");
-        if (!dinner.contains("null") || !dinnerKcal.contains("null")) {
-            tv_dinner.setText(dinner);
-            tv_dinnerKcal.setText(dinnerKcal);
+        if (NetworkStatus.isConnected(requireContext())) {
+            getMealTask(formattedDate);
         } else {
-            tv_dinner.setText("급식 정보 없음");
+            tv_breakfast.setText("네트워크 연결을 확인해주세요");
+            tv_lunch.setText("네트워크 연결을 확인해주세요");
+            tv_dinner.setText("네트워크 연결을 확인해주세요");
+            tv_breakfastKcal.setText("");
+            tv_lunchKcal.setText("");
             tv_dinnerKcal.setText("");
         }
     }
 
-    private boolean isAllMealsEmpty(String date) {
-        String breakfast = GetMealData.getMeal(date, "1", "메뉴");
-        String lunch = GetMealData.getMeal(date, "2", "메뉴");
-        String dinner = GetMealData.getMeal(date, "3", "메뉴");
+    public void getMealTask(String date) {
+        tv_breakfast.setText("정보 불러오는중...");
+        tv_lunch.setText("정보 불러오는중...");
+        tv_dinner.setText("정보 불러오는중...");
+        tv_breakfastKcal.setText("");
+        tv_lunchKcal.setText("");
+        tv_dinnerKcal.setText("");
+        tv_breakfast.requestLayout();
+        tv_lunch.requestLayout();
+        tv_dinner.requestLayout();
 
-        return (breakfast == null || breakfast.contains("null"))
-                && (lunch == null || lunch.contains("null"))
-                && (dinner == null || dinner.contains("null"));
+        GetMealData.getMeal(date, "1", "메뉴").thenAcceptAsync(breakfast -> {
+            tv_breakfast.setText(breakfast);
+            tv_breakfast.requestLayout();
+        }, mainThreadExecutor());
+
+        GetMealData.getMeal(date, "1", "칼로리").thenAcceptAsync(breakfastKcal -> {
+            tv_breakfastKcal.setText(breakfastKcal);
+            tv_breakfastKcal.requestLayout();
+        }, mainThreadExecutor());
+
+        GetMealData.getMeal(date, "2", "메뉴").thenAcceptAsync(lunch -> {
+            tv_lunch.setText(lunch);
+            tv_lunch.requestLayout();
+        }, mainThreadExecutor());
+
+        GetMealData.getMeal(date, "2", "칼로리").thenAcceptAsync(lunchKcal -> {
+            tv_lunchKcal.setText(lunchKcal);
+            tv_lunchKcal.requestLayout();
+        }, mainThreadExecutor());
+
+        GetMealData.getMeal(date, "3", "메뉴").thenAcceptAsync(dinner -> {
+            if (dinner != null && !dinner.contains("null")) {
+                tv_dinner.setText(dinner);
+            } else {
+                tv_dinner.setText("급식 정보 없음");
+            }
+            tv_dinner.requestLayout();
+        }, mainThreadExecutor());
+
+        GetMealData.getMeal(date, "3", "칼로리").thenAcceptAsync(dinnerKcal -> {
+            if (dinnerKcal != null && !dinnerKcal.contains("null")) {
+                tv_dinnerKcal.setText(dinnerKcal);
+            } else {
+                tv_dinnerKcal.setText("");
+            }
+            tv_dinnerKcal.requestLayout();
+        }, mainThreadExecutor());
 
     }
 
-    private void getFutureMeal() {
+    public CompletableFuture<Boolean> isAllMealsEmpty(String date) {
+        CompletableFuture<String> breakfast = GetMealData.getMeal(date, "1", "메뉴");
+        CompletableFuture<String> lunch = GetMealData.getMeal(date, "2", "메뉴");
+        CompletableFuture<String> dinner = GetMealData.getMeal(date, "3", "메뉴");
 
+        return CompletableFuture.allOf(breakfast, lunch, dinner).thenApply(v ->
+                (breakfast.join() == null || breakfast.join().contains("null")) &&
+                        (lunch.join() == null || lunch.join().contains("null")) &&
+                        (dinner.join() == null || dinner.join().contains("null"))
+        );
+    }
+
+    private CompletableFuture<Void> getFutureMeal() {
         int attemptCount = 0;
         Date originalDate = currentDate;
-        currentDate = new Date(currentDate.getTime() + oneDayInMs);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
 
-        while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
-            if (attemptCount >= 5) {
-                Log.e(TAG, "급식 정보 없음");
-                currentDate = originalDate;
-                break;
-            }
-
+        while (true) {
             currentDate = new Date(currentDate.getTime() + oneDayInMs);
+            Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
+
+            while (isWeekends(currentDate)) {
+                currentDate = new Date(currentDate.getTime() + oneDayInMs);
+                calendar.setTime(currentDate);
+            }
+
             attemptCount++;
-        }
 
-        updateMealDate(currentDate);
-    }
-
-    private void getPastMeal() {
-
-        int attemptCount = 0;
-        Date originalDate = currentDate;
-        currentDate = new Date(currentDate.getTime() - oneDayInMs);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-
-        while (isWeekends(currentDate) || isAllMealsEmpty(dateFormat.format(currentDate))) {
-            if (attemptCount >= 5) {
-                Log.e(TAG, "급식 정보 없음");
+            if (attemptCount > 5) {
                 currentDate = originalDate;
                 break;
             }
 
-            currentDate = new Date(currentDate.getTime() - oneDayInMs);
-            calendar.setTime(currentDate);
-            attemptCount++;
+            try {
+                boolean isEmpty = isAllMealsEmpty(dateFormat.format(currentDate)).get();
+                if (!isEmpty) {
+                    getActivity().runOnUiThread(() -> updateMealDate(currentDate));
+                    break;
+                }
+            } catch (Exception e) {
+                currentDate = originalDate;
+                break;
+            }
         }
 
-        updateMealDate(currentDate);
+        return CompletableFuture.completedFuture(null);
+    }
+
+
+    private CompletableFuture<Void> getPastMeal() {
+        int attemptCount = 0;
+        Date originalDate = currentDate;
+
+        while (true) {
+            currentDate = new Date(currentDate.getTime() - oneDayInMs);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+
+            while (isWeekends(currentDate)) {
+                currentDate = new Date(currentDate.getTime() - oneDayInMs);
+                calendar.setTime(currentDate);
+            }
+
+            attemptCount++;
+
+            if (attemptCount > 5) {
+                currentDate = originalDate;
+                break;
+            }
+
+            try {
+                boolean isEmpty = isAllMealsEmpty(dateFormat.format(currentDate)).get();
+                if (!isEmpty) {
+                    getActivity().runOnUiThread(() -> updateMealDate(currentDate));
+                    break;
+                }
+            } catch (Exception e) {
+                currentDate = originalDate;
+                break;
+            }
+        }
+
+        return CompletableFuture.completedFuture(null);
+    }
+
+    public Executor mainThreadExecutor() {
+        return command -> new Handler(Looper.getMainLooper()).post(command);
     }
 
 }

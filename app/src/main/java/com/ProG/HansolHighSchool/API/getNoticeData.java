@@ -9,26 +9,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
-public class getNoticeData {
+public class GetNoticeData {
     static String requestURL;
 
     private static final String TAG = "getNoticeData";
 
-    public static String getNotice(String date) {
+    public static CompletableFuture<String> getNotice(String date) {
         niesAPI niesAPI = new niesAPI();
         Log.e(TAG, "getNotice: " + date);
         requestURL =
                 "https://open.neis.go.kr/hub/SchoolSchedule?" +
-                        "KEY=" + niesAPI.KEY +
+//                        "KEY=" + niesAPI.KEY +
                         "&Type=json" +
                         "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
                         "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
                         "&AA_YMD=" + date;
 
-        Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
+        CompletableFuture<String> futureResult = CompletableFuture.supplyAsync(() -> {
             try {
                 URL url = new URL(requestURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -72,11 +71,6 @@ public class getNoticeData {
             return "학사일정 없음";
         });
 
-        try {
-            return futureResult.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e.toString();
-        }
+        return futureResult;
     }
 }

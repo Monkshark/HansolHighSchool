@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_mealInfo"
         android:textSize="20sp"
-        android:text="영양정보\n영양정보\n영양정보\n영양정보"
+        android:text="잠시만 기다려주세요 \n\n\n\n"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="20dp"

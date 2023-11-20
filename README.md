@@ -9,3 +9,4 @@
 ### 2023/09/15 - Java 8 -> Java 11로 마이그레이션
 ### 2023/09/18 - [급식](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1&cateId=C0001) 영양정보 추가
 ### 2023/09/20 - [급식](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1&cateId=C0001) 식단 알림 추가
+### 2023/11/19 - FutureTask() -> CompletableFuture Async 변경

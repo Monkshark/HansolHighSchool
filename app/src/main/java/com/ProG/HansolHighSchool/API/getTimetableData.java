@@ -1,7 +1,11 @@
 package com.ProG.HansolHighSchool.API;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,13 +17,13 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
-public class getTimetableData {
+public class GetTimetableData {
 
     private static final String TAG = "getTimetableData";
-    public static String getTimeTable(String date, String grade, String classNum) {
+    @SuppressLint("SimpleDateFormat")
+    public static void getTimeTable(String date, String grade, String classNum, Context context, TextView tv_timetable) {
         niesAPI niesAPI = new niesAPI();
 
         String requestURL;
@@ -28,24 +32,23 @@ public class getTimetableData {
         resultBuilder
                 .append(date.substring(0, 4)).append("년 ")
                 .append(date.substring(4, 6)).append("월 ")
-                .append(date.substring(6, 8)).append("일\n")
-                .append(grade).append("학년 ")
-                .append(classNum).append("반 시간표").append("\n\n");
+                .append(date.substring(6, 8)).append("일 \n")
+                        .append(grade).append("학년 ")
+                        .append(classNum).append("반 시간표").append("\n\n");
+                                requestURL =
+                                        "https://open.neis.go.kr/hub/hisTimetable?" +
+//                                                "KEY=" + niesAPI.KEY +
+                                                "&Type=" + "json" +
+                                                "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
+                                                "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
+                                                "&ALL_TI_YMD="  + date +
+                                                "&GRADE=" + grade +
+                                                "&CLASS_NM=" + classNum;
 
-        requestURL =
-                "https://open.neis.go.kr/hub/hisTimetable?" +
-                "KEY=" + niesAPI.KEY +
-                "&Type=" + "json" +
-                "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
-                "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
-                "&ALL_TI_YMD="  + date +
-                "&GRADE=" + grade +
-                "&CLASS_NM=" + classNum;
+        Log.e(TAG, "requestURL : \n" + requestURL);
 
-        Log.d(TAG, "requestURL : \n" + requestURL);
-
-        @SuppressLint("SimpleDateFormat")
-        Future<String> futureResult = Executors.newSingleThreadExecutor().submit(() -> {
+        CompletableFuture.supplyAsync(() -> {
+            try {
                 URL url = new URL(requestURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -69,36 +72,33 @@ public class getTimetableData {
                 timetableArray = timetableArray.getJSONObject(1).getJSONArray("row");
 
                 Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
-                    if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-                        resultBuilder.append("1교시: 자율\n");
-                    }
+                calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
+                if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+                    resultBuilder.append("1교시: 자율 \n");
+                }
 
                 for (int i = 0; i < timetableArray.length(); i++) {
-                        JSONObject itemObject = timetableArray.getJSONObject(i);
-                        String PERIO = itemObject.getString("PERIO");
-                        String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
+                    JSONObject itemObject = timetableArray.getJSONObject(i);
+                    String PERIO = itemObject.getString("PERIO");
+                    String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
 
                     resultBuilder
                             .append(PERIO)
                             .append("교시: ")
                             .append(ITRT_CNTNT)
                             .append("\n");
-
                     Log.d(TAG, "parsing : " + resultBuilder);
                 }
 
                 return resultBuilder.toString();
-        });
-
-        try {
-            String finalResult = futureResult.get();
+            } catch (Exception e) {
+                Log.e(TAG, "Error from getting future result \n" + e);
+                return e.toString();
+            }
+        }).thenAccept(finalResult -> {
             Log.d(TAG,"return : " + finalResult);
-            return finalResult;
-        } catch (Exception e) {
-            Log.e(TAG, "Error from getting future result \n" + e);
-            return e.toString();
-        }
-
+            new Handler(Looper.getMainLooper()).post(() ->
+                    tv_timetable.setText(finalResult));
+        });
     }
 }

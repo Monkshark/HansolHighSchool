@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ProG.HansolHighSchool.API.GetNoticeData;
+import com.ProG.HansolHighSchool.Data.NetworkStatus;
 import com.ProG.HansolHighSchool.R;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
 
     ArrayList<Date> dayList;
     private View previousView = null;
-
     public CalendarAdapter(ArrayList<Date> dayList) {
         this.dayList = dayList;
 
@@ -60,7 +60,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
             holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
             previousView = holder.parentView;
             tv_flDate.setText(displayYear + "-" + displayMonth + "-" + displayDay + "\n" +
-                    GetNoticeData.getNotice(""+ displayYear + displayMonth + displayDay));
+                    GetNoticeData.getNotice(""+ displayYear + displayMonth + displayDay).join());
         }
 
         if (displayMonth == currentMonth && displayYear == currentYear) {
@@ -84,8 +84,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         holder.itemView.setOnClickListener(v -> {
             String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
             String Date = "" + displayYear + displayMonth+ displayDay;
-            String NoticeData = GetNoticeData.getNotice(Date);
-            tv_flDate.setText(selectedYMD + "\n" + NoticeData);
+            if (NetworkStatus.isConnected(holder.itemView.getContext())) {
+                String NoticeData = GetNoticeData.getNotice(Date).join();
+                tv_flDate.setText(selectedYMD + "\n" + NoticeData);
+            } else {
+                tv_flDate.setText(selectedYMD + "\n" + "네트워크 연결을 확인해주세요");
+            }
+
 
             if (previousView != null) {
                 previousView.setBackgroundResource(0);

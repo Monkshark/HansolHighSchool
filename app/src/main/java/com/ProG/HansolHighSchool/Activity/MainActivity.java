@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavi);
         viewPager = findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(4);
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new MealFragment());

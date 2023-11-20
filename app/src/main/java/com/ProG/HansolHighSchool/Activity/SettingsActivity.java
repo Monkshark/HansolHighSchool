@@ -61,7 +61,7 @@ public class SettingsActivity extends Activity {
             Log.e("spinner", SettingData.getSpinnerGrade(this) + " " + SettingData.getSpinnerClass(this));
             HomeFragment homeFragment = MainActivity.getHomeFragment();
             if (homeFragment.isAdded()) {
-                homeFragment.setTimetable();
+                homeFragment.setMainData();
             } else {
                 Log.e("SettingsActivity", "HomeFragment is not attached to Activity");
             }

@@ -10,6 +10,7 @@ import com.ProG.HansolHighSchool.API.GetMealData;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @SuppressLint("SimpleDateFormat")
@@ -21,11 +22,17 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String 분류 = intent.getStringExtra("분류");
-        String 메뉴 = switch (Objects.requireNonNull(분류)) {
+        final String[] 메뉴 = new String[1];
+        String.valueOf(getMenu(분류, spDate).thenAccept(menu -> 메뉴[0] = String.valueOf(menu)));
+    }
+
+    public CompletableFuture<String> getMenu(String 분류, String spDate) {
+        return switch (Objects.requireNonNull(분류)) {
             case "조식" -> GetMealData.getMeal(spDate, "1", "메뉴");
             case "중식" -> GetMealData.getMeal(spDate, "2", "메뉴");
             case "석식" -> GetMealData.getMeal(spDate, "3", "메뉴");
-            default -> "";
+            default -> CompletableFuture.completedFuture("");
         };
     }
+
 }
