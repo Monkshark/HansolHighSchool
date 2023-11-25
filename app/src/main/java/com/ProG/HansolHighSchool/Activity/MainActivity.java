@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.ProG.HansolHighSchool.Data.LoginData;
 import com.ProG.HansolHighSchool.Fragment.HomeFragment;
 import com.ProG.HansolHighSchool.Fragment.MealFragment;
 import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         homeFragment = new HomeFragment();
+        LoginData loginData = LoginData.getInstance(this);
 
         FirebaseApp.initializeApp(this);
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
