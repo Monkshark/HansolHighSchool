@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
 
         btn_account.setOnClickListener(v -> {
             Intent intentActivity;
+            LoginData.init(getContext());
             if (LoginData.isLogin()) {
                 intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
             } else {

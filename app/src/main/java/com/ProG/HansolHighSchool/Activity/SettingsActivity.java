@@ -2,6 +2,8 @@ package com.ProG.HansolHighSchool.Activity;
 
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,6 +25,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_settings);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         this.setFinishOnTouchOutside(true);
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
