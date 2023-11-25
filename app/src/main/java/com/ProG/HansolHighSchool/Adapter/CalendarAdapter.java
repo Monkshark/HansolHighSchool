@@ -66,12 +66,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
         }
 
         holder.tv_day.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.AWBlack));
-        if (displayMonth == currentMonth && displayYear == currentYear) {
-            holder.tv_day.setAlpha((float)0.9);
-            /* 투명도 1.0(불투명) ~ 0.0(투명) */
-        } else {
-            holder.tv_day.setAlpha((float)0.2);
-        }
+        if (displayMonth == currentMonth && displayYear == currentYear) holder.tv_day.setAlpha((float) 0.9);
+        else holder.tv_day.setAlpha((float) 0.2);
+        /* 투명도 1.0(불투명) ~ 0.0(투명) */
 
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
         holder.tv_day.setText(String.valueOf(dayNo));
