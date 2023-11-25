@@ -14,3 +14,4 @@
 ### 2023/11/21 - v0.11.5 Beta - HomeFragment UI 디자인 적용, UI 대응을 위한 코드 리팩토링
 ### 2023/11/23 - v0.11.6 Beta - HomeFragment UI 디자인 개선
 ### 2023/11/24 - v0.12.0 Beta - MealFragment 및 NoticeFragment UI 디자인 적용, UI 대응을 위한 코드 리팩토링
+### 2023/11/25 - v0.12.1 Beta - NoticeFragment UI 동적 디자인 개선 및 코드 리팩토링, 다크모드 오류 수정

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ProG.HansolHighSchool.API.GetNoticeData;
@@ -24,9 +25,10 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
 
     ArrayList<Date> dayList;
     private View previousView = null;
+    private TextView previousTextView = null;
+    private int previousPosition = -1;
     public CalendarAdapter(ArrayList<Date> dayList) {
         this.dayList = dayList;
-
     }
 
     @NonNull
@@ -39,7 +41,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull calendarViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull calendarViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         Date monthDate = dayList.get(position);
         Calendar dateCalendar = Calendar.getInstance();
@@ -63,23 +65,19 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
                     GetNoticeData.getNotice(""+ displayYear + displayMonth + displayDay).join());
         }
 
+        holder.tv_day.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.AWBlack));
         if (displayMonth == currentMonth && displayYear == currentYear) {
-            holder.tv_day.setTextColor(Color.parseColor("#ffffff"));
             holder.tv_day.setAlpha((float)0.9);
             /* 투명도 1.0(불투명) ~ 0.0(투명) */
         } else {
-            holder.tv_day.setTextColor(Color.parseColor("#BEBEBE"));
             holder.tv_day.setAlpha((float)0.2);
         }
 
         int dayNo = dateCalendar.get(Calendar.DAY_OF_MONTH);
         holder.tv_day.setText(String.valueOf(dayNo));
 
-        if ((position + 1) % 7 == 0) {
-            holder.tv_day.setTextColor(Color.BLUE);
-        } else if (position % 7 == 0) {
-            holder.tv_day.setTextColor(Color.RED);
-        }
+        if ((position + 1) % 7 == 0) holder.tv_day.setTextColor(Color.BLUE);
+        else if (position % 7 == 0) holder.tv_day.setTextColor(Color.RED);
 
         holder.itemView.setOnClickListener(v -> {
             String selectedYMD = displayYear + "-" + displayMonth + "-" + displayDay;
@@ -91,13 +89,23 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
                 tv_flDate.setText(selectedYMD + "\n" + "네트워크 연결을 확인해주세요");
             }
 
-
             if (previousView != null) {
                 previousView.setBackgroundResource(0);
             }
+            if (previousTextView != null && previousPosition != -1) {
+                if ((previousPosition + 1) % 7 == 0) previousTextView.setTextColor(Color.BLUE);
+                else if (previousPosition % 7 == 0) previousTextView.setTextColor(Color.RED);
+                else previousTextView.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.AWBlack));
+            }
+
             holder.parentView.setBackgroundResource(R.drawable.calendar_tdr);
+            holder.tv_day.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.AWWhite));
+
             previousView = holder.parentView;
+            previousTextView = holder.tv_day;
+            previousPosition = position;
         });
+
     }
 
 
