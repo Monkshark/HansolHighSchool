@@ -26,6 +26,7 @@ import com.ProG.HansolHighSchool.API.GetMealData;
 import com.ProG.HansolHighSchool.API.GetTimetableData;
 import com.ProG.HansolHighSchool.Activity.Auth.AccountInfoActivity;
 import com.ProG.HansolHighSchool.Activity.Auth.LoginActivity;
+import com.ProG.HansolHighSchool.Activity.MainActivity;
 import com.ProG.HansolHighSchool.Activity.SettingsActivity;
 import com.ProG.HansolHighSchool.Alarm.FirebaseMessaging;
 import com.ProG.HansolHighSchool.Data.LoginData;
@@ -72,9 +73,6 @@ public class HomeFragment extends Fragment {
         tv_className = view.findViewById(R.id.tv_className);
         tv_mealScCode = view.findViewById(R.id.tv_mealScCode);
 
-        String crdate = dateFormat.format(currentDate);
-
-
         btn_setting.setOnClickListener(v -> {
             Intent intentActivity = new Intent(getActivity(), SettingsActivity.class);
             startActivity(intentActivity);
@@ -85,14 +83,13 @@ public class HomeFragment extends Fragment {
             startActivity(intentURL);
         });
 
-        btn_riroschool.setOnClickListener(v -> {
-            Intent intentURL = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_RiroSchool));
-            startActivity(intentURL);
-        });
+        btn_riroschool.setOnClickListener(v ->
+                MainActivity.openExternalApp(getActivity(), "com.riroschool.riroschool", URL_RiroSchool)
+        );
 
         btn_account.setOnClickListener(v -> {
             Intent intentActivity;
-            if (LoginData.isLogin) {
+            if (LoginData.isLogin()) {
                 intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
             } else {
                 intentActivity = new Intent(getActivity(), LoginActivity.class);
@@ -125,10 +122,19 @@ public class HomeFragment extends Fragment {
             tv_timetable.setText("네트워크 연결을 확인해주세요");
             return;
         }
+
+        Calendar currentTime = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = sdf.format(currentTime.getTime());
+        int time = Integer.parseInt(formattedDate.replace(":", ""));
+        if (time > 200000) {
+            currentTime.add(Calendar.DATE, 1);
+            currentDate = currentTime.getTime();
+        }
         String crdate = dateFormat.format(currentDate);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        currentTime.setTime(currentDate);
+        int dayOfWeek = currentTime.get(Calendar.DAY_OF_WEEK);
 
         tv_mealScCode.setText(codeToString(SettingData.getSpinnerMealScCode(context)));
         tv_className.setText((SettingData.getSpinnerGrade(context) + 1)+ "-" + (SettingData.getSpinnerClass(context) + 1)+" 시간표");

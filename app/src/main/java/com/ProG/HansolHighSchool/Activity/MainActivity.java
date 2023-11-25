@@ -1,10 +1,14 @@
 package com.ProG.HansolHighSchool.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +18,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.Fragment.HomeFragment;
 import com.ProG.HansolHighSchool.Fragment.MealFragment;
 import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
@@ -120,5 +123,34 @@ public class MainActivity extends AppCompatActivity {
     public static HomeFragment getHomeFragment() {
         return homeFragment;
     }
+
+    public static void openExternalApp(Activity activity, String packageName, String url) {
+        if (isInstalledExternalApp(activity, packageName)) {
+            Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
+            if (intent != null) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.startActivity(intent);
+            } } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                activity.startActivity(intent);
+            }
+    }
+
+    public static boolean isInstalledExternalApp(Context context, String packageName) {
+        boolean isInstalled = false;
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PackageManager packageManager = context.getPackageManager();
+        @SuppressLint("QueryPermissionsNeeded")
+        List<ResolveInfo> installedApps = packageManager.queryIntentActivities(mainIntent, 0);
+        for (ResolveInfo resolveInfo : installedApps) {
+            if (resolveInfo.activityInfo.packageName.contains(packageName)) {
+                isInstalled = true;
+                break;
+            }
+        }
+        return isInstalled;
+    }
+
 
 }

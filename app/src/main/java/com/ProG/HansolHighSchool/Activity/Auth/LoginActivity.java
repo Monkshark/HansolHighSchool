@@ -85,9 +85,9 @@ public class LoginActivity extends Activity {
 
 
             if (Objects.equals(password, tryPassword)) {
-                LoginData.isLogin = true;
-                LoginData.schoolNum = schoolNum;
-                LoginData.password = password;
+                LoginData.setIsLogin(true);
+                LoginData.setSchoolNum(schoolNum);
+                LoginData.setPassword(password);
                 firebaseRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull
@@ -103,9 +103,9 @@ public class LoginActivity extends Activity {
                     }
                 });
 
-                LoginData.name = name;
-                LoginData.grade = schoolNum.substring(0, 1);
-                LoginData.classNum = schoolNum.substring(2, 3);
+                LoginData.setName(name);
+                LoginData.setGrade(schoolNum.substring(0, 1));
+                LoginData.setClassNum(schoolNum.substring(2, 3));
 
                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                 finish();
@@ -124,7 +124,6 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         finish();
     }
 }
