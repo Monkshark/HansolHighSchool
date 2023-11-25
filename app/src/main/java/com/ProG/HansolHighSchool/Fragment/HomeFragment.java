@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +39,9 @@ import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
-    Button btn_hansolhs, btn_riroschool, btn_account, btn_setting;
+    ImageButton btn_hansolhs, btn_riroschool, btn_account, btn_setting;
     @SuppressLint("StaticFieldLeak")
-    static TextView tv_meal, tv_timetable;
+    static TextView tv_meal, tv_timetable, tv_date, tv_mealScCode, tv_className;
     static Date currentDate = new Date();
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -68,6 +68,9 @@ public class HomeFragment extends Fragment {
         btn_setting = view.findViewById(R.id.btn_setting);
         tv_meal = view.findViewById(R.id.tv_meal);
         tv_timetable = view.findViewById(R.id.tv_timetable);
+        tv_date = view.findViewById(R.id.tv_date);
+        tv_className = view.findViewById(R.id.tv_className);
+        tv_mealScCode = view.findViewById(R.id.tv_mealScCode);
 
         String crdate = dateFormat.format(currentDate);
 
@@ -107,6 +110,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
     @SuppressLint("SetTextI18n")
     public void setMainData() {
 
@@ -126,29 +130,25 @@ public class HomeFragment extends Fragment {
         calendar.setTime(currentDate);
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
+        tv_mealScCode.setText(codeToString(SettingData.getSpinnerMealScCode(context)));
+        tv_className.setText((SettingData.getSpinnerGrade(context) + 1)+ "-" + (SettingData.getSpinnerClass(context) + 1)+" 시간표");
+        tv_date.setText(crdate.substring(0, 4) + "년 " +
+                crdate.substring(4, 6) + "월 " +
+                crdate.substring(6, 8) + "일");
+
         if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
-            tv_meal.setText(crdate.substring(0, 4) + "년 " +
-                            crdate.substring(4, 6) + "월 " +
-                            crdate.substring(6, 8) + "일 " +
-                    codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " +
-                    "\n" + "정보 없음");
-            tv_timetable.setText(crdate.substring(0, 4) + "년 " +
-                            crdate.substring(4, 6) + "월 " +
-                            crdate.substring(6, 8) + "일 " +
-                    (SettingData.getSpinnerGrade(context) + 1) + "학년 " +
-                    (SettingData.getSpinnerClass(context) + 1) + "반 " +
-                    "시간표 " + "\n" +"정보 없음");
+            tv_meal.setText("정보 없음");
+            tv_timetable.setText("정보 없음");
+
         } else {
-            tv_meal.setText(crdate.substring(0, 4) + "년 " +
-                            crdate.substring(4, 6) + "월 " +
-                            crdate.substring(6, 8) + "일 " +
-                    codeToString(SettingData.getSpinnerMealScCode(context)) + "정보 " + "\n\n" +
-                    GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴").join());
+            String.valueOf(GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴").thenApplyAsync(mealInfo -> {
+                tv_meal.setText(deleteBracket(mealInfo));
+                return null;
+            }));
             GetTimetableData.getTimeTable(
                     crdate,
                     String.valueOf(SettingData.getSpinnerGrade(context) + 1),
                     String.valueOf(SettingData.getSpinnerClass(context) + 1),
-                    context,
                     tv_timetable);
         }
     }
@@ -190,5 +190,10 @@ public class HomeFragment extends Fragment {
                 }
             }
         }
+    }
+
+    private static String deleteBracket(String msg) {
+        msg = msg.replaceAll("[().1234567890]", "");
+        return msg;
     }
 }

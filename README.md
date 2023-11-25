@@ -9,4 +9,8 @@
 ### 2023/09/15 - Java 8 -> Java 11로 마이그레이션
 ### 2023/09/18 - [급식](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1&cateId=C0001) 영양정보 추가
 ### 2023/09/20 - [급식](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1&cateId=C0001) 식단 알림 추가
+### 2023/10/21 - Java 11 -> Java 20으로 마이그레이션
 ### 2023/11/19 - FutureTask() -> CompletableFuture Async 변경
+### 2023/11/21 - v0.11.5 Beta - HomeFragment UI 디자인 적용, UI 대응을 위한 코드 리팩토링
+### 2023/11/23 - v0.11.6 Beta - HomeFragment UI 디자인 개선
+### 2023/11/24 - v0.12.0 Beta - MealFragment 및 NoticeFragment UI 디자인 적용, UI 대응을 위한 코드 리팩토링

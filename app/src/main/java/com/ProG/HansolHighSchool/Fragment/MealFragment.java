@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.ProG.HansolHighSchool.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -33,7 +35,6 @@ public class MealFragment extends Fragment {
     TextView tv_breakfast, tv_lunch, tv_dinner, tv_naljja, tv_breakfastKcal, tv_lunchKcal, tv_dinnerKcal;
     ImageButton btn_pre, btn_next;
     Date currentDate = new Date();
-    private static final String TAG = "MealFragment";
     int oneDayInMs = 24 * 60 * 60 * 1000;
     // 24시간 * 60분 * 60초 * 1000밀리초 = 86400000밀리초 = 1일
 
@@ -55,6 +56,11 @@ public class MealFragment extends Fragment {
 
         btn_pre = view.findViewById(R.id.btn_pre);
         btn_next = view.findViewById(R.id.btn_next);
+
+        tv_breakfast.setMovementMethod(new ScrollingMovementMethod());
+        tv_lunch.setMovementMethod(new ScrollingMovementMethod());
+        tv_dinner.setMovementMethod(new ScrollingMovementMethod());
+
 
         Intent intent = new Intent(getActivity(), MealInfoActivity.class);
 
@@ -116,7 +122,7 @@ public class MealFragment extends Fragment {
         String dateToShow = formattedDate.substring(0, 4)
                 + "-" + formattedDate.substring(4, 6)
                 + "-" + formattedDate.substring(6, 8);
-        tv_naljja.setText(dateToShow + " 급식식단");
+        tv_naljja.setText(dateToShow);
 
         if (NetworkStatus.isConnected(requireContext())) {
             getMealTask(formattedDate);
@@ -217,7 +223,7 @@ public class MealFragment extends Fragment {
             try {
                 boolean isEmpty = isAllMealsEmpty(dateFormat.format(currentDate)).get();
                 if (!isEmpty) {
-                    getActivity().runOnUiThread(() -> updateMealDate(currentDate));
+                    requireActivity().runOnUiThread(() -> updateMealDate(currentDate));
                     break;
                 }
             } catch (Exception e) {
@@ -254,7 +260,7 @@ public class MealFragment extends Fragment {
             try {
                 boolean isEmpty = isAllMealsEmpty(dateFormat.format(currentDate)).get();
                 if (!isEmpty) {
-                    getActivity().runOnUiThread(() -> updateMealDate(currentDate));
+                    requireActivity().runOnUiThread(() -> updateMealDate(currentDate));
                     break;
                 }
             } catch (Exception e) {

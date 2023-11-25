@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SettingData {
     private static final String PREFERENCES_NAME = "com.ProG.HansolHighSchool.Data";
-    private static final int DEFAULT_VALUE_INT = -1;
+    private static final int DEFAULT_VALUE_INT = 0;
 
     private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);

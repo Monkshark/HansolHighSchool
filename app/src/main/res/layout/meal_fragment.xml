@@ -1,152 +1,280 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:ignore="hardcodedText"
+    android:backgroundTint="#F0F0F0"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="#F0F0F0"
+        >
 
-        <ImageButton
-            android:id="@+id/btn_pre"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/button_left"
-            android:backgroundTint="@color/White"
-            android:contentDescription="이미지버튼" />
-
-    <TextView
-        android:id="@+id/tv_naljja"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:gravity="center"
-        android:text="\@string/getCurrentDate"
-        android:textSize="25sp"
-        android:paddingBottom="10dp" />
-
-        <ImageButton
-            android:id="@+id/btn_next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/button_right"
-            android:backgroundTint="@color/White"
-            android:contentDescription="이미지버튼" />
-
+            android:text="오늘의 급식"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bold"
+            android:layout_marginLeft="25dp"
+            />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:background="#F0F0F0"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="조식"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="140dp" />
-
-        <TextView
-            android:id="@+id/tv_breakfastKcal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:text="\@string/getBreakfastKcalAPI" />
+            android:background="@drawable/bg_roundbottom_filpped"
+            >
 
+            <ImageButton
+                android:id="@+id/btn_pre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ico_prev"
+                android:background="@android:color/transparent"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                />
+
+            <TextView
+                android:id="@+id/tv_naljja"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="날짜입니다"
+                android:textSize="23sp"
+                android:textColor="#000"
+                android:fontFamily="@font/bold"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ico_next"
+                android:background="@android:color/transparent"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                >
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="40dp"
+                        android:text="조식"
+                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_rountbtn"
+                        android:fontFamily="@font/semibold"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_breakfastKcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/semibold"
+                        android:textColor="#C0C0C0"
+                        android:text="조식칼로리" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_breakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="조식메뉴"
+                        android:textSize="19sp"
+                        android:textColor="#000"
+                        android:fontFamily="@font/regular"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:scrollbars="vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="40dp"
+                        android:text="중식"
+                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_rountbtn"
+                        android:fontFamily="@font/semibold"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_lunchKcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/semibold"
+                        android:textColor="#C0C0C0"
+                        android:text="중식칼로리"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_lunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="중식메뉴"
+                        android:textSize="19sp"
+                        android:textColor="#000"
+                        android:fontFamily="@font/regular"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:scrollbars="vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="40dp"
+                        android:text="석식"
+                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_rountbtn"
+                        android:fontFamily="@font/semibold"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_dinnerKcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/semibold"
+                        android:textColor="#C0C0C0"
+                        android:text="석식칼로리"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_dinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="석식메뉴"
+                        android:textSize="19sp"
+                        android:textColor="#000"
+                        android:fontFamily="@font/regular"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:scrollbars="vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_breakfast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@string/getBreakfastAPI"
-        android:background="@drawable/background_tdr"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="중식"
-        android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/tv_lunchKcal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="\@string/getLunchKcalAPI"
-            android:layout_marginStart="30dp"
-            />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_lunch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@string/getLunchAPI"
-        android:background="@drawable/background_tdr"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="석식"
-        android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/tv_dinnerKcal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="\@string/getDinnerKcalAPI"
-            android:layout_marginStart="30dp"
-            />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_dinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@string/getDinnerAPI"
-        android:background="@drawable/background_tdr"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-
-
-
 </LinearLayout>

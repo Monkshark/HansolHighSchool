@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.ProG.HansolHighSchool.Data.SettingData;
 import com.ProG.HansolHighSchool.Fragment.HomeFragment;
 import com.ProG.HansolHighSchool.Fragment.MealFragment;
 import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
@@ -29,7 +30,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private static HomeFragment homeFragment;
-
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
 

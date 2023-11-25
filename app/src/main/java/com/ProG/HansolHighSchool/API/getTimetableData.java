@@ -23,18 +23,11 @@ public class GetTimetableData {
 
     private static final String TAG = "getTimetableData";
     @SuppressLint("SimpleDateFormat")
-    public static void getTimeTable(String date, String grade, String classNum, Context context, TextView tv_timetable) {
+    public static void getTimeTable(String date, String grade, String classNum, TextView tv_timetable) {
         niesAPI niesAPI = new niesAPI();
 
         String requestURL;
         StringBuilder resultBuilder = new StringBuilder();
-
-        resultBuilder
-                .append(date.substring(0, 4)).append("년 ")
-                .append(date.substring(4, 6)).append("월 ")
-                .append(date.substring(6, 8)).append("일 \n")
-                        .append(grade).append("학년 ")
-                        .append(classNum).append("반 시간표").append("\n\n");
                                 requestURL =
                                         "https://open.neis.go.kr/hub/hisTimetable?" +
 //                                                "KEY=" + niesAPI.KEY +
@@ -74,17 +67,15 @@ public class GetTimetableData {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
                 if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-                    resultBuilder.append("1교시: 자율 \n");
+                    resultBuilder.append("자율 \n");
                 }
 
                 for (int i = 0; i < timetableArray.length(); i++) {
                     JSONObject itemObject = timetableArray.getJSONObject(i);
-                    String PERIO = itemObject.getString("PERIO");
+//                    String PERIO = itemObject.getString("PERIO");
                     String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
 
                     resultBuilder
-                            .append(PERIO)
-                            .append("교시: ")
                             .append(ITRT_CNTNT)
                             .append("\n");
                     Log.d(TAG, "parsing : " + resultBuilder);

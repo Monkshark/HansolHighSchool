@@ -1,163 +1,244 @@
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
     tools:ignore="hardcodedText"
+    android:backgroundTint="#F0F0F0"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="#F0F0F0"
+        >
 
-        <ImageButton
-            android:id="@+id/btn_pre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/button_left"
-            android:backgroundTint="@color/White"
-            tools:ignore="ContentDescription" />
-        
         <TextView
-            android:id="@+id/tv_monthYear"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textAlignment="center"
+            android:text="학사일정"
             android:textSize="25sp"
-            android:textColor="@color/Black"
-            android:text="2023-07"
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bold"
+            android:layout_marginStart="25dp"
             />
-
-        <ImageButton
-            android:id="@+id/btn_next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/button_right"
-            android:backgroundTint="@color/White"
-            tools:ignore="ContentDescription" />
-
     </LinearLayout>
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="S"
-                android:textAlignment="center"
-                android:textColor="@color/Red"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="M"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/Black"
-                />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="T"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/Black"
-                />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="W"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/Black"
-                />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="T"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/Black"
-                />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="F"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/Black"
-                />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="S"
-                android:textAlignment="center"
-                android:textColor="@color/Blue"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_tdr"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:background="#F0F0F0"
+        >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <ImageButton
+                android:id="@+id/btn_pre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ico_prev"
+                android:background="@android:color/transparent"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                />
+
+            <TextView
+                android:id="@+id/tv_monthYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textAlignment="center"
+                android:textSize="23sp"
+                android:textColor="@color/AWBlack"
+                android:fontFamily="@font/bold"
+                android:text="YYYY-MM"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@drawable/ico_next"
+                android:backgroundTint="@color/White"
+                tools:ignore="ContentDescription"
+                android:background="@android:color/transparent"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:id="@+id/tv_flDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="yyyy-MM-dd" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="horizontal"
+                android:gravity="top"
+                >
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sun"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+                    android:textSize="17sp"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mon"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tue"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Wed"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thu"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Fri"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sat"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="#838366"
+                    android:fontFamily="@font/semibold"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_weight="8"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_roundbottom_filpped"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="학사일정"
+                    android:textSize="23sp"
+                    android:gravity="center"
+                    android:fontFamily="@font/bold"
+                    android:textColor="#000"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:background="#FFF"
+                android:layout_gravity="left"
+                >
+
+                <TextView
+                    android:id="@+id/tv_flDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="yyyy-MM-dd"
+                    android:textColor="@color/AWBlack"
+                    android:fontFamily="@font/regular"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>

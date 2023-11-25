@@ -9,82 +9,257 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        >
 
-    <Button
-        android:id="@+id/btn_setting"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_gravity="left"
-        android:text="설정"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="50dp"
-        style="?android:attr/buttonBarButtonStyle"
-        tools:ignore="RtlHardcoded" />
+        <!--    계정버튼+설정버튼 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="#FFFFFF"
+            >
 
-    <Button
-        android:id="@+id/btn_account"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="60dp"
-        android:layout_gravity="right"
-        android:text="계정"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="50dp"
-        style="?android:attr/buttonBarButtonStyle"
-        tools:ignore="RtlHardcoded" />
+            <ImageButton
+                android:id="@+id/btn_account"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ico_account"
+                android:layout_marginRight="120dp"
+                android:scaleX="0.9"
+                android:scaleY="0.9"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_setting"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ico_setting"
+                android:layout_marginLeft="120dp"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                />
+
+        </LinearLayout>
+
+        <!--    환영합니다! -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:gravity="bottom"
+            android:background="#FFFFFF"
+            >
+
+            <TextView
+                android:id="@+id/tv_hello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="환영합니다,\nUser Name 님!"
+                android:fontFamily="@font/bold"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:layout_marginLeft="20dp"
+                />
+
+        </LinearLayout>
+
+        <!--    홈페이지 + 리로스쿨 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="14"
+            android:background="@drawable/bg_roundbottom"
+            >
+
+            <ImageButton
+                android:id="@+id/btn_hansolhs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/btn_schp"
+                tools:ignore="SpeakableTextPresentCheck"
+                >
+            </ImageButton>
+
+            <ImageButton
+                android:id="@+id/btn_riroschool"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/btn_riro"
+                tools:ignore="SpeakableTextPresentCheck"
+                >
+            </ImageButton>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="12"
+        android:background="#F0F0F0"
+        android:orientation="vertical"
+        >
 
-        <Button
-            android:id="@+id/btn_hansolhs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="한솔고바로가기"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <Button
-            android:id="@+id/btn_riroschool"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="리로스쿨바로가기"
-            style="?android:attr/buttonBarButtonStyle" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:layout_marginBottom="30dp">
-
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:orientation="horizontal"
+            android:background="#F0F0F0"
             android:gravity="center"
-            android:id="@+id/tv_meal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777\n88888888" />
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="급식 &amp; 시간표"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/bold"
+                android:textSize="22sp"
+                android:textColor="#000000"
+                />
 
-        <TextView
-            android:gravity="center"
-            android:id="@+id/tv_timetable"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777\n88888888" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_cal"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:scaleX="1.05"
+                android:scaleY="1.05"
+                />
 
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2023년 00월 00일"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:fontFamily="@font/regular"
+                android:textColor="#454545"
+                />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:background="#F0F0F0"
+            android:gravity="top|center_horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="250dp"
+                android:background="@drawable/bg_allroundbottom"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_mealScCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bold"
+                    android:textColor="#000000"
+                    android:textSize="22sp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="15dp"
+                    android:text="조식"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/regular"
+                    android:textSize="19sp"
+                    android:textColor="#000000"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="15dp"
+                    android:layout_marginRight="2dp"
+                    android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777\n88888888"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="250dp"
+                android:background="@drawable/bg_allroundbottom"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_className"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bold"
+                    android:textColor="#000000"
+                    android:textSize="22sp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="15dp"
+                    android:text="1-6 시간표"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/regular"
+                        android:textSize="19sp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="15dp"
+                        android:textColor="#C0C0C0"
+                        android:text="1\n2\n3\n4\n5\n6\n7"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_timetable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/regular"
+                        android:textColor="#000000"
+                        android:textSize="19sp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="10dp"
+                        android:text="1111111\n22222222\n33333333\n44444444\n55555555\n66666666\n77777777"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
