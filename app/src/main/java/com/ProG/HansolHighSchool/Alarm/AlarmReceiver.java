@@ -20,10 +20,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         String 분류 = intent.getStringExtra("분류");
         final String[] 메뉴 = new String[1];
-        String.valueOf(getMenu(분류, spDate).thenAccept(menu -> 메뉴[0] = String.valueOf(menu)));
+        메뉴[0] = getMenu(분류, spDate).join();
     }
 
     public CompletableFuture<String> getMenu(String 분류, String spDate) {
@@ -34,5 +33,4 @@ public class AlarmReceiver extends BroadcastReceiver {
             default -> CompletableFuture.completedFuture("");
         };
     }
-
 }

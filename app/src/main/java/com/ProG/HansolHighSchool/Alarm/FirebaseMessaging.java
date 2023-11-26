@@ -30,7 +30,6 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         if (remoteMessage.getData().size() > 0) {
@@ -41,75 +40,74 @@ public class FirebaseMessaging extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
         sendNotification(remoteMessage.getFrom(), remoteMessage.getNotification().getBody());
-
     }
 
     private void sendNotification(String from, String body) {
-
         new Handler(Looper.getMainLooper()).post(() ->
                 Toast.makeText(getApplicationContext(), from + " -> " + body, Toast.LENGTH_LONG).show()
         );
     }
 
-    @SuppressLint("ScheduleExactAlarm")
+    @SuppressLint({"NewApi", "ScheduleExactAlarm"})
     public void setAlarms(@NonNull Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar currentCalendar = Calendar.getInstance();
         int dayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+        if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
             return;
         }
 
-        Intent intent1 = new Intent(context, AlarmReceiver.class);
-        intent1.putExtra("분류", "조식");
+        PendingIntent pendingIntent1 = createPendingIntent(context, 1, "조식", 6, 30);
+        PendingIntent pendingIntent2 = createPendingIntent(context, 2, "중식", 12, 0);
+        PendingIntent pendingIntent3 = createPendingIntent(context, 3, "석식", 17, 0);
 
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTimeInMillis(System.currentTimeMillis());
-        calendar1.set(Calendar.HOUR_OF_DAY, 6);
-        calendar1.set(Calendar.MINUTE, 30);
+        Calendar calendar1 = getAlarmTime(6, 30);
+        Calendar calendar2 = getAlarmTime(12, 0);
+        Calendar calendar3 = getAlarmTime(17, 0);
 
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, 1, intent1, PendingIntent.FLAG_IMMUTABLE);
-        if (calendar1.before(Calendar.getInstance())) {
-            calendar1.add(Calendar.DAY_OF_MONTH, 1);
-        }
         if (alarmManager != null) {
             Log.e(TAG, "조식정보 알림 발송");
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
-        }
-
-        Intent intent2 = new Intent(context, AlarmReceiver.class);
-        intent2.putExtra("분류", "중식");
-
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.setTimeInMillis(System.currentTimeMillis());
-        calendar2.set(Calendar.HOUR_OF_DAY, 12);
-        calendar2.set(Calendar.MINUTE, 0);
-
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 2, intent2, PendingIntent.FLAG_IMMUTABLE);
-        if (calendar2.before(Calendar.getInstance())) {
-            calendar2.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        if (alarmManager != null) {
             Log.e(TAG, "중식정보 알림 발송");
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent2);
-        }
-
-        Intent intent3 = new Intent(context, AlarmReceiver.class);
-        intent3.putExtra("분류", "석식");
-
-        Calendar calendar3 = Calendar.getInstance();
-        calendar3.setTimeInMillis(System.currentTimeMillis());
-        calendar3.set(Calendar.HOUR_OF_DAY, 17);
-        calendar3.set(Calendar.MINUTE, 0);
-
-        PendingIntent pendingIntent3 = PendingIntent.getBroadcast(context, 3, intent3, PendingIntent.FLAG_IMMUTABLE);
-        if (calendar3.before(Calendar.getInstance())) {
-            calendar3.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        if (alarmManager != null) {
             Log.e(TAG, "석식정보 알림 발송");
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent3);
         }
+    }
+
+    private Calendar getAlarmTime(int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return calendar;
+    }
+
+
+
+    private PendingIntent createPendingIntent(Context context, int requestCode, String category, int hourOfDay, int minute) {
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra("분류", category);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    private long getAlarmTimeInMillis(Calendar calendar) {
+        return calendar.getTimeInMillis();
     }
 }

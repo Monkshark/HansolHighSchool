@@ -27,15 +27,15 @@ public class GetTimetableData {
 
         String requestURL;
         StringBuilder resultBuilder = new StringBuilder();
-                                requestURL =
-                                        "https://open.neis.go.kr/hub/hisTimetable?" +
-//                                                "KEY=" + niesAPI.KEY +
-                                                "&Type=" + "json" +
-                                                "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
-                                                "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
-                                                "&ALL_TI_YMD="  + date +
-                                                "&GRADE=" + grade +
-                                                "&CLASS_NM=" + classNum;
+        requestURL =
+                "https://open.neis.go.kr/hub/hisTimetable?" +
+//                        "KEY=" + niesAPI.KEY +
+                        "&Type=" + "json" +
+                        "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
+                        "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
+                        "&ALL_TI_YMD="  + date +
+                        "&GRADE=" + grade +
+                        "&CLASS_NM=" + classNum;
 
         Log.e(TAG, "requestURL : \n" + requestURL);
 

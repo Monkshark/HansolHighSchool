@@ -32,20 +32,15 @@ public class NoticeFragment extends Fragment {
     public static TextView tv_flDate;
     private RecyclerView recyclerView;
     protected ImageButton btn_next, btn_pre;
-    FirebaseDatabase FBRead;
-    DatabaseReference FBWrite;
+    FirebaseDatabase firebaseRead;
+    DatabaseReference firebaseWrite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.notice_fragment, container, false);
+        View view = inflater.inflate(R.layout.notice_fragment, container, false);
 
-        FBRead = FirebaseDatabase.getInstance();
-        FBWrite = FirebaseDatabase.getInstance().getReference();
-        tv_monthYear = rootView.findViewById(R.id.tv_monthYear);
-        tv_flDate = rootView.findViewById(R.id.tv_flDate);
-        btn_pre = rootView.findViewById(R.id.btn_pre);
-        btn_next = rootView.findViewById(R.id.btn_next);
-        recyclerView = rootView.findViewById(R.id.recyclerView);
+        initializeFirebase();
+        initializeViews(view);
 
         CalendarUtil.selectedDate = Calendar.getInstance();
         setMonthView();
@@ -60,7 +55,7 @@ public class NoticeFragment extends Fragment {
             setMonthView();
         });
 
-        return rootView;
+        return view;
     }
 
     private String MonthYearFromDate(Calendar calendar) {
@@ -90,5 +85,19 @@ public class NoticeFragment extends Fragment {
         }
         return dayList;
     }
+
+    private void initializeViews(View rootView) {
+        tv_monthYear = rootView.findViewById(R.id.tv_monthYear);
+        tv_flDate = rootView.findViewById(R.id.tv_flDate);
+        btn_pre = rootView.findViewById(R.id.btn_pre);
+        btn_next = rootView.findViewById(R.id.btn_next);
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+    }
+
+    private void initializeFirebase() {
+        firebaseRead = FirebaseDatabase.getInstance();
+        firebaseWrite = FirebaseDatabase.getInstance().getReference();
+    }
+
 
 }

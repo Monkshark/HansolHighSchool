@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.ProG.HansolHighSchool.Data.LoginData;
 import com.ProG.HansolHighSchool.Fragment.HomeFragment;
 import com.ProG.HansolHighSchool.Fragment.MealFragment;
 import com.ProG.HansolHighSchool.Fragment.NoticeFragment;
@@ -32,22 +31,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    @SuppressLint("StaticFieldLeak")
-    private static HomeFragment homeFragment;
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
+    @SuppressLint("StaticFieldLeak")
+    private static HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        homeFragment = new HomeFragment();
-        LoginData loginData = LoginData.getInstance(this);
 
-        FirebaseApp.initializeApp(this);
-        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
-        firebaseAppCheck.installAppCheckProviderFactory(
-                PlayIntegrityAppCheckProviderFactory.getInstance());
+        initializeFirebaseAppCheck();
 
         Intent loading = new Intent(MainActivity.this, LoadingActivity.class);
         startActivity(loading);
@@ -58,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new MealFragment());
-        pagerAdapter.addFragment(new HomeFragment());
+        homeFragment = new HomeFragment();
+        pagerAdapter.addFragment(homeFragment);
         pagerAdapter.addFragment(new NoticeFragment());
 
         viewPager.setAdapter(pagerAdapter);
@@ -69,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -84,10 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(2);
                 return true;
             }
+
             return false;
         });
 
         bottomNavigationView.setSelectedItemId(R.id.home);
+    }
+
+    private void initializeFirebaseAppCheck() {
+        FirebaseApp.initializeApp(this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance());
     }
 
     public static class PagerAdapter extends FragmentPagerAdapter {
@@ -116,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
     public void restartApp() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         int mPendingIntentId = 123456;
-        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
     }
@@ -132,27 +133,23 @@ public class MainActivity extends AppCompatActivity {
             if (intent != null) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
-            } } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                activity.startActivity(intent);
             }
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            activity.startActivity(intent);
+        }
     }
 
     public static boolean isInstalledExternalApp(Context context, String packageName) {
-        boolean isInstalled = false;
+        PackageManager packageManager = context.getPackageManager();
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        PackageManager packageManager = context.getPackageManager();
-        @SuppressLint("QueryPermissionsNeeded")
-        List<ResolveInfo> installedApps = packageManager.queryIntentActivities(mainIntent, 0);
-        for (ResolveInfo resolveInfo : installedApps) {
+        List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(mainIntent, 0);
+        for (ResolveInfo resolveInfo : resolveInfoList) {
             if (resolveInfo.activityInfo.packageName.contains(packageName)) {
-                isInstalled = true;
-                break;
+                return true;
             }
         }
-        return isInstalled;
+        return false;
     }
-
-
 }

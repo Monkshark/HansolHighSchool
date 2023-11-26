@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     static Date currentDate = new Date();
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+    LoginData loginData;
 
     @Override
     public void onResume() {
@@ -54,15 +55,25 @@ public class HomeFragment extends Fragment {
         setMainData();
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
-
+        initializeViews(view);
         FirebaseMessaging fm = new FirebaseMessaging();
         fm.setAlarms(requireContext());
         checkBatteryOptimization(requireContext());
 
+        if (NetworkStatus.isConnected(requireContext())) {
+            setMainData();
+        } else {
+            tv_meal.setText("네트워크 연결을 확인해주세요");
+            tv_timetable.setText("네트워크 연결을 확인해주세요");
+        }
+
+        return view;
+    }
+
+    private void initializeViews(View view) {
         btn_hansolhs = view.findViewById(R.id.btn_hansolhs);
         btn_riroschool = view.findViewById(R.id.btn_riroschool);
         btn_account = view.findViewById(R.id.btn_account);
@@ -72,6 +83,7 @@ public class HomeFragment extends Fragment {
         tv_date = view.findViewById(R.id.tv_date);
         tv_className = view.findViewById(R.id.tv_className);
         tv_mealScCode = view.findViewById(R.id.tv_mealScCode);
+        loginData = LoginData.getInstance(requireContext());
 
         btn_setting.setOnClickListener(v -> {
             Intent intentActivity = new Intent(getActivity(), SettingsActivity.class);
@@ -89,30 +101,19 @@ public class HomeFragment extends Fragment {
 
         btn_account.setOnClickListener(v -> {
             Intent intentActivity;
-            if (LoginData.isLogin()) {
+            if (loginData.isLogin()) {
                 intentActivity = new Intent(getActivity(), AccountInfoActivity.class);
             } else {
                 intentActivity = new Intent(getActivity(), LoginActivity.class);
             }
             startActivity(intentActivity);
         });
-
-        if (NetworkStatus.isConnected(requireContext())) {
-            setMainData();
-        } else {
-            tv_meal.setText("네트워크 연결을 확인해주세요");
-            tv_timetable.setText("네트워크 연결을 확인해주세요");
-        }
-
-        return view;
     }
-
 
     @SuppressLint("SetTextI18n")
     public void setMainData() {
-
         Context context = getContext();
-        if(context == null) {
+        if (context == null) {
             Log.e("HomeFragment", "Context is null");
             return;
         }
@@ -124,8 +125,7 @@ public class HomeFragment extends Fragment {
         }
 
         Calendar currentTime = Calendar.getInstance();
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String formattedDate = sdf.format(currentTime.getTime());
         int time = Integer.parseInt(formattedDate.replace(":", ""));
         if (time > 200000) {
@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
         int dayOfWeek = currentTime.get(Calendar.DAY_OF_WEEK);
 
         tv_mealScCode.setText(codeToString(SettingData.getSpinnerMealScCode(context)));
-        tv_className.setText((SettingData.getSpinnerGrade(context) + 1)+ "-" + (SettingData.getSpinnerClass(context) + 1)+" 시간표");
+        tv_className.setText((SettingData.getSpinnerGrade(context) + 1) + "-" + (SettingData.getSpinnerClass(context) + 1) + " 시간표");
         tv_date.setText(crdate.substring(0, 4) + "년 " +
                 crdate.substring(4, 6) + "월 " +
                 crdate.substring(6, 8) + "일");
@@ -145,7 +145,6 @@ public class HomeFragment extends Fragment {
         if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
             tv_meal.setText("정보 없음");
             tv_timetable.setText("정보 없음");
-
         } else {
             String.valueOf(GetMealData.getMeal(crdate, String.valueOf((SettingData.getSpinnerMealScCode(context) + 1)), "메뉴").thenApplyAsync(mealInfo -> {
                 tv_meal.setText(deleteBracket(mealInfo));
@@ -159,7 +158,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private static String codeToString(int code) {
+    private String codeToString(int code) {
         return switch (code) {
             case 0 -> "조식";
             case 1 -> "중식";
@@ -170,7 +169,7 @@ public class HomeFragment extends Fragment {
 
     public void checkNotificationPermission() {
         NotificationManager manager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if (! manager.areNotificationsEnabled()) {
+        if (!manager.areNotificationsEnabled()) {
             Toast.makeText(requireContext(), "알림 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -179,12 +178,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    @SuppressLint({"BatteryLife", "ObsoleteSdkInt"})
+    @SuppressLint({"ObsoleteSdkInt", "BatteryLife"})
     private void checkBatteryOptimization(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             String packageName = context.getPackageName();
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (! pm.isIgnoringBatteryOptimizations(packageName)) {
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 intent.setData(Uri.parse("package:" + packageName));
@@ -198,7 +197,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private static String deleteBracket(String msg) {
+    private String deleteBracket(String msg) {
         msg = msg.replaceAll("[().1234567890]", "");
         return msg;
     }

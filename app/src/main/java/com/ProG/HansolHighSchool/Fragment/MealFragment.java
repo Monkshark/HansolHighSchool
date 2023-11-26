@@ -26,7 +26,6 @@ import com.ProG.HansolHighSchool.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -46,22 +45,7 @@ public class MealFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.meal_fragment, container, false);
 
-        tv_breakfast = view.findViewById(R.id.tv_breakfast);
-        tv_lunch = view.findViewById(R.id.tv_lunch);
-        tv_dinner = view.findViewById(R.id.tv_dinner);
-        tv_naljja = view.findViewById(R.id.tv_naljja);
-        tv_breakfastKcal = view.findViewById(R.id.tv_breakfastKcal);
-        tv_lunchKcal = view.findViewById(R.id.tv_lunchKcal);
-        tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
-
-        btn_pre = view.findViewById(R.id.btn_pre);
-        btn_next = view.findViewById(R.id.btn_next);
-
-        tv_breakfast.setMovementMethod(new ScrollingMovementMethod());
-        tv_lunch.setMovementMethod(new ScrollingMovementMethod());
-        tv_dinner.setMovementMethod(new ScrollingMovementMethod());
-
-
+        initializeViews(view);
         Intent intent = new Intent(getActivity(), MealInfoActivity.class);
 
         tv_breakfast.setOnClickListener(v ->
@@ -88,22 +72,12 @@ public class MealFragment extends Fragment {
                 getFutureMeal().thenRun(() -> updateMealDate(currentDate)));
 
         if (isWeekends(currentDate)) {
-            tv_breakfast.setText("정보 없음");
-            tv_lunch.setText("정보 없음");
-            tv_dinner.setText("정보 없음");
-            tv_breakfastKcal.setText("");
-            tv_lunchKcal.setText("");
-            tv_dinnerKcal.setText("");
+            setMealTextView("정보 없음", "");
             getFutureMeal();
         } else {
             isAllMealsEmpty(dateFormat.format(currentDate)).thenAccept(isEmpty -> {
                 if (isEmpty) {
-                    tv_breakfast.setText("정보 없음");
-                    tv_lunch.setText("정보 없음");
-                    tv_dinner.setText("정보 없음");
-                    tv_breakfastKcal.setText("");
-                    tv_lunchKcal.setText("");
-                    tv_dinnerKcal.setText("");
+                    setMealTextView("정보 없음", "");
                     getFutureMeal();
                 }
             });
@@ -127,25 +101,13 @@ public class MealFragment extends Fragment {
         if (NetworkStatus.isConnected(requireContext())) {
             getMealTask(formattedDate);
         } else {
-            tv_breakfast.setText("네트워크 연결을 확인해주세요");
-            tv_lunch.setText("네트워크 연결을 확인해주세요");
-            tv_dinner.setText("네트워크 연결을 확인해주세요");
-            tv_breakfastKcal.setText("");
-            tv_lunchKcal.setText("");
-            tv_dinnerKcal.setText("");
+            setMealTextView("네트워크 연결을 확인해주세요", "");
         }
     }
 
     public void getMealTask(String date) {
-        tv_breakfast.setText("정보 불러오는중...");
-        tv_lunch.setText("정보 불러오는중...");
-        tv_dinner.setText("정보 불러오는중...");
-        tv_breakfastKcal.setText("");
-        tv_lunchKcal.setText("");
-        tv_dinnerKcal.setText("");
-        tv_breakfast.requestLayout();
-        tv_lunch.requestLayout();
-        tv_dinner.requestLayout();
+
+        setMealTextView("정보 불러오는중...", "");
 
         GetMealData.getMeal(date, "1", "메뉴").thenAcceptAsync(breakfast -> {
             tv_breakfast.setText(breakfast);
@@ -274,6 +236,37 @@ public class MealFragment extends Fragment {
 
     public Executor mainThreadExecutor() {
         return command -> new Handler(Looper.getMainLooper()).post(command);
+    }
+
+    private void setMealTextView(String mealText, String kcalText) {
+        tv_breakfast.setText(mealText);
+        tv_breakfastKcal.setText(kcalText);
+        tv_lunch.setText(mealText);
+        tv_lunchKcal.setText(kcalText);
+        tv_dinner.setText(mealText);
+        tv_dinnerKcal.setText(kcalText);
+        tv_breakfast.requestLayout();
+        tv_breakfastKcal.requestLayout();
+        tv_lunch.requestLayout();
+        tv_lunchKcal.requestLayout();
+        tv_dinner.requestLayout();
+        tv_dinnerKcal.requestLayout();
+    }
+
+    private void initializeViews(View view) {
+        tv_breakfast = view.findViewById(R.id.tv_breakfast);
+        tv_lunch = view.findViewById(R.id.tv_lunch);
+        tv_dinner = view.findViewById(R.id.tv_dinner);
+        tv_naljja = view.findViewById(R.id.tv_naljja);
+        tv_breakfastKcal = view.findViewById(R.id.tv_breakfastKcal);
+        tv_lunchKcal = view.findViewById(R.id.tv_lunchKcal);
+        tv_dinnerKcal = view.findViewById(R.id.tv_dinnerKcal);
+        btn_pre = view.findViewById(R.id.btn_pre);
+        btn_next = view.findViewById(R.id.btn_next);
+
+        tv_breakfast.setMovementMethod(new ScrollingMovementMethod());
+        tv_lunch.setMovementMethod(new ScrollingMovementMethod());
+        tv_dinner.setMovementMethod(new ScrollingMovementMethod());
     }
 
 }

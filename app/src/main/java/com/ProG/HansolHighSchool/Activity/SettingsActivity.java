@@ -1,6 +1,5 @@
 package com.ProG.HansolHighSchool.Activity;
 
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,8 +16,8 @@ import com.ProG.HansolHighSchool.Fragment.HomeFragment;
 import com.ProG.HansolHighSchool.R;
 
 public class SettingsActivity extends Activity {
-    Spinner sp_grade, sp_className, sp_mealScCode;
-    Button btn_save;
+    private Spinner sp_grade, sp_className, sp_mealScCode;
+    private Button btn_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,23 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        setWindowProperties();
+
+        sp_grade = findViewById(R.id.sp_grade);
+        sp_className = findViewById(R.id.sp_className);
+        sp_mealScCode = findViewById(R.id.sp_mealScCode);
+        btn_save = findViewById(R.id.btn_save);
+
+        setupSpinners();
+
+        btn_save.setOnClickListener(v -> {
+            saveSpinnerSettings();
+            updateHomeFragmentData();
+            finish();
+        });
+    }
+
+    private void setWindowProperties() {
         this.setFinishOnTouchOutside(true);
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
 
@@ -35,41 +51,39 @@ public class SettingsActivity extends Activity {
         int height = (int) (dm.heightPixels * 0.85);
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
+    }
 
-        sp_grade = findViewById(R.id.sp_grade);
-        sp_className = findViewById(R.id.sp_className);
-        sp_mealScCode = findViewById(R.id.sp_mealScCode);
-        btn_save = findViewById(R.id.btn_save);
+    private void setupSpinners() {
+        ArrayAdapter<CharSequence> gradeAdapter = ArrayAdapter.createFromResource(this, R.array.grade, android.R.layout.simple_spinner_dropdown_item);
+        gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_grade.setAdapter(gradeAdapter);
 
-        ArrayAdapter<CharSequence> grade = ArrayAdapter.createFromResource(this, R.array.grade, android.R.layout.simple_spinner_dropdown_item);
-        grade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_grade.setAdapter(grade);
+        ArrayAdapter<CharSequence> classNameAdapter = ArrayAdapter.createFromResource(this, R.array.className, android.R.layout.simple_spinner_dropdown_item);
+        classNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_className.setAdapter(classNameAdapter);
 
-        ArrayAdapter<CharSequence> className = ArrayAdapter.createFromResource(this, R.array.className, android.R.layout.simple_spinner_dropdown_item);
-        className.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_className.setAdapter(className);
-
-        ArrayAdapter<CharSequence> mealScCode = ArrayAdapter.createFromResource(this, R.array.mealScCode, android.R.layout.simple_spinner_dropdown_item);
-        mealScCode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_mealScCode.setAdapter(mealScCode);
+        ArrayAdapter<CharSequence> mealScCodeAdapter = ArrayAdapter.createFromResource(this, R.array.mealScCode, android.R.layout.simple_spinner_dropdown_item);
+        mealScCodeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_mealScCode.setAdapter(mealScCodeAdapter);
 
         sp_grade.setSelection(SettingData.getSpinnerGrade(this));
         sp_className.setSelection(SettingData.getSpinnerClass(this));
         sp_mealScCode.setSelection(SettingData.getSpinnerMealScCode(this));
+    }
 
-        btn_save.setOnClickListener(v -> {
-            SettingData.setSpinnerGrade(this, (int) sp_grade.getSelectedItemId());
-            SettingData.setSpinnerClass(this, (int) sp_className.getSelectedItemId());
-            SettingData.setSpinnerMealScCode(this, (int) sp_mealScCode.getSelectedItemId());
-            Log.e("spinner", SettingData.getSpinnerGrade(this) + " " + SettingData.getSpinnerClass(this));
-            HomeFragment homeFragment = MainActivity.getHomeFragment();
-            if (homeFragment.isAdded()) {
-                homeFragment.setMainData();
-            } else {
-                Log.e("SettingsActivity", "HomeFragment is not attached to Activity");
-            }
-            finish();
-        });
+    private void saveSpinnerSettings() {
+        SettingData.setSpinnerGrade(this, (int) sp_grade.getSelectedItemId());
+        SettingData.setSpinnerClass(this, (int) sp_className.getSelectedItemId());
+        SettingData.setSpinnerMealScCode(this, (int) sp_mealScCode.getSelectedItemId());
+        Log.e("spinner", SettingData.getSpinnerGrade(this) + " " + SettingData.getSpinnerClass(this));
+    }
 
+    private void updateHomeFragmentData() {
+        HomeFragment homeFragment = MainActivity.getHomeFragment();
+        if (homeFragment.isAdded()) {
+            homeFragment.setMainData();
+        } else {
+            Log.e("SettingsActivity", "HomeFragment is not attached to Activity");
+        }
     }
 }

@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SettingData {
-    private static final String PREFERENCES_NAME = "com.ProG.HansolHighSchool.Data";
-    private static final int DEFAULT_VALUE_INT = 0;
+    private static final String PREFERENCES_NAME;
+
+    static {
+        PREFERENCES_NAME = SettingData.class.getPackage().getName() + ".Data";
+    }
 
     private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
+
+    private static final int DEFAULT_VALUE_INT = 0;
 
     public static void setSpinnerGrade(Context context, int input) {
         SharedPreferences prefs = getPreferences(context);

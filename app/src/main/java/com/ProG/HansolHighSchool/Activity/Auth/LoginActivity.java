@@ -20,97 +20,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
-
 public class LoginActivity extends Activity {
 
-    String schoolNum, password, tryPassword, name;
-    EditText et_schoolNum, et_password;
-    Button btn_login, btn_register;
+    private EditText et_schoolNum, et_password;
+    private Button btn_login, btn_register;
 
-    FirebaseDatabase firebaseRead;
-    DatabaseReference firebaseWrite;
+    private FirebaseDatabase firebaseRead;
+    LoginData loginData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        firebaseRead = FirebaseDatabase.getInstance();
-        firebaseWrite = FirebaseDatabase.getInstance().getReference();
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
-
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
+        loginData = LoginData.getInstance(this);
 
-        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-        int width = (int) (dm.widthPixels * 0.85);
-        int height = (int) (dm.heightPixels * 0.85);
-        getWindow().getAttributes().width = width;
-        getWindow().getAttributes().height = height;
-
-        et_schoolNum = findViewById(R.id.et_phoneNum);
-        et_password = findViewById(R.id.et_name);
-        btn_login = findViewById(R.id.btn_login);
-        btn_register = findViewById(R.id.btn_register);
-
-        schoolNum = et_schoolNum.getText().toString();
-        password = et_password.getText().toString();
-
+        initializeViews();
+        initializeFirebase();
+        setWindowSize();
 
         btn_login.setOnClickListener(v -> {
+            String schoolNum = et_schoolNum.getText().toString();
+            String password = et_password.getText().toString();
 
-            try {
-                schoolNum = et_schoolNum.getText().toString();
-                password = et_password.getText().toString();
-
-                firebaseRead.getReference("users").child(schoolNum).child("password").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull
-                        DataSnapshot dataSnapshot) {
-                        tryPassword = dataSnapshot.getValue(String.class);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-                        Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-            } catch (Exception e) {
-                Log.e("LoginActivity", "Error: " + e.getMessage());
-                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-
-            if (Objects.equals(password, tryPassword)) {
-                LoginData.setIsLogin(true);
-                LoginData.setSchoolNum(schoolNum);
-                LoginData.setPassword(password);
-                firebaseRead.getReference("users").child(schoolNum).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull
-                        DataSnapshot dataSnapshot) {
-                        name = dataSnapshot.getValue(String.class);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.e( "LoginActivity" , "Failed to read value.", databaseError.toException());
-                        Toast.makeText(LoginActivity.this, "Failed to read value.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-
-                LoginData.setName(name);
-                LoginData.setGrade(schoolNum.substring(0, 1));
-                LoginData.setClassNum(schoolNum.substring(2, 3));
-
-                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                finish();
+            if (validateInputs(schoolNum, password)) {
+                authenticateUser(schoolNum, password);
             } else {
-                Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "학번과 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -118,6 +55,73 @@ public class LoginActivity extends Activity {
             Intent intentActivity = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intentActivity);
             finish();
+        });
+    }
+
+    private void initializeViews() {
+        et_schoolNum = findViewById(R.id.et_phoneNum);
+        et_password = findViewById(R.id.et_name);
+        btn_login = findViewById(R.id.btn_login);
+        btn_register = findViewById(R.id.btn_register);
+    }
+
+    private void initializeFirebase() {
+        firebaseRead = FirebaseDatabase.getInstance();
+    }
+
+    private void setWindowSize() {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int width = (int) (dm.widthPixels * 0.85);
+        int height = (int) (dm.heightPixels * 0.85);
+        getWindow().getAttributes().width = width;
+        getWindow().getAttributes().height = height;
+    }
+
+    private boolean validateInputs(String schoolNum, String password) {
+        return !schoolNum.isEmpty() && !password.isEmpty();
+    }
+
+    private void authenticateUser(String schoolNum, String password) {
+        DatabaseReference usersRef = firebaseRead.getReference("users").child(schoolNum);
+        usersRef.child("password").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tryPassword = dataSnapshot.getValue(String.class);
+                if (password.equals(tryPassword)) {
+                    loginData.setIsLogin(true);
+                    loginData.setSchoolNum(schoolNum);
+
+                    usersRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.getValue(String.class);
+                            loginData.setName(name);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("LoginActivity", "Failed to read name.", databaseError.toException());
+                            Toast.makeText(LoginActivity.this, "Failed to read name.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+
+                    loginData.setGrade(schoolNum.substring(0, 1));
+                    loginData.setClassNum(schoolNum.substring(2, 3));
+
+                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("LoginActivity", "Failed to read password.", databaseError.toException());
+                Toast.makeText(LoginActivity.this, "Failed to read password.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         });
     }
 
