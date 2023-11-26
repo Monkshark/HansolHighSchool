@@ -27,7 +27,7 @@ public class GetNoticeData {
                         "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
                         "&AA_YMD=" + date;
 
-        CompletableFuture<String> futureResult = CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 URL url = new URL(requestURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -70,7 +70,5 @@ public class GetNoticeData {
 
             return "학사일정 없음";
         });
-
-        return futureResult;
     }
 }
