@@ -41,8 +41,8 @@ public class LoginActivity extends Activity {
         setWindowSize();
 
         btn_login.setOnClickListener(v -> {
-            String schoolNum = et_schoolNum.getText().toString();
-            String password = et_password.getText().toString();
+            String schoolNum = String.valueOf(et_schoolNum.getText());
+            String password = String.valueOf(et_password.getText());
 
             if (validateInputs(schoolNum, password)) {
                 authenticateUser(schoolNum, password);

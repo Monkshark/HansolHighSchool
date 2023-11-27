@@ -20,7 +20,6 @@ public class RegisterActivity extends Activity {
     private EditText et_schoolNum, et_name, et_password, et_pwdDoubleCheck;
     private Button btn_numberCheck;
     private CheckBox cb_registerStudent, cb_registerTeacher;
-
     private boolean isTeacher;
 
     @Override
@@ -29,21 +28,18 @@ public class RegisterActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register);
         this.setFinishOnTouchOutside(true);
-
         overridePendingTransition(R.anim.popup_enter, R.anim.popup_exit);
 
         initializeViews();
         setWindowSize();
-        setInputFilters();
+        setInputFilters(et_schoolNum, 5);
 
         cb_registerStudent.setOnClickListener(v -> {
             cb_registerTeacher.setChecked(false);
             et_schoolNum.setInputType(InputType.TYPE_CLASS_NUMBER);
             et_schoolNum.setHint("학번을 입력해주세요");
             isTeacher = false;
-            et_schoolNum.setFilters(new InputFilter[]{
-                    new InputFilter.LengthFilter(5)
-            });
+            setInputFilters(et_schoolNum, 5);
         });
 
         cb_registerTeacher.setOnClickListener(v -> {
@@ -51,16 +47,14 @@ public class RegisterActivity extends Activity {
             et_schoolNum.setInputType(InputType.TYPE_CLASS_TEXT);
             et_schoolNum.setHint("아이디를 입력해주세요");
             isTeacher = true;
-            et_schoolNum.setFilters(new InputFilter[]{
-                    new InputFilter.LengthFilter(20)
-            });
+            setInputFilters(et_schoolNum, 20);
         });
 
         btn_numberCheck.setOnClickListener(v -> {
-            String schoolNum = et_schoolNum.getText().toString();
-            String name = et_name.getText().toString();
-            String password = et_password.getText().toString();
-            String pwdDoubleCheck = et_pwdDoubleCheck.getText().toString();
+            String schoolNum = String.valueOf(et_schoolNum.getText());
+            String name = String.valueOf(et_name.getText());
+            String password =String.valueOf(et_password.getText());
+            String pwdDoubleCheck = String.valueOf(et_pwdDoubleCheck.getText());
 
             if (cb_registerStudent.isChecked() || cb_registerTeacher.isChecked()) {
                 if (schoolNum.isEmpty() || name.isEmpty() || password.isEmpty() || pwdDoubleCheck.isEmpty()) {
@@ -78,9 +72,7 @@ public class RegisterActivity extends Activity {
                     startActivity(intentActivity);
                     finish();
                 }
-            } else {
-                Toast.makeText(RegisterActivity.this, "체크박스를 선택해주세요", Toast.LENGTH_SHORT).show();
-            }
+            } else Toast.makeText(RegisterActivity.this, "체크박스를 선택해주세요", Toast.LENGTH_SHORT).show();
 
         });
     }
@@ -103,17 +95,15 @@ public class RegisterActivity extends Activity {
         getWindow().getAttributes().height = height;
     }
 
-    private void setInputFilters() {
-        et_schoolNum.setFilters(new InputFilter[]{
-                new InputFilter.LengthFilter(5)
+    private void setInputFilters(EditText et, int max) {
+        et.setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(max)
         });
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_OUTSIDE) {
-            return true;
-        }
+        if (ev.getAction() == MotionEvent.ACTION_OUTSIDE) return true;
         return super.dispatchTouchEvent(ev);
     }
 

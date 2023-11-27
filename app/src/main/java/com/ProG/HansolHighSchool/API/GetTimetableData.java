@@ -59,7 +59,7 @@ public class GetTimetableData {
                 inputStreamReader.close();
                 connection.disconnect();
 
-                JSONObject responseJson = new JSONObject(stringBuilder.toString());
+                JSONObject responseJson = new JSONObject(String.valueOf(stringBuilder));
                 JSONArray timetableArray = responseJson.getJSONArray("hisTimetable");
                 timetableArray = timetableArray.getJSONObject(1).getJSONArray("row");
 
@@ -80,10 +80,10 @@ public class GetTimetableData {
                     Log.d(TAG, "parsing : " + resultBuilder);
                 }
 
-                return resultBuilder.toString();
+                return String.valueOf(resultBuilder);
             } catch (Exception e) {
                 Log.e(TAG, "Error from getting future result \n" + e);
-                return e.toString();
+                return String.valueOf(e);
             }
         }).thenAccept(finalResult -> {
             Log.d(TAG,"return : " + finalResult);

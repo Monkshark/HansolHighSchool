@@ -52,9 +52,9 @@ public class NumberCheckActivity extends Activity {
         setWindowSize();
 
         btn_sendCode.setOnClickListener(v -> {
-            String phoneNum = et_phoneNum.getText().toString();
-            String numDoubleCheck = et_numDoubleCheck.getText().toString();
-            String checkCode = et_checkCode.getText().toString();
+            String phoneNum = String.valueOf(et_phoneNum.getText());
+            String numDoubleCheck = String.valueOf(et_numDoubleCheck.getText());
+            String checkCode = String.valueOf(et_checkCode.getText());
 
             if (validatePhoneNumbers(phoneNum, numDoubleCheck)) {
                 String formattedNum = "+82" + phoneNum.substring(1, 10);
@@ -68,7 +68,7 @@ public class NumberCheckActivity extends Activity {
         });
 
         btn_checkCode.setOnClickListener(v -> {
-            String checkCode = et_checkCode.getText().toString();
+            String checkCode = String.valueOf(et_checkCode.getText());
             if (checkCode.equals(randomSendNum)) {
                 tv_checkCodeView.setText("전화번호 인증에 성공하였습니다");
                 tv_checkCodeView.setTextColor(Color.parseColor("#00FF00"));
@@ -151,7 +151,7 @@ public class NumberCheckActivity extends Activity {
         for (int i = 0; i < 6; i++) {
             code.append(random.nextInt(10));
         }
-        return code.toString();
+        return String.valueOf(code);
     }
 
     private final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {

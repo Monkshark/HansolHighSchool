@@ -89,6 +89,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.calend
             if (previousView != null) {
                 previousView.setBackgroundResource(0);
             }
+
             if (previousTextView != null && previousPosition != -1) {
                 if ((previousPosition + 1) % 7 == 0) previousTextView.setTextColor(Color.BLUE);
                 else if (previousPosition % 7 == 0) previousTextView.setTextColor(Color.RED);
