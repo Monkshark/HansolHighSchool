@@ -11,10 +11,10 @@ android {
     defaultConfig {
         applicationId "com.ProG.HansolHighSchool"
         minSdk 26
-        //noinspection OldTargetApi
+        //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 32
-        versionCode 4
-        versionName "v0.12.2 Beta"
+        versionCode 5
+        versionName "v0.12.3 Beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
