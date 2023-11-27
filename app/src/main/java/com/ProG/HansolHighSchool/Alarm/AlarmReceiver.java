@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.ProG.HansolHighSchool.API.GetMealData;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
     Date currentDate = new Date();
     String spDate = sf.format(currentDate);
 
@@ -25,6 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         메뉴[0] = getMenu(분류, spDate).join();
 
         NotificationUtil.sendMealNotification(context, 분류 + " 정보", 메뉴[0]);
+        Log.e("AlarmReceiver", "onReceive: " + 분류 + " " + 메뉴[0]);
     }
 
 

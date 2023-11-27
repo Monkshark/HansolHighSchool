@@ -38,6 +38,7 @@ public class NotificationUtil {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
+
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
