@@ -23,7 +23,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         String 분류 = intent.getStringExtra("분류");
         final String[] 메뉴 = new String[1];
         메뉴[0] = getMenu(분류, spDate).join();
+
+        NotificationUtil.sendMealNotification(context, 분류 + " 정보", 메뉴[0]);
     }
+
 
     public CompletableFuture<String> getMenu(String 분류, String spDate) {
         return switch (Objects.requireNonNull(분류)) {

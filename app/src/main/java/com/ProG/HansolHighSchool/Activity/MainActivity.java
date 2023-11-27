@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         int mPendingIntentId = 123456;
         PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
     }
 
@@ -128,14 +128,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void openExternalApp(Activity activity, String packageName, String url) {
+        Intent intent;
         if (isInstalledExternalApp(activity, packageName)) {
-            Intent intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
+            intent = activity.getPackageManager().getLaunchIntentForPackage(packageName);
             if (intent != null) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
             }
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             activity.startActivity(intent);
         }
     }

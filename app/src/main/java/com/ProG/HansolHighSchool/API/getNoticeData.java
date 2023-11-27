@@ -48,7 +48,7 @@ public class GetNoticeData {
                 inputStreamReader.close();
                 connection.disconnect();
 
-                JSONObject responseJson = new JSONObject(stringBuilder.toString());
+                JSONObject responseJson = new JSONObject(String.valueOf(stringBuilder));
                 JSONArray schoolScheduleArray = responseJson.getJSONArray("SchoolSchedule");
 
                 for (int i = 0; i < schoolScheduleArray.length(); i++) {

@@ -42,10 +42,10 @@ public class HomeFragment extends Fragment {
 
     ImageButton btn_hansolhs, btn_riroschool, btn_account, btn_setting;
     @SuppressLint("StaticFieldLeak")
-    static TextView tv_meal, tv_timetable, tv_date, tv_mealScCode, tv_className;
-    static Date currentDate = new Date();
+    TextView tv_meal, tv_timetable, tv_date, tv_mealScCode, tv_className;
+    Date currentDate = new Date();
     @SuppressLint("SimpleDateFormat")
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
     LoginData loginData;
 
     @Override

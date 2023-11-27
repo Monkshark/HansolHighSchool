@@ -52,7 +52,7 @@ public class GetMealData {
                 inputStreamReader.close();
                 connection.disconnect();
 
-                JSONObject responseJson = new JSONObject(stringBuilder.toString());
+                JSONObject responseJson = new JSONObject(String.valueOf(stringBuilder));
                 JSONArray timetableArray = responseJson.getJSONArray("mealServiceDietInfo");
                 timetableArray = timetableArray.getJSONObject(1).getJSONArray("row");
 
