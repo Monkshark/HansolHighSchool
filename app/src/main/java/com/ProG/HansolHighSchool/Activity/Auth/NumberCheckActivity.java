@@ -92,10 +92,10 @@ public class NumberCheckActivity extends Activity {
         et_phoneNum = findViewById(R.id.et_phoneNum);
         et_numDoubleCheck = findViewById(R.id.et_name);
         et_checkCode = findViewById(R.id.et_checkCode);
-        btn_registerAfterCheck = findViewById(R.id.btn_registerAfterCheck);
+        btn_registerAfterCheck = findViewById(R.id.btn_register);
         btn_sendCode = findViewById(R.id.btn_sendCode);
-        btn_checkCode = findViewById(R.id.btn_checkCode);
-        tv_checkCodeView = findViewById(R.id.tv_checkCodeView);
+        btn_checkCode = findViewById(R.id.btn_sendCheckEmail);
+        tv_checkCodeView = findViewById(R.id.tv_authValue);
     }
 
     private void initializeFirebase() {

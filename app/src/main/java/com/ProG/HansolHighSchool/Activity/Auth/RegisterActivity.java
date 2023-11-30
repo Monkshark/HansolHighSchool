@@ -64,13 +64,14 @@ public class RegisterActivity extends Activity {
                 } else if (!password.equals(pwdDoubleCheck)) {
                     Toast.makeText(RegisterActivity.this, "비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intentActivity = new Intent(RegisterActivity.this, NumberCheckActivity.class);
-                    intentActivity.putExtra("schoolNum", schoolNum);
-                    intentActivity.putExtra("name", name);
-                    intentActivity.putExtra("password", password);
-                    intentActivity.putExtra("teacher", isTeacher);
-                    startActivity(intentActivity);
-                    finish();
+//                    Intent intentActivity = new Intent(RegisterActivity.this, EmailCheckActivity.class);
+//                    intentActivity.putExtra("schoolNum", schoolNum);
+//                    intentActivity.putExtra("name", name);
+//                    intentActivity.putExtra("password", password);
+//                    intentActivity.putExtra("teacher", isTeacher);
+//                    startActivity(intentActivity);
+//                    finish();
+                    Toast.makeText(RegisterActivity.this, "회원가입 로직 인텐트", Toast.LENGTH_SHORT).show();
                 }
             } else Toast.makeText(RegisterActivity.this, "체크박스를 선택해주세요", Toast.LENGTH_SHORT).show();
 

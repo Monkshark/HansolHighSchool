@@ -23,9 +23,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
-
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -42,6 +42,10 @@
         android:theme="@style/Theme.HansolHighSchool"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.Auth.EmailCheckActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name=".Activity.SettingsActivity"
             android:exported="false" />
@@ -86,6 +90,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".Alarm.FirebaseMessaging"
             android:exported="false">
@@ -97,10 +102,7 @@
         <receiver
             android:name=".Alarm.AlarmReceiver"
             android:enabled="true"
-            android:exported="false">
-        </receiver>
-
-
+            android:exported="false" />
     </application>
 
 </manifest>
