@@ -44,11 +44,8 @@ public class LoginActivity extends Activity {
             String schoolNum = String.valueOf(et_schoolNum.getText());
             String password = String.valueOf(et_password.getText());
 
-            if (validateInputs(schoolNum, password)) {
-                authenticateUser(schoolNum, password);
-            } else {
-                Toast.makeText(LoginActivity.this, "학번과 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            }
+            if (validateInputs(schoolNum, password)) authenticateUser(schoolNum, password);
+            else Toast.makeText(LoginActivity.this, "학번과 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
         });
 
         btn_register.setOnClickListener(v -> {
