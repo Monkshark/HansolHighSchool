@@ -78,7 +78,7 @@ public class LoginActivity extends Activity {
     }
 
     private boolean validateInputs(String schoolNum, String password) {
-        return !schoolNum.isEmpty() && !password.isEmpty();
+        return !(schoolNum.isEmpty() && !password.isEmpty());
     }
 
     private void authenticateUser(String schoolNum, String password) {
