@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:minSdkVersion="26"
-        android:targetSdkVersion="32"
+        android:targetSdkVersion="33"
         tools:ignore="GradleOverrides,OldTargetApi" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,7 +20,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission

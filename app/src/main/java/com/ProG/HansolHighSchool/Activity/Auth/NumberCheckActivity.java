@@ -59,7 +59,7 @@ public class NumberCheckActivity extends Activity {
             if (validatePhoneNumbers(phoneNum, numDoubleCheck)) {
                 String formattedNum = "+82" + phoneNum.substring(1, 10);
                 runOnUiThread(() ->
-                        Toast.makeText(NumberCheckActivity.this, "reCAPTCHA가 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show());
+                        Toast.makeText(NumberCheckActivity.this, "reCAPTCHA 진행중입니다. 잠시만 기다려주세요", Toast.LENGTH_SHORT).show());
                 startPhoneNumberVerification(formattedNum);
             } else {
                 tv_checkCodeView.setText("전화번호를 확인해주세요");

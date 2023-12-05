@@ -32,13 +32,10 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-        }
+        if (!remoteMessage.getData().isEmpty()) Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
+        if (remoteMessage.getNotification() != null) Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+
         sendNotification(remoteMessage.getFrom(), remoteMessage.getNotification().getBody());
     }
 
@@ -54,9 +51,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         Calendar currentCalendar = Calendar.getInstance();
         int dayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
-            return;
-        }
+        if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) return;
 
         PendingIntent pendingIntent1 = createPendingIntent(context, 1, "조식", 6, 30);
         PendingIntent pendingIntent2 = createPendingIntent(context, 2, "중식", 12, 0);
