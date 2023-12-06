@@ -76,10 +76,8 @@ public class EmailCheckActivity extends Activity {
                                                                 userData.put("이름", name);
                                                                 userData.put("선생님", String.valueOf(isTeacher));
 
-
                                                                 myRef.setValue(userData);
                                                                 Toast.makeText(EmailCheckActivity.this, "인증 이메일을 확인해 주세요.", Toast.LENGTH_SHORT).show();
-
                                                             });
                                                 });
                                     });
