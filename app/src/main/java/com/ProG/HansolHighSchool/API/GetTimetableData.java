@@ -1,10 +1,7 @@
 package com.ProG.HansolHighSchool.API;
 
 import android.annotation.SuppressLint;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,27 +16,27 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class GetTimetableData {
-
     private static final String TAG = "getTimetableData";
+
     @SuppressLint("SimpleDateFormat")
-    public static void getTimeTable(String date, String grade, String classNum, TextView tv_timetable) {
+    public static CompletableFuture<String> getTimeTable(String date, String grade, String classNum) {
         niesAPI niesAPI = new niesAPI();
 
         String requestURL;
         StringBuilder resultBuilder = new StringBuilder();
         requestURL =
                 "https://open.neis.go.kr/hub/hisTimetable?" +
-//                        "KEY=" + niesAPI.KEY +
+                        // "KEY=" + niesAPI.KEY +
                         "&Type=" + "json" +
                         "&ATPT_OFCDC_SC_CODE=" + niesAPI.ATPT_OFCDC_SC_CODE +
                         "&SD_SCHUL_CODE=" + niesAPI.SD_SCHUL_CODE +
-                        "&ALL_TI_YMD="  + date +
+                        "&ALL_TI_YMD=" + date +
                         "&GRADE=" + grade +
                         "&CLASS_NM=" + classNum;
 
-        Log.e(TAG, "requestURL : \n" + requestURL);
+        Log.e(TAG, "requestURL :\n" + requestURL);
 
-        CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 URL url = new URL(requestURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -56,6 +53,7 @@ public class GetTimetableData {
                 while ((data = inputStreamReader.read()) != -1) {
                     stringBuilder.append((char) data);
                 }
+
                 inputStreamReader.close();
                 connection.disconnect();
 
@@ -66,12 +64,11 @@ public class GetTimetableData {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(Objects.requireNonNull(new SimpleDateFormat("yyyyMMdd").parse(date)));
                 if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-                    resultBuilder.append("자율 \n");
+                    resultBuilder.append("자율\n");
                 }
 
                 for (int i = 0; i < timetableArray.length(); i++) {
                     JSONObject itemObject = timetableArray.getJSONObject(i);
-//                    String PERIO = itemObject.getString("PERIO");
                     String ITRT_CNTNT = itemObject.getString("ITRT_CNTNT");
 
                     resultBuilder
@@ -82,13 +79,9 @@ public class GetTimetableData {
 
                 return String.valueOf(resultBuilder);
             } catch (Exception e) {
-                Log.e(TAG, "Error from getting future result \n" + e);
-                return String.valueOf(e);
+                Log.e(TAG, "return Error" + e);
+                return null;
             }
-        }).thenAccept(finalResult -> {
-            Log.d(TAG,"return : " + finalResult);
-            new Handler(Looper.getMainLooper()).post(() ->
-                    tv_timetable.setText(finalResult));
         });
     }
 }

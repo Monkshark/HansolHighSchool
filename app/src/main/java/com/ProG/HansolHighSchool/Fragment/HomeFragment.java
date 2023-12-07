@@ -150,11 +150,14 @@ public class HomeFragment extends Fragment {
                 tv_meal.setText(deleteBracket(mealInfo));
                 return null;
             }));
-            GetTimetableData.getTimeTable(
-                    crdate,
-                    String.valueOf(SettingData.getSpinnerGrade(context) + 1),
-                    String.valueOf(SettingData.getSpinnerClass(context) + 1),
-                    tv_timetable);
+                GetTimetableData.getTimeTable(
+                        crdate,
+                        String.valueOf(SettingData.getSpinnerGrade(context) + 1),
+                        String.valueOf(SettingData.getSpinnerClass(context) + 1)
+                        ).thenApplyAsync(timetableInfo -> {
+                            tv_timetable.setText(timetableInfo);
+                            return null;
+                        });
         }
     }
 
