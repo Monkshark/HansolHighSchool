@@ -26,7 +26,6 @@ import java.util.Date;
 
 public class NoticeFragment extends Fragment {
 
-    private static final String TAG = "NoticeFragment";
     private TextView tv_monthYear;
     @SuppressLint("StaticFieldLeak")
     public static TextView tv_flDate;

@@ -84,12 +84,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
-    private void initializeFirebaseAppCheck() {
-        FirebaseApp.initializeApp(this);
-        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
-        firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance());
-    }
-
     public static class PagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> fragmentList = new ArrayList<>();
 
@@ -138,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             activity.startActivity(intent);
         }
+    }
+
+    private void initializeFirebaseAppCheck() {
+        FirebaseApp.initializeApp(this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance());
     }
 
     public static boolean isInstalledExternalApp(Context context, String packageName) {
